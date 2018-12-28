@@ -21,12 +21,12 @@ export default class App extends Component<{}> {
             <Text style={styles.inputText}>Full Name<Text style={{color: 'red'}}>*</Text></Text>
             <TextInput style={styles.inputBox}
             placeholder="Full Name"
+            autoCapitalize='none'
             placeholderTextColor = "#a6b8d4"
             />
             <Text style={styles.inputText}>Mobile<Text style={{color: 'red'}}>*</Text></Text>
             <TextInput style={styles.inputBox}
             placeholder="Mobile Number"
-            secureTextEntry={true}
             placeholderTextColor = "#a6b8d4"
             />
             <Text style={styles.inputText}>Address<Text style={{color: 'red'}}>*</Text></Text>
@@ -37,11 +37,13 @@ export default class App extends Component<{}> {
             <Text style={styles.inputText}>Password<Text style={{color: 'red'}}>*</Text></Text>
             <TextInput style={styles.inputBox}
             placeholder="Password"
+            secureTextEntry={true}
             placeholderTextColor = "#a6b8d4"
             />
             <Text style={styles.inputText}>Confirm Password<Text style={{color: 'red'}}>*</Text></Text>
             <TextInput style={styles.inputBox}
             placeholder="Confirm Password"
+            secureTextEntry={true}
             placeholderTextColor = "#a6b8d4"
             />
             <TouchableOpacity style={styles.button}>

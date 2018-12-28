@@ -6,41 +6,44 @@ import {
   View,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
 import Logo from './Logo';
 export default class App extends Component<{}> {
   render() {
     return(
-      <View style={styles.container}>
-        <Text style={styles.loginText}>LOGIN</Text>
-        <Logo />
-        <View style={styles.form}>
-          <Text style={styles.inputText}>Mobile</Text>
-          <TextInput style={styles.inputBox}
-          placeholder="User Mobile"
-          placeholderTextColor = "#a6b8d4"
-          />
-          <Text style={styles.inputText}>Password</Text>
-          <TextInput style={styles.inputBox}
-          placeholder="Password"
-          secureTextEntry={true}
-          placeholderTextColor = "#a6b8d4"
-          />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>LOGIN</Text>
-          </TouchableOpacity>
-          <View style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}}>Sign Up</Text></Text>
+      <ScrollView style={{flex: 1}}>
+        <View style={styles.container}>
+          <Text style={styles.loginText}>LOGIN</Text>
+          <Logo />
+          <View style={styles.form}>
+            <Text style={styles.inputText}>Mobile</Text>
+            <TextInput style={styles.inputBox}
+            placeholder="User Mobile"
+            placeholderTextColor = "#a6b8d4"
+            />
+            <Text style={styles.inputText}>Password</Text>
+            <TextInput style={styles.inputBox}
+            placeholder="Password"
+            secureTextEntry={true}
+            placeholderTextColor = "#a6b8d4"
+            />
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>LOGIN</Text>
+            </TouchableOpacity>
+            <View style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}}>Sign Up</Text></Text>
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
 const styles = {
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 20
   },
   loginText:{
