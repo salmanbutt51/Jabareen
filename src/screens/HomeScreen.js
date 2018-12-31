@@ -117,20 +117,22 @@ const styles = {
   flexView: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 17
+    marginBottom: 20,
+    flex: 1,
+    height: 100,
   },
   tile: {
     backgroundColor: '#fff',
     borderWidth: 2,
     borderColor: '#f33155',
-    height: 100,
-    width: 190,
     alignItems: 'center',
     justifyContent: 'space-around',
+    flex: 0.45
     // marginHorizontal: 10
   },
   tileText: {
     fontSize: 20,
-    color: '#f994a7'
+    color: '#f994a7',
+    textAlign: 'center'
   }
 }

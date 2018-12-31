@@ -56,9 +56,9 @@ export default class App extends Component<{}> {
       this._loginBtn.showLoading(false);
       console.log('Response is JSON: ', responseJson);
       if (responseJson.response === 'success') {
-        this.navigation.navigate('Dashboard');
+        this._dropdown.itemAction({type: 'success', title: 'Success', message: 'Login successful.'});
       } else {
-        this._dropdown.itemAction({type: 'error', title: 'Error', message: responseJson.message});
+        this._dropdown.itemAction({type: 'success', title: 'Error', message: responseJson.message});
       }
     }
   }
@@ -83,7 +83,7 @@ export default class App extends Component<{}> {
                 secureTextEntry={true}
                 placeholderTextColor = "#a6b8d4"
               />
-              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.login()} />
+              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.props.navigation.navigate('Home')} />
               <View style={styles.forgotPassword}>
                 <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
               </View>
