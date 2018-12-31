@@ -12,30 +12,61 @@ import {
 import Logo from './Logo';
 import services from '../utils/services';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
+import LoadingButton from '../templates/LoadingButton';
 
 export default class App extends Component<{}> {
   state = {
     user_name: '',
     password: '',
+    confirmPassword: '',
     phone_number: '',
     address: '',
   }
 
-  async handleRegister() {
+  validateForm() {
     const {state} = this;
-    const data = {
-      user_name: state.user_name,
-      password: state.password,
-      phone_number: state.phone_number,
-      address: state.address,
-    };
-    const response = await services.signup(data);
-    const responseJson = await response.json();
-    console.log(responseJson);
-    if (responseJson.response === 'success') {
-      this._dropdown.itemAction({type: 'success', title: 'Account Created', message: 'Your account has been created successfully.'});
+    let user_name = state.user_name.trim();
+    let password = state.password;
+    let confirmPassword = state.confirmPassword;
+    let phone_number = state.phone_number;
+    let address = state.address;
+    let isValid = false;
+
+    if(user_name == '') {
+      this._dropdown.itemAction({title: 'Error', message: 'User Name is required', type: 'error'});
+    } else if(phone_number == '') {
+      this._dropdown.itemAction({title: 'Error', message: 'Mobile Number is required', type: 'error'});
+    } else if(address == '') {
+      this._dropdown.itemAction({title: 'Error', message: 'Address is required', type: 'error'});
+    } else if(password == '') {
+      this._dropdown.itemAction({title: 'Error', message: 'Password is required', type: 'error'});
+    } else if(password !== confirmPassword) {
+      this._dropdown.itemAction({title: 'Error',message: 'Password and Confirm Password are not same', type: 'error'});
     } else {
-      this._dropdown.itemAction({type: 'error', title: 'Error', message: 'There was some error in creating your account, please try again.'});
+      isValid = true;
+    }
+    return isValid;
+  }
+
+  async registerUser() {
+    if (this.validateForm()) {
+      const {state} = this;
+      const data = {
+        user_name: state.user_name,
+        password: state.password,
+        phone_number: state.phone_number,
+        address: state.address,
+      };
+      this._signupBtn.showLoading(true);
+      const response = await services.signup(data);
+      const responseJson = await response.json();
+      this._signupBtn.showLoading(false);
+      console.log(responseJson);
+      if (responseJson.response === 'success') {
+        this._dropdown.itemAction({type: 'success', title: 'Account Created', message: 'Your account has been created successfully.'});
+      } else {
+        this._dropdown.itemAction({type: 'error', title: 'Error', message: 'There was some error in creating your account, please try again.'});
+      }
     }
   }
 
@@ -43,7 +74,6 @@ export default class App extends Component<{}> {
     return(
         <View style={styles.container}>
           <ScrollView contentContainerStyle={{padding: 20}} >
-          <Text style={styles.loginText}>REGISTRATION</Text>
           <Logo />
           <View style={styles.form}>
             <Text style={styles.inputText}>User Name<Text style={{color: 'red'}}>*</Text></Text>
@@ -56,7 +86,6 @@ export default class App extends Component<{}> {
             <TextInput style={styles.inputBox}
               onChangeText={(t) => this.setState({phone_number: t})}
               placeholder="Mobile Number"
-              secureTextEntry={true}
               placeholderTextColor = "#a6b8d4"
             />
             <Text style={styles.inputText}>Address<Text style={{color: 'red'}}>*</Text></Text>
@@ -70,21 +99,18 @@ export default class App extends Component<{}> {
               onChangeText={(t) => this.setState({password: t})}
               placeholder="Password"
               placeholderTextColor = "#a6b8d4"
+              secureTextEntry={true}
             />
             <Text style={styles.inputText}>Confirm Password<Text style={{color: 'red'}}>*</Text></Text>
             <TextInput style={styles.inputBox}
+              onChangeText={(t) => this.setState({confirmPassword: t})}
               placeholder = "Confirm Password"
+              secureTextEntry={true}
               placeholderTextColor = "#a6b8d4"
             />
-            <TouchableOpacity onPress={() => this.handleRegister()} style={styles.button}>
-              <Text style={styles.buttonText}>CONTINUE</Text>
-            </TouchableOpacity>
+            <LoadingButton ref={(c) => this._signupBtn = c} title='Signup' onPress={() => this.registerUser()} />
             <View style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Go back to login <Text style={{color: '#28609e'}}> Log In</Text></Text>
-              <Text style={{fontSize: 20, marginTop: 20}}>Powered by:</Text>
-              <Image source={require('../images/powered_by.png')}
-              resizeMode={'center'}
-              style={{width: 300, height: 200, marginTop: 20}} />
+              <Text style={styles.forgotPasswordText}>Go back to login <Text style={{color: '#28609e'}} onPress={() => this.props.navigation.navigate('Login')}> Log In</Text></Text>
             </View>
           </View>
           </ScrollView>
@@ -117,7 +143,8 @@ const styles = {
     color: 'black',
     marginTop: 10,
     marginBottom: 30,
-    height: 42,
+    height: 50,
+    borderRadius: 5,
     paddingHorizontal: 8
   },
   button: {

@@ -10,34 +10,88 @@ import {
   ScrollView
 } from 'react-native';
 import Logo from './Logo';
+import services from '../utils/services';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
+import LoadingButton from '../templates/LoadingButton';
+
 export default class App extends Component<{}> {
+
+  navigation = this.props.navigation;
+
+  state = {
+    phone_number: '',
+    password: '',
+    fcm_token: '',
+    device_id: ''
+  }
+
+  validateForm() {
+    const {state} = this;
+    let phone_number = state.phone_number;
+    let password = state.password;
+    let isValid = false;
+
+    if(phone_number == '') {
+      this._dropdown.itemAction({title: 'Error', message: 'Mobile Number is required', type: 'error'});
+    } else if(password == '') {
+      this._dropdown.itemAction({title: 'Error', message: 'Password is required', type: 'error'});
+    } else {
+      isValid = true;
+    }
+    return isValid;
+  }
+
+  async login() {
+    if (this.validateForm()) {
+      const {state} = this;
+      const data = {
+        phone_number: state.phone_number,
+        password: state.password,
+        fcm_token: 'q3432ed44',
+        device_id: 'serfe5grtdg'
+      };
+      this._loginBtn.showLoading(true);
+      const response = await services.login(data);
+      const responseJson = await response.json();
+      this._loginBtn.showLoading(false);
+      console.log('Response is JSON: ', responseJson);
+      if (responseJson.response === 'success') {
+        this._dropdown.itemAction({type: 'success', title: 'Success', message: 'Login successful.'});
+      } else {
+        this._dropdown.itemAction({type: 'success', title: 'Error', message: responseJson.message});
+      }
+    }
+  }
+
   render() {
     return(
-      <ScrollView style={{flex: 1}}>
-        <View style={styles.container}>
-          <Text style={styles.loginText}>LOGIN</Text>
-          <Logo />
-          <View style={styles.form}>
-            <Text style={styles.inputText}>Mobile</Text>
-            <TextInput style={styles.inputBox}
-            placeholder="User Mobile"
-            placeholderTextColor = "#a6b8d4"
-            />
-            <Text style={styles.inputText}>Password</Text>
-            <TextInput style={styles.inputBox}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor = "#a6b8d4"
-            />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>LOGIN</Text>
-            </TouchableOpacity>
-            <View style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}}>Sign Up</Text></Text>
+      <View style={{flex: 1}}>
+        <ScrollView>
+          <View style={styles.container}>
+            <Logo />
+            <View style={styles.form}>
+              <Text style={styles.inputText}>Mobile</Text>
+              <TextInput style={styles.inputBox}
+                onChangeText={(t) => this.setState({phone_number: t})}
+                placeholder="Mobile Number"
+                placeholderTextColor = "#a6b8d4"
+              />
+              <Text style={styles.inputText}>Password</Text>
+              <TextInput style={styles.inputBox}
+                onChangeText={(t) => this.setState({password: t})}
+                placeholder="Password"
+                secureTextEntry={true}
+                placeholderTextColor = "#a6b8d4"
+              />
+              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.props.navigation.navigate('Home')} />
+              <View style={styles.forgotPassword}>
+                <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+          <DropdownMessageAlert ref={(c) => this._dropdown = c} />
+        </ScrollView>
+      </View>
     )
   }
 }
@@ -66,8 +120,9 @@ const styles = {
     color: 'black',
     marginTop: 10,
     marginBottom: 30,
-    // paddingVertical: 13,
-    paddingHorizontal: 20
+    paddingHorizontal: 8,
+    height: 50,
+    borderRadius: 5,
   },
   button: {
     backgroundColor: '#67c2fa',

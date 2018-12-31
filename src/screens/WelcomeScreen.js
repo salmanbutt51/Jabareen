@@ -7,13 +7,16 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import Logo from './Logo';
 export default class App extends Component<{}> {
 
   render() {
     return(
       <View style={styles.container}>
-        <Logo />
+        <View style={styles.logo}>
+          <Image source={require('../images/logo.png')}
+          resizeMode={'center'}
+          style={{width: 300, height: 150}} />
+        </View>
         <View style={styles.bothButtons}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.loginButton}>
             <Text style={styles.textButton}>Login</Text>
@@ -29,6 +32,10 @@ export default class App extends Component<{}> {
 const styles = {
   container: {
     flex: 1,
+  },
+  logo: {
+    alignItems: 'center',
+    paddingTop: 40,
   },
   bothButtons: {
     flex: 1,

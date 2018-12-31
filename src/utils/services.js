@@ -19,4 +19,21 @@ export default {
     }
   },
 
+  async login(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'login', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
 };

@@ -6,7 +6,7 @@ import {
   View
 }
 from 'react-native';
-
+// import HomeScreen from './screens/HomeScreen';
 import AppContainer from './utils/router';
 export default class App extends Component<{}> {
   render() {

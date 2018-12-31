@@ -1,8 +1,10 @@
 import { React } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import HomeScreen from '../screens/HomeScreen';
+import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 
 const AuthStack = createStackNavigator({
   Welcome: {
@@ -12,13 +14,36 @@ const AuthStack = createStackNavigator({
     }
   },
   Login: {
-    screen: LoginScreen
+    screen: LoginScreen,
+    navigationOptions: {
+      title: 'Login'
+    }
   },
   Signup: {
-    screen: SignupScreen
+    screen: SignupScreen,
+    navigationOptions: {
+      title: 'Signup'
+    }
   }
 })
 
-const AppContainer = createAppContainer(AuthStack);
+const HomeStack = createDrawerNavigator({
+  Dashboard: {
+    screen: HomeScreen
+  },
+  Companyteam: {
+    screen: CompanyTeamScreen
+  }
+})
+
+const MainSwitch = createSwitchNavigator({
+  Auth: {
+    screen: AuthStack
+  },
+  Home: {
+    screen: HomeStack
+  }
+})
+const AppContainer = createAppContainer(MainSwitch);
 
 export default AppContainer;
