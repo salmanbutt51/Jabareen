@@ -56,7 +56,7 @@ export default class App extends Component<{}> {
       this._loginBtn.showLoading(false);
       console.log('Response is JSON: ', responseJson);
       if (responseJson.response === 'success') {
-        this.navigation.navigate('Home');
+        this._dropdown.itemAction({type: 'success', title: 'Success', message: responseJson.message});
       } else {
         this._dropdown.itemAction({type: 'error', title: 'Error', message: responseJson.message});
       }
@@ -74,6 +74,8 @@ export default class App extends Component<{}> {
               <TextInput style={styles.inputBox}
                 onChangeText={(t) => this.setState({phone_number: t})}
                 placeholder="Mobile Number"
+                autoCorrect={false}
+                autoCapitalize='none'
                 placeholderTextColor = "#a6b8d4"
               />
               <Text style={styles.inputText}>Password</Text>
@@ -81,9 +83,10 @@ export default class App extends Component<{}> {
                 onChangeText={(t) => this.setState({password: t})}
                 placeholder="Password"
                 secureTextEntry={true}
+                autoCapitalize='none'
                 placeholderTextColor = "#a6b8d4"
               />
-              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.login()} />
+              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.navigation.navigate('Home')} />
               <View style={styles.forgotPassword}>
                 <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
               </View>
