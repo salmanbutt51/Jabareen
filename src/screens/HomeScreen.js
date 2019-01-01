@@ -14,13 +14,15 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <View style={styles.navbar}>
-          <View style={styles.afterImageView}>
-            <View><TouchableOpacity onPress={() => this.props.navigation.openDrawer()}><Image source={require('../images/menu_icon.png')}
-            resizeMode={'contain'} style={{width: 70, height: 50}}/></TouchableOpacity></View>
-            <View style={{justifyContent: 'center'}}>
-            <Image source={require('../images/logout.png')}
-            resizeMode={'contain'} style={{width: 50, height: 35}}/>
-            </View>
+          <View style={{justifyContent: 'center'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}><Image source={require('../images/menu_icon.png')}
+              resizeMode={'contain'} style={{width: 70, height: 50}}/></TouchableOpacity>
+          </View>
+          <View style={{justifyContent: 'center'}}>
+            <TouchableOpacity>
+              <Image source={require('../images/logout.png')}
+              resizeMode={'contain'} style={{width: 50, height: 37}}/>
+            </TouchableOpacity>
           </View>
         </View>
         <ScrollView>
@@ -99,8 +101,6 @@ const styles = {
     justifyContent: 'center',
     backgroundColor: '#f33155',
     height: 60,
-  },
-  afterImageView:{
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
