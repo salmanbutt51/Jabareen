@@ -56,7 +56,7 @@ export default class App extends Component<{}> {
       this._loginBtn.showLoading(false);
       console.log('Response is JSON: ', responseJson);
       if (responseJson.response === 'success') {
-        this._dropdown.itemAction({type: 'success', title: 'Success', message: responseJson.message});
+        this.navigation.navigate('Home');
       } else {
         this._dropdown.itemAction({type: 'error', title: 'Error', message: responseJson.message});
       }
@@ -86,7 +86,7 @@ export default class App extends Component<{}> {
                 autoCapitalize='none'
                 placeholderTextColor = "#a6b8d4"
               />
-              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.navigation.navigate('Home')} />
+              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.props.navigation.navigate('Home')} />
               <View style={styles.forgotPassword}>
                 <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
               </View>

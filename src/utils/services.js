@@ -36,4 +36,19 @@ export default {
     }
   },
 
+  async logout(data) {
+    try {
+      let response = await fetch(BASE_URL + 'logout', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          })
+      });
+      let responseJson = await response.json();
+      return responseJson;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };

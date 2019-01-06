@@ -98,6 +98,7 @@ export default class App extends Component<{}> {
             <TextInput style={styles.inputBox}
               onChangeText={(t) => this.setState({password: t})}
               placeholder="Password"
+              autoCapitalize='none'
               placeholderTextColor = "#a6b8d4"
               secureTextEntry={true}
             />
@@ -105,6 +106,7 @@ export default class App extends Component<{}> {
             <TextInput style={styles.inputBox}
               onChangeText={(t) => this.setState({confirmPassword: t})}
               placeholder = "Confirm Password"
+              autoCapitalize='none'
               secureTextEntry={true}
               placeholderTextColor = "#a6b8d4"
             />

@@ -5,6 +5,8 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CompanyTeamScreen from '../screens/CompanyTeamScreen';
+import WhoWeAreScreen from '../screens/WhoWeAreScreen';
+import ComplaintsScreen from '../screens/ComplaintsScreen';
 
 const AuthStack = createStackNavigator({
   Welcome: {
@@ -29,10 +31,22 @@ const AuthStack = createStackNavigator({
 
 const HomeStack = createDrawerNavigator({
   Dashboard: {
-    screen: HomeScreen
+    screen: HomeScreen,
+    navigationOptions: {
+      drawerLabel: 'Dashboard',
+    }
   },
-  Companyteam: {
-    screen: CompanyTeamScreen
+  Whoweare: {
+    screen: WhoWeAreScreen,
+    navigationOptions: {
+      tabBarLabel: 'Who We Are'
+    }
+  },
+  Complaints: {
+    screen: ComplaintsScreen,
+    navigationOptions: {
+      tabBarLabel: 'Company Team'
+    }
   }
 })
 

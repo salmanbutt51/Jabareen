@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ImageSlider from 'react-native-image-slider';
 import {
   Platform,
   StyleSheet,
@@ -6,28 +7,25 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Button
 } from 'react-native';
+import Header from '../components/Header';
 export default class App extends Component<{}> {
 
   render() {
     return(
       <View style={styles.container}>
-        <View style={styles.navbar}>
-          <View style={{justifyContent: 'center'}}>
-            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}><Image source={require('../images/menu_icon.png')}
-              resizeMode={'contain'} style={{width: 70, height: 50}}/></TouchableOpacity>
-          </View>
-          <View style={{justifyContent: 'center'}}>
-            <TouchableOpacity>
-              <Image source={require('../images/logout.png')}
-              resizeMode={'contain'} style={{width: 50, height: 37}}/>
-            </TouchableOpacity>
-          </View>
-        </View>
         <ScrollView>
+          <Header navigation={this.props.navigation} />
           <View style={styles.dashboardView}>
-            <Text style={styles.dashText}>Dashboard</Text>
+          <ImageSlider images={[
+            'https://c.tribune.com.pk/2018/12/1877683-imrankhanofficialxx-1546178992-959-640x480.jpeg',
+            'https://c.tribune.com.pk/2018/06/1736644-imrankhanepa-1529252546-908-640x480.jpg',
+            'https://images.indianexpress.com/2018/08/imran-khan-7591.jpg']}
+            loopBothSides= {true}
+            autoPlayWithInterval={3000}
+          />
           </View>
           <View style={styles.tilesView}>
             <View style={styles.flexView}>
@@ -65,7 +63,7 @@ export default class App extends Component<{}> {
                 resizeMode={'contain'}
                 style={{width: 40, height: 30}} /></View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Whoweare')} style={styles.tile}>
                 <View><Text style={styles.tileText}>WHO WE ARE</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}
@@ -86,6 +84,19 @@ export default class App extends Component<{}> {
                 style={{width: 40, height: 30}} /></View>
               </TouchableOpacity>
             </View>
+            <View style={styles.flexView}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Complaints')} style={styles.tile}>
+                <View><Text style={styles.tileText}>COMPLAINTS & PROPOSALS</Text></View>
+                <View><Image source={require('../images/products.png')}
+                resizeMode={'contain'}
+                style={{width: 40, height: 30}} /></View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.contactView}>
+            <TouchableOpacity style={styles.contactButton}>
+              <Text style={styles.contactText}>Contact Us</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -105,9 +116,9 @@ const styles = {
     justifyContent: 'space-between'
   },
   dashboardView: {
-    height: 70,
-    justifyContent: 'center',
-    // paddingHorizontal: 20,
+    height: 250,
+    // justifyContent: 'center',
+    marginBottom: 13
   },
   dashText: {
     color: '#2098d1',
@@ -122,7 +133,7 @@ const styles = {
   flexView: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 20,
+    marginBottom: 13,
     flex: 1,
     height: 100,
   },
@@ -132,12 +143,25 @@ const styles = {
     borderColor: '#f33155',
     alignItems: 'center',
     justifyContent: 'space-around',
-    flex: 0.45
+    flex: 0.46
     // marginHorizontal: 10
   },
   tileText: {
-    fontSize: 20,
+    fontSize: 17,
     color: '#f994a7',
     textAlign: 'center'
+  },
+  contactView: {
+    justifyContent: 'flex-end',
+  },
+  contactButton: {
+    backgroundColor: '#e04c67',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  contactText: {
+    color: 'white',
+    fontSize: 20
   }
 }
