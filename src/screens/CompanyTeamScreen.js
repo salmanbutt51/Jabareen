@@ -16,7 +16,7 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <ScrollView>
-          <View>
+
             <Header navigation={this.props.navigation} />
             <View style={styles.detailView}>
               <Text style={styles.nameText}>Al Jabareen Member</Text>
@@ -25,28 +25,28 @@ export default class App extends Component<{}> {
               style={styles.profilePic}
               />
               <Text style={styles.nameText2}>Manager</Text>
-              <View style={styles.contactView}>
-                <TouchableOpacity>
-                  <Image source={require('../images/email.png')}
-                  resizeMode={'contain'}
-                  style={styles.contactIcons}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image source={require('../images/mobile.png')}
-                  resizeMode={'contain'}
-                  style={styles.contactIcons}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image source={require('../images/whatsapp.png')}
-                  resizeMode={'contain'}
-                  style={styles.contactIcons}
-                  />
-                </TouchableOpacity>
-              </View>
+
             </View>
-          </View>
+            <View style={styles.contactView}>
+              <TouchableOpacity>
+                <Image source={require('../images/email.png')}
+                resizeMode={'contain'}
+                style={styles.contactIcons}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image source={require('../images/mobile.png')}
+                resizeMode={'contain'}
+                style={styles.contactIcons}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image source={require('../images/whatsapp.png')}
+                resizeMode={'contain'}
+                style={styles.contactIcons}
+                />
+              </TouchableOpacity>
+            </View>
         </ScrollView>
       </View>
     )
@@ -76,9 +76,11 @@ const styles = {
     marginVertical: 10
   },
   contactView: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: 200
   },
   contactIcons: {
-    height: 40
+    height: 40,
+    backgroundColor: 'blue'
   }
 }

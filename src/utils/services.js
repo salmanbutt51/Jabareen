@@ -36,19 +36,36 @@ export default {
     }
   },
 
-  async logout(data) {
+  // async logout(data) {
+  //   try {
+  //     let response = await fetch(BASE_URL + 'logout', {
+  //         method: 'POST',
+  //         body: JSON.stringify(data),
+  //         headers: new Headers({
+  //           'Content-Type': 'application/json',
+  //         })
+  //     });
+  //     let responseJson = await response.json();
+  //     return responseJson;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // },
+
+  async category(data) {
+    console.log('data: ', data);
     try {
-      let response = await fetch(BASE_URL + 'logout', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          })
+      let response = await fetch(BASE_URL + 'category_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
       });
-      let responseJson = await response.json();
-      return responseJson;
+      console.log(response);
+      return response;
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
-};
+}

@@ -10,8 +10,15 @@ import {
   Button
 } from 'react-native';
 import Header from '../components/Header';
+import services from '../utils/services';
 export default class App extends Component<{}> {
-
+  state = {
+    token: ''
+  };
+  const resp = await services.category(data);
+  this.setState({
+    token: resp
+  });
   render() {
     return(
       <View style={styles.container}>
@@ -21,13 +28,13 @@ export default class App extends Component<{}> {
           <View style={styles.productsView}>
             <View style={styles.flexView}>
               <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>SHAMPOO</Text></View>
+                <View><Text style={styles.tileText}>BIKES</Text></View>
                 <View><Image source={require('../images/product1.png')}
                 resizeMode={'contain'}
                 style={styles.proImage} /></View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>WASHING POWDER</Text></View>
+                <View><Text style={styles.tileText}>CAMERAS</Text></View>
                 <View><Image source={require('../images/product2.png')}
                 resizeMode={'contain'}
                 style={styles.proImage} /></View>
@@ -43,6 +50,34 @@ export default class App extends Component<{}> {
               <TouchableOpacity style={styles.tile}>
                 <View><Text style={styles.tileText}>CARS</Text></View>
                 <View><Image source={require('../images/product4.png')}
+                resizeMode={'contain'}
+                style={styles.proImage} /></View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.flexView}>
+              <TouchableOpacity style={styles.tile}>
+                <View><Text style={styles.tileText}>LAPTOPS</Text></View>
+                <View><Image source={require('../images/product5.png')}
+                resizeMode={'contain'}
+                style={styles.proImage} /></View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tile}>
+                <View><Text style={styles.tileText}>WATCHES</Text></View>
+                <View><Image source={require('../images/product6.png')}
+                resizeMode={'contain'}
+                style={styles.proImage} /></View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.flexView}>
+              <TouchableOpacity style={styles.tile}>
+                <View><Text style={styles.tileText}>CLOTHES</Text></View>
+                <View><Image source={require('../images/product7.png')}
+                resizeMode={'contain'}
+                style={styles.proImage} /></View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tile}>
+                <View><Text style={styles.tileText}>SHOES</Text></View>
+                <View><Image source={require('../images/product8.png')}
                 resizeMode={'contain'}
                 style={styles.proImage} /></View>
               </TouchableOpacity>
