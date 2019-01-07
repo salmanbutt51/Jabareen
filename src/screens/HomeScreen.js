@@ -29,7 +29,7 @@ export default class App extends Component<{}> {
           </View>
           <View style={styles.tilesView}>
             <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Products')} style={styles.tile}>
                 <View><Text style={styles.tileText}>PRODUCTS</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}
@@ -85,6 +85,12 @@ export default class App extends Component<{}> {
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Companyteam')} style={styles.tile}>
+                <View><Text style={styles.tileText}>COMPANY TEAM</Text></View>
+                <View><Image source={require('../images/products.png')}
+                resizeMode={'contain'}
+                style={{width: 40, height: 30}} /></View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Complaints')} style={styles.tile}>
                 <View><Text style={styles.tileText}>COMPLAINTS & PROPOSALS</Text></View>
                 <View><Image source={require('../images/products.png')}

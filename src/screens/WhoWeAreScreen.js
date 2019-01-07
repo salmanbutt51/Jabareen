@@ -18,18 +18,14 @@ export default class App extends Component<{}> {
         <Header navigation={this.props.navigation} />
         <ScrollView>
           <View style={styles.aboutView}>
-            <View>
-              <View style={styles.nameView}><Text style={styles.nameText}>Mohammad Ghanem</Text></View>
-              <Text style={styles.ownerText}>Mr. Ghanem is the creator of BIOSERVPRO LTD solutions which are new fully digital featured business customized platforms that effectively connect mutual business professionals together, insure their business development in almost all business fields & simplify having the important information for all parties to achieve the optimum results. Mr. Ghanem provide three main solutions through his websites as following </Text>
-            </View>
-            <View>
-              <Text style={styles.aboutText}>Country wise virtual exhibitions/event solution</Text><TouchableOpacity><Text style={styles.withinText}>www.beinb.net</Text></TouchableOpacity>
-              <Text style={styles.aboutText}>Organizers wise business solution for exhibitions/Trade-Shows</Text><TouchableOpacity><Text style={styles.withinText}>www.bioservpro.com</Text></TouchableOpacity>
-              <Text style={styles.aboutText}>Companies wise interaction business solution</Text><TouchableOpacity><Text style={styles.withinText}>www.mghanem.net</Text></TouchableOpacity>
-              <Text style={styles.aboutText}>You could reach us sending an email to mohammad@mghanem.net</Text>
-              <Text style={styles.aboutText2}>or simply calling us at +1-647-697 5918 , +970-598-516067</Text>
-              <Text style={styles.aboutText2}>Visit our  website for more details</Text>
-            </View>
+            <View style={styles.nameView}><Text style={styles.nameText}>Mohammad Ghanem</Text></View>
+            <Text style={styles.ownerText}>Mr. Ghanem is the creator of BIOSERVPRO LTD solutions which are new fully digital featured business customized platforms that effectively connect mutual business professionals together, insure their business development in almost all business fields & simplify having the important information for all parties to achieve the optimum results. Mr. Ghanem provide three main solutions through his websites as following </Text>
+            <Text style={styles.aboutText}>Country wise virtual exhibitions/event solution</Text><TouchableOpacity><Text style={styles.withinText}>www.beinb.net</Text></TouchableOpacity>
+            <Text style={styles.aboutText}>Organizers wise business solution for exhibitions/Trade-Shows</Text><TouchableOpacity><Text style={styles.withinText}>www.bioservpro.com</Text></TouchableOpacity>
+            <Text style={styles.aboutText}>Companies wise interaction business solution</Text><TouchableOpacity><Text style={styles.withinText}>www.mghanem.net</Text></TouchableOpacity>
+            <Text style={styles.aboutText}>You could reach us sending an email to mohammad@mghanem.net</Text>
+            <Text style={styles.aboutText2}>or simply calling us at +1-647-697 5918 , +970-598-516067</Text>
+            <Text style={styles.aboutText2}>Visit our  website for more details</Text>
           </View>
         </ScrollView>
       </View>
@@ -46,13 +42,13 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center'
   },
-  aboutView: {
-    padding: 10
-  },
   nameText: {
     fontSize: 30,
     fontWeight: 'bold',
     color: 'black'
+  },
+  aboutView: {
+    padding: 10
   },
   ownerText: {
     fontSize: 20,

@@ -9,13 +9,44 @@ import {
   ScrollView,
   Button
 } from 'react-native';
+import Header from '../components/Header';
 export default class App extends Component<{}> {
 
   render() {
     return(
       <View style={styles.container}>
         <ScrollView>
-          <Button onPress={() => this.props.navigation.goBack()} title='Go back To Dashboard'/>
+          <View>
+            <Header navigation={this.props.navigation} />
+            <View style={styles.detailView}>
+              <Text style={styles.nameText}>Al Jabareen Member</Text>
+              <Image source={require('../images/mem.png')}
+              resizeMode={'contain'}
+              style={styles.profilePic}
+              />
+              <Text style={styles.nameText2}>Manager</Text>
+              <View style={styles.contactView}>
+                <TouchableOpacity>
+                  <Image source={require('../images/email.png')}
+                  resizeMode={'contain'}
+                  style={styles.contactIcons}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={require('../images/mobile.png')}
+                  resizeMode={'contain'}
+                  style={styles.contactIcons}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={require('../images/whatsapp.png')}
+                  resizeMode={'contain'}
+                  style={styles.contactIcons}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </ScrollView>
       </View>
     )
@@ -25,39 +56,29 @@ const styles = {
   container: {
     flex: 1,
   },
-  dashboardView: {
-    backgroundColor: '#fff',
-    height: 60,
-    justifyContent: 'center',
-    paddingHorizontal: 20
+  detailView: {
+    padding: 10,
+    alignItems: 'center'
   },
-  dashText: {
-    color: '#2098d1',
-    fontSize: 20,
-    fontWeight: 'bold'
+  nameText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'black',
+    marginVertical: 10
   },
-  tilesView: {
-    backgroundColor: '#edf1f5',
-    // paddingHorizontal: 10,
-    paddingVertical: 40
+  profilePic: {
+    height: 250
   },
-  flexView: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 17
+  nameText2: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    // color: 'black',
+    marginVertical: 10
   },
-  tile: {
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: '#f33155',
-    height: 100,
-    width: 190,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    // marginHorizontal: 10
+  contactView: {
+    flexDirection: 'row'
   },
-  tileText: {
-    fontSize: 20,
-    color: '#f994a7'
+  contactIcons: {
+    height: 40
   }
 }

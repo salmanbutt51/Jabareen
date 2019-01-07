@@ -4,6 +4,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
+import ProductsScreen from '../screens/ProductsScreen';
 import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 import WhoWeAreScreen from '../screens/WhoWeAreScreen';
 import ComplaintsScreen from '../screens/ComplaintsScreen';
@@ -36,16 +37,28 @@ const HomeStack = createDrawerNavigator({
       drawerLabel: 'Dashboard',
     }
   },
+  Products: {
+    screen: ProductsScreen,
+    navigationOptions: {
+      tabBarLabel: 'Products'
+    }
+  },
   Whoweare: {
     screen: WhoWeAreScreen,
     navigationOptions: {
       tabBarLabel: 'Who We Are'
     }
   },
+  Companyteam: {
+    screen: CompanyTeamScreen,
+    navigationOptions: {
+      tabBarLabel: 'Company Team'
+    }
+  },
   Complaints: {
     screen: ComplaintsScreen,
     navigationOptions: {
-      tabBarLabel: 'Company Team'
+      tabBarLabel: 'Complaints'
     }
   }
 })
