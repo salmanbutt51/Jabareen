@@ -12,13 +12,13 @@ import {
 import Header from '../components/Header';
 import services from '../utils/services';
 export default class App extends Component<{}> {
-  state = {
-    token: ''
-  };
-  const resp = await services.category(data);
-  this.setState({
-    token: resp
-  });
+  // state = {
+  //   token: ''
+  // };
+  // const resp = await services.category(data);
+  // this.setState({
+  //   token: resp
+  // });
   render() {
     return(
       <View style={styles.container}>

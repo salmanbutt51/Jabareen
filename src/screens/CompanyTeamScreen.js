@@ -29,7 +29,7 @@ export default class App extends Component<{}> {
             </View>
             <View style={styles.contactView}>
               <TouchableOpacity>
-                <Image source={require('../images/email.png')}
+                <Image source={require('../images/mail.png')}
                 resizeMode={'contain'}
                 style={styles.contactIcons}
                 />
@@ -76,11 +76,13 @@ const styles = {
     marginVertical: 10
   },
   contactView: {
-    flexDirection: 'row',
-    height: 200
+    // flexDirection: 'row',
+    // height: 200,
+    alignItems: 'center',
+    // backgroundColor: 'yellow'
   },
   contactIcons: {
     height: 40,
-    backgroundColor: 'blue'
+    // backgroundColor: 'blue'
   }
 }
