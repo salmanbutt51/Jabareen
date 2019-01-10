@@ -7,83 +7,51 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Button
+  Button,
+  AsyncStorage,
+  FlatList
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
 export default class App extends Component<{}> {
-  // state = {
-  //   token: ''
-  // };
-  // const resp = await services.category(data);
-  // this.setState({
-  //   token: resp
-  // });
+  state = {
+    data: []
+  }
+  async componentDidMount(){
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token
+    };
+    const resp = await services.category(data);
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    this.setState({
+      data: responseInJson.data
+    });
+  }
   render() {
     return(
       <View style={styles.container}>
         <Header navigation={this.props.navigation} />
-        <ScrollView>
-          <View style={styles.nameView}><Text style={styles.nameText}>Products</Text></View>
-          <View style={styles.productsView}>
-            <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>BIKES</Text></View>
-                <View><Image source={require('../images/product1.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>CAMERAS</Text></View>
-                <View><Image source={require('../images/product2.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>MOBILES</Text></View>
-                <View><Image source={require('../images/product3.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>CARS</Text></View>
-                <View><Image source={require('../images/product4.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>LAPTOPS</Text></View>
-                <View><Image source={require('../images/product5.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>WATCHES</Text></View>
-                <View><Image source={require('../images/product6.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>CLOTHES</Text></View>
-                <View><Image source={require('../images/product7.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
-                <View><Text style={styles.tileText}>SHOES</Text></View>
-                <View><Image source={require('../images/product8.png')}
-                resizeMode={'contain'}
-                style={styles.proImage} /></View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
+
+          <View style={styles.nameView}><Text style={styles.nameText}>Categories</Text></View>
+          <FlatList
+          contentContainerStyle={styles.flatList}
+          // style={{flex: 1}}
+          numColumns={2}
+          data={this.state.data}
+          // keyExtractor={(item) => item.name}
+          renderItem={({item}) =>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Subcategory', {category_id: item.id})} style={styles.item} >
+              <Text style={styles.name} >{item.name}</Text>
+              <Text style={styles.name} >{item.arabic_name}</Text>
+              <Image source={{uri: item.image}}
+              resizeMode={'contain'}
+              style={styles.proImage} />
+            </TouchableOpacity>
+          }
+          />
+
       </View>
     )
   }
@@ -92,6 +60,27 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#edf1f5',
+  },
+  flatList: {
+    // backgroundColor: 'red',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    // flex: 1,
+  },
+  item: {
+    backgroundColor: '#fff',
+    margin: 5,
+    borderWidth: 2,
+    borderColor: '#f33155',
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // width: '100%'
+  },
+  name: {
+    fontWeight: 'bold',
+    fontSize: 20
+    // fontFamily: 'Kapra-Regular',
   },
   nameView: {
     height: 60,
@@ -126,6 +115,7 @@ const styles = {
   },
   proImage: {
     width: 150,
-    height: 140
+    height: 120,
+    marginTop: 10
   }
 }

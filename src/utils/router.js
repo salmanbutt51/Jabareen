@@ -5,9 +5,11 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProductsScreen from '../screens/ProductsScreen';
+import SubCategoryScreen from '../screens/SubCategoryScreen';
 import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 import WhoWeAreScreen from '../screens/WhoWeAreScreen';
 import ComplaintsScreen from '../screens/ComplaintsScreen';
+import ContactUsScreen from '../screens/ContactUsScreen';
 
 const AuthStack = createStackNavigator({
   Welcome: {
@@ -43,6 +45,9 @@ const HomeStack = createDrawerNavigator({
       tabBarLabel: 'Products'
     }
   },
+  Subcategory:{
+    screen: SubCategoryScreen
+  },
   Whoweare: {
     screen: WhoWeAreScreen,
     navigationOptions: {
@@ -59,6 +64,12 @@ const HomeStack = createDrawerNavigator({
     screen: ComplaintsScreen,
     navigationOptions: {
       tabBarLabel: 'Complaints'
+    }
+  },
+  Contactus: {
+    screen: ContactUsScreen,
+    navigationOptions: {
+      tabBarLabel: 'ContactUsScreen'
     }
   }
 })

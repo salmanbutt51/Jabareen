@@ -7,7 +7,8 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 import Logo from './Logo';
 import services from '../utils/services';
@@ -19,8 +20,8 @@ export default class App extends Component<{}> {
   navigation = this.props.navigation;
 
   state = {
-    phone_number: '',
-    password: '',
+    phone_number: '03452962859',
+    password: '123456',
     fcm_token: '',
     device_id: ''
   }
@@ -54,8 +55,9 @@ export default class App extends Component<{}> {
       const response = await services.login(data);
       const responseJson = await response.json();
       this._loginBtn.showLoading(false);
-      console.log('Response is JSON: ', responseJson);
+      console.log('Response in JSON: ', responseJson);
       if (responseJson.response === 'success') {
+        await AsyncStorage.setItem('user_token', responseJson.data.token);
         this.navigation.navigate('Home');
       } else {
         this._dropdown.itemAction({type: 'error', title: 'Error', message: responseJson.message});
@@ -72,6 +74,7 @@ export default class App extends Component<{}> {
             <View style={styles.form}>
               <Text style={styles.inputText}>Mobile</Text>
               <TextInput style={styles.inputBox}
+                value={this.state.phone_number}
                 onChangeText={(t) => this.setState({phone_number: t})}
                 placeholder="Mobile Number"
                 autoCorrect={false}
@@ -80,13 +83,14 @@ export default class App extends Component<{}> {
               />
               <Text style={styles.inputText}>Password</Text>
               <TextInput style={styles.inputBox}
+                value={this.state.password}
                 onChangeText={(t) => this.setState({password: t})}
                 placeholder="Password"
                 secureTextEntry={true}
                 autoCapitalize='none'
                 placeholderTextColor = "#a6b8d4"
               />
-              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.props.navigation.navigate('Home')} />
+              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.login()} />
               <View style={styles.forgotPassword}>
                 <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
               </View>

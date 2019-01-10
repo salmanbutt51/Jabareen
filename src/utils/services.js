@@ -67,5 +67,56 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  async subCategory(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'sub_category_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async whoWeAre(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'who_we_are', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async contactUs(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'contact_us', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

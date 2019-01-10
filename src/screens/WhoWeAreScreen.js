@@ -10,8 +10,19 @@ import {
   Button
 } from 'react-native';
 import Header from '../components/Header';
+import services from '../utils/services';
 export default class App extends Component<{}> {
-
+  // state = {
+  //   data: []
+  // }
+  async componentDidMount(){
+    const resp = await services.whoWeAre();
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    // this.setState({
+    //   data: responseInJson.data
+    // });
+  }
   render() {
     return(
       <View style={styles.container}>

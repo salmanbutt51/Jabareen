@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 export default class App extends Component<{}> {
-  
+
   render() {
     return(
       <View style={styles.container}>
@@ -71,7 +71,7 @@ export default class App extends Component<{}> {
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Contactus')} style={styles.tile}>
                 <View><Text style={styles.tileText}>CONTACT US</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}

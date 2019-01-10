@@ -31,6 +31,7 @@ export default class Navbar extends Component<{}> {
             resizeMode={'contain'} style={{width: 70, height: 50}}/>
           </TouchableOpacity>
         </View>
+        <Text>{this.props.title}</Text>
         <View style={{justifyContent: 'center'}}>
           <TouchableOpacity>
             <Image source={require('../images/logout.png')}
@@ -43,7 +44,6 @@ export default class Navbar extends Component<{}> {
 }
 const styles = {
   navbar: {
-    justifyContent: 'center',
     backgroundColor: '#f33155',
     height: 60,
     flexDirection: 'row',
