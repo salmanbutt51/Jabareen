@@ -42,7 +42,12 @@ export default class App extends Component<{}> {
           data={this.state.data}
           // keyExtractor={(item) => item.name}
           renderItem={({item}) =>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Subcategory', {category_id: item.id})} style={styles.item} >
+            <TouchableOpacity onPress={
+              item.has_sub_category == 1
+              ? () => this.props.navigation.navigate('Subcategory', {category_id: item.id})
+              : () => this.props.navigation.navigate('ProductsList', {category_id: item.id})
+              }
+              style={styles.item} >
               <Text style={styles.name} >{item.name}</Text>
               <Text style={styles.name} >{item.arabic_name}</Text>
               <Image source={{uri: item.image}}
