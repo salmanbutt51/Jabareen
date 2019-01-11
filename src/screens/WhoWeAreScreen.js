@@ -7,40 +7,41 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Button
+  Button,
+  AsyncStorage,
+  FlatList
 } from 'react-native';
+import { WebView } from "react-native-webview";
 import Header from '../components/Header';
 import services from '../utils/services';
 export default class App extends Component<{}> {
-  // state = {
-  //   data: []
-  // }
+  state = {
+    data: {}
+  }
   async componentDidMount(){
-    const resp = await services.whoWeAre();
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token
+    };
+    const resp = await services.whoWeAre(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
-    // this.setState({
-    //   data: responseInJson.data
-    // });
+    this.setState({
+      data: responseInJson.data
+    });
   }
   render() {
+    console.log(this.state.data.value);
     return(
       <View style={styles.container}>
         <Header navigation={this.props.navigation} />
-        <ScrollView>
-          <View style={styles.aboutView}>
-            <View style={styles.nameView}><Text style={styles.nameText}>Mohammad Ghanem</Text></View>
-            <Text style={styles.ownerText}>Mr. Ghanem is the creator of BIOSERVPRO LTD solutions which are new fully digital featured business customized platforms that effectively connect mutual business professionals together, insure their business development in almost all business fields & simplify having the important information for all parties to achieve the optimum results. Mr. Ghanem provide three main solutions through his websites as following </Text>
-            <Text style={styles.aboutText}>Country wise virtual exhibitions/event solution</Text><TouchableOpacity><Text style={styles.withinText}>www.beinb.net</Text></TouchableOpacity>
-            <Text style={styles.aboutText}>Organizers wise business solution for exhibitions/Trade-Shows</Text><TouchableOpacity><Text style={styles.withinText}>www.bioservpro.com</Text></TouchableOpacity>
-            <Text style={styles.aboutText}>Companies wise interaction business solution</Text><TouchableOpacity><Text style={styles.withinText}>www.mghanem.net</Text></TouchableOpacity>
-            <Text style={styles.aboutText}>You could reach us sending an email to mohammad@mghanem.net</Text>
-            <Text style={styles.aboutText2}>or simply calling us at +1-647-697 5918 , +970-598-516067</Text>
-            <Text style={styles.aboutText2}>Visit our  website for more details</Text>
-          </View>
-        </ScrollView>
+        <WebView
+          source={{ html: this.state.data.value }}
+          style={{ marginTop: 20 }}
+          originWhitelist={['*']}
+        />
       </View>
-    )
+    );
   }
 }
 const styles = {

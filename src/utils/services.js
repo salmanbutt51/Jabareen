@@ -36,21 +36,21 @@ export default {
     }
   },
 
-  // async logout(data) {
-  //   try {
-  //     let response = await fetch(BASE_URL + 'logout', {
-  //         method: 'POST',
-  //         body: JSON.stringify(data),
-  //         headers: new Headers({
-  //           'Content-Type': 'application/json',
-  //         })
-  //     });
-  //     let responseJson = await response.json();
-  //     return responseJson;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // },
+  async logout(data) {
+    try {
+      let response = await fetch(BASE_URL + 'logout', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          })
+      });
+      let responseJson = await response.json();
+      return responseJson;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
   async category(data) {
     console.log('data: ', data);
@@ -69,10 +69,44 @@ export default {
     }
   },
 
+  async addToCart(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'add_to_cart', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async subCategory(data) {
     console.log('data: ', data);
     try {
-      let response = await fetch(BASE_URL + 'sub_category_list', {
+      let response = await fetch(BASE_URL + 'sub_category_list' + '?page=1', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async categoryWiseProductList(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'category_wise_product_list', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({

@@ -35,7 +35,7 @@ export default class App extends Component<{}> {
                 resizeMode={'contain'}
                 style={{width: 40, height: 30}} /></View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Cart')} style={styles.tile}>
                 <View><Text style={styles.tileText}>CART</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}

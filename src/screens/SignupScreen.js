@@ -73,7 +73,7 @@ export default class App extends Component<{}> {
   render() {
     return(
         <View style={styles.container}>
-          <ScrollView contentContainerStyle={{padding: 20}} >
+          <ScrollView contentContainerStyle={{padding: 20}} keyboardDismissMode={'on-drag'} >
           <Logo />
           <View style={styles.form}>
             <Text style={styles.inputText}>User Name<Text style={{color: 'red'}}>*</Text></Text>
