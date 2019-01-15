@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
 import {
   Platform,
   StyleSheet,
@@ -9,25 +10,23 @@ import {
   ScrollView,
   Button,
   AsyncStorage,
-  FlatList,
-  TextInput
+  FlatList
 } from 'react-native';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import Header from '../components/Header';
 import services from '../utils/services';
+import { Dropdown } from 'react-native-material-dropdown';
 export default class App extends Component<{}> {
   state = {
     data: [],
-    isDateTimePickerVisible: false,
-    date: 'Select Date',
-    dateObj: {}
+    popupVisible: false,
+    statusSelected: ''
   }
   async componentDidMount(){
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
     };
-    const resp = await services.companyTeamList(data);
+    const resp = await services.rfmHistory(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
     this.setState({
@@ -35,84 +34,92 @@ export default class App extends Component<{}> {
     });
   }
 
-  _showDateTimePicker() {
-    this.setState({ isDateTimePickerVisible: true });
+  _dropdownSelected = (meeting) => {
+    console.log('Meeting done: ', meeting);
+    this.setState({
+      statusSelected: meeting
+    });
   }
 
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-
-
-  _handleDatePicked = (date) => {
-    console.log('A date has been picked: ', date);
-    this._hideDateTimePicker();
-    this.setState({
-      date: date.toString(),
-      dateObj: date
-    });
-  };
-
-  async sendRfm(team_id){
+  async changeRfmStatus(rfm_id){
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
-      company_team_id: team_id,
-      meeting_date_time: this.state.dateObj
+      rfm_id: rfm_id,
+      status: this.state.statusSelected
     };
-    const resp = await services.sendRfm(data);
+    const resp = await services.changeRfmStatus(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
-    // this.setState({
-    //   data: responseInJson.data
-    // });
+    this.setState({
+      popupVisible: false,
+    });
   }
 
   render() {
+    let dropdownData = [{
+      value: 'Meeting done',
+    },
+  ];
     return(
       <View style={styles.container}>
         <ScrollView>
-
-            <Header navigation={this.props.navigation} title={'Company Section'} />
-            <View style={styles.subContainer}>
+          <Header navigation={this.props.navigation} title={'RFM'} />
+          <View style={styles.subContainer}>
             <FlatList
             contentContainerStyle={styles.flatList}
             // style={{flex: 1}}
             // numColumns={2}
             data={this.state.data}
-            keyExtractor={(item) => item.id.toString()}
+            // keyExtractor={(item) => item.name}
             renderItem={({item}) =>
                 <View style={styles.memberView}>
                   <View style={styles.imageView}>
-                    <Image source={{uri: item.image}}
+                    <Image source={{uri: item.company_image}}
                     resizeMode={'contain'}
                     style={styles.profilePic} />
                   </View>
                   <View style={styles.detailView}>
                     <View style={styles.rfmView}>
-                      <Text style={styles.name}>{item.name}</Text>
+                      <Text style={styles.name}>{item.company_name}</Text>
 
                     </View>
-                    <Text style={styles.position}>{item.position}</Text>
-                    <Text style={styles.mobile}>Tel: {item.mobile}</Text>
-                    <Text style={styles.email}>Email: {item.email}</Text>
-                    <TouchableOpacity onPress={() => this._showDateTimePicker()}>
-                      <Text>{this.state.date}</Text>
+                    <Text style={styles.position}>{item.compnay_position}</Text>
+                    <Text style={styles.mobile}>Meeting Time:</Text>
+                    <View style={styles.meetingButton}>
+                      <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => this.setState({ popupVisible: true })} style={styles.rfmButton}>
+                      <Text style={styles.rfmText}>Change Status</Text>
                     </TouchableOpacity>
-                    <DateTimePicker
-                      isVisible={this.state.isDateTimePickerVisible}
-                      onConfirm={this._handleDatePicked}
-                      onCancel={this._hideDateTimePicker}
-                      mode='datetime'
-                    />
-                    <TouchableOpacity onPress={() => this.sendRfm(item.id)} style={styles.rfmButton}>
-                      <Text style={styles.rfmText}>Send RFM</Text>
-                    </TouchableOpacity>
+
                   </View>
                 </View>
             }
             />
-
-            </View>
+          </View>
+          <Dialog
+            visible={this.state.popupVisible}
+            width={0.8}
+            // height={350}
+            onTouchOutside={() => {
+              this.setState({ popupVisible: false });
+            }}
+            dialogAnimation={new SlideAnimation({
+              slideFrom: 'top',
+            })}
+          >
+            <DialogContent>
+              <Dropdown
+                label='Change Status'
+                data={dropdownData}
+                onChangeText={this._dropdownSelected}
+              />
+              <TouchableOpacity onPress={() => this.changeRfmStatus()} style={styles.rfmButton}>
+                <Text style={styles.rfmText}>Done</Text>
+              </TouchableOpacity>
+            </DialogContent>
+          </Dialog>
         </ScrollView>
       </View>
     );
@@ -124,9 +131,6 @@ const styles = {
   },
   subContainer: {
     padding: 10
-  },
-  flatList: {
-    // flex: 1
   },
   memberView: {
     flexDirection: 'row',
@@ -143,13 +147,21 @@ const styles = {
     flex: 1
   },
   rfmView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+
   },
   name: {
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',
+  },
+  meetingButton: {
+    height: 20,
+    borderRadius: 5,
+  },
+  meetingText: {
+    fontSize: 15
   },
   rfmButton: {
     backgroundColor: '#f33155',
@@ -158,7 +170,7 @@ const styles = {
     // paddingVertical: 5,
     // paddingHorizontal: 8,
     marginTop: 3,
-    width: '50%',
+    // width: '40%',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -180,27 +192,8 @@ const styles = {
     fontSize: 15,
     color: '#444c47'
   },
-  imageView: {
-    // alignItems: 'center',
-    justifyContent: 'center'
-  },
   profilePic: {
     width: 150,
     height: 140,
-  },
-  inputText:{
-    fontSize: 20,
-    color: 'black'
-  },
-  inputBox: {
-    borderWidth: 1,
-    borderColor: '#a6b8d4',
-    // fontSize: 12,
-    color: 'black',
-    marginVertical: 5,
-    // marginBottom: 10,
-    paddingHorizontal: 8,
-    height: 40,
-    borderRadius: 5,
   },
 };

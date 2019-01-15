@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   state = {
     data: []
@@ -31,40 +32,57 @@ export default class App extends Component<{}> {
       data: responseInJson.data
     });
   }
+  async addToCart(p_id){
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token,
+      product_id: p_id
+    };
+    const resp = await services.addToCart(data);
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    if (responseInJson.response === 'success') {
+      // await AsyncStorage.setItem('user_token', responseInJson.data.token);
+      this._dropdown.itemAction({type: 'success', title: 'Success', message: responseInJson.message});
+    } else {
+      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+    }
+    // this.setState({
+    //   data: responseInJson.data
+    // });
+  }
   render() {
     return(
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} />
-
-              <View style={styles.nameView}><Text style={styles.nameText}>Products Lists</Text></View>
-              <ScrollView>
-              <FlatList
-              contentContainerStyle={styles.flatList}
-              // style={{flex: 1}}
-              numColumns={2}
-              data={this.state.data}
-              // keyExtractor={(item) => item.name}
-              renderItem={({item}) =>
-                <TouchableOpacity
-                  style={styles.item} >
-                  <View style={{alignItems: 'center'}}>
-                    <Image source={require('../images/crockery3.png')}
-                    resizeMode={'contain'}
-                    style={styles.proImage}
-                     />
-                  </View>
-                  <View style={{alignItems: 'flex-start'}}>
-                    <Text style={styles.name} >{item.product_name}</Text>
-                    <Text style={styles.arabicName} >{item.product_name_arabic}</Text>
-                    <Text style={styles.price}>${item.price}</Text>
-                  </View>
-                  <TouchableOpacity style={styles.addToCartButton}>
-                    <Text style={styles.addToCartText}>Add to cart</Text>
-                  </TouchableOpacity>
-                </TouchableOpacity>
-              }
-              />
-          </ScrollView>
+        {/*<Header navigation={this.props.navigation} title={'Product Lists'} />*/}
+          <FlatList
+          contentContainerStyle={styles.flatList}
+          // style={{flex: 1}}
+          numColumns={2}
+          data={this.state.data}
+          // keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) =>
+            <View
+              style={styles.item} >
+              <View style={{alignItems: 'center'}}>
+                <Image source={require('../images/crockery3.png')}
+                resizeMode={'contain'}
+                style={styles.proImage}
+                 />
+              </View>
+              <View style={{alignItems: 'flex-start'}}>
+                <Text style={styles.name} >{item.product_name}</Text>
+                <Text style={styles.arabicName} >{item.product_name_arabic}</Text>
+                <Text style={styles.price}>${item.price}</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.addToCart(item.id)} style={styles.addToCartButton}>
+                <Text style={styles.addToCartText}>Add to cart</Text>
+              </TouchableOpacity>
+            </View>
+          }
+          />
+          <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }
@@ -86,9 +104,9 @@ const styles = {
   },
   flatList: {
     // backgroundColor: 'red',
-    // justifyContent: 'space-around',
-    alignItems: 'center',
-    flex: 1,
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+    // flex: 1,
     // padding: 20,
     // backgroundColor: 'blue'
   },
@@ -99,14 +117,15 @@ const styles = {
     borderColor: '#f33155',
     padding: 8,
     // alignItems: 'center',
-    justifyContent: 'center',
-    // flex: 1
+    // justifyContent: 'center',
+    flex: 1
     // width: '100%'
   },
   proImage: {
-    width: 150,
+    width: '100%',
     height: 120,
-    marginVertical: 10
+    // backgroundColor: 'blue'
+    // marginVertical: 10
   },
   name: {
     fontWeight: 'bold',
@@ -122,7 +141,6 @@ const styles = {
   },
   addToCartButton: {
     backgroundColor: '#f33155',
-    paddingHorizontal: 10,
     paddingVertical: 5,
     marginTop: 10,
     width: '100%',

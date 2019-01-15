@@ -7,11 +7,16 @@ import HomeScreen from '../screens/HomeScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProductsListScreen from '../screens/ProductsListScreen';
 import SubCategoryScreen from '../screens/SubCategoryScreen';
-import CompanyTeamScreen from '../screens/CompanyTeamScreen';
-import WhoWeAreScreen from '../screens/WhoWeAreScreen';
-import ComplaintsScreen from '../screens/ComplaintsScreen';
 import CartScreen from '../screens/CartScreen';
+import EvaluateScreen from '../screens/EvaluateScreen';
+import AdvertiseScreen from '../screens/AdvertiseScreen';
+import RfmScreen from '../screens/RfmScreen';
+import WhoWeAreScreen from '../screens/WhoWeAreScreen';
 import ContactUsScreen from '../screens/ContactUsScreen';
+import AccountRequestScreen from '../screens/AccountRequestScreen';
+import CompanyTeamScreen from '../screens/CompanyTeamScreen';
+import ComplaintsScreen from '../screens/ComplaintsScreen';
+import MapScreen from '../screens/MapScreen';
 
 const AuthStack = createStackNavigator({
   Welcome: {
@@ -32,7 +37,37 @@ const AuthStack = createStackNavigator({
       title: 'Signup'
     }
   }
-})
+});
+
+const ProductStack = createStackNavigator({
+  Categories:{
+    screen: ProductsScreen,
+    navigationOptions: {
+    title: 'Categories'
+    },
+  },
+  Subcategory:{
+    screen: SubCategoryScreen,
+    navigationOptions: {
+    title: 'Subcategories'
+    },
+  },
+  Productslist:{
+    screen: ProductsListScreen,
+    navigationOptions: {
+    title: 'Products List'
+    },
+  }
+});
+
+const CartStack = createStackNavigator({
+  Cart:{
+    screen: CartScreen,
+    navigationOptions: {
+    title: 'Cart'
+    },
+  }
+});
 
 const HomeStack = createDrawerNavigator({
   Dashboard: {
@@ -42,21 +77,42 @@ const HomeStack = createDrawerNavigator({
     }
   },
   Products: {
-    screen: ProductsScreen,
+    screen: ProductStack,
     navigationOptions: {
       tabBarLabel: 'Products'
     }
   },
-  Subcategory:{
-    screen: SubCategoryScreen
+  Cart: {
+    screen: CartStack,
+    navigationOptions: {
+      tabBarLabel: 'Cart'
+    }
   },
-  Productslist:{
-    screen: ProductsListScreen
+  Evaluate:{
+    screen: EvaluateScreen
+  },
+  Advertisement:{
+    screen: AdvertiseScreen
+  },
+  Rfm:{
+    screen: RfmScreen
   },
   Whoweare: {
     screen: WhoWeAreScreen,
     navigationOptions: {
       tabBarLabel: 'Who We Are'
+    }
+  },
+  Contactus: {
+    screen: ContactUsScreen,
+    navigationOptions: {
+      tabBarLabel: 'ContactUsScreen'
+    }
+  },
+  AccountRequest: {
+    screen: AccountRequestScreen,
+    navigationOptions: {
+      tabBarLabel: 'ContactUsScreen'
     }
   },
   Companyteam: {
@@ -71,19 +127,10 @@ const HomeStack = createDrawerNavigator({
       tabBarLabel: 'Complaints'
     }
   },
-  Cart: {
-    screen: CartScreen,
-    navigationOptions: {
-      tabBarLabel: 'Cart'
-    }
+  CompanyMap:{
+    screen: MapScreen
   },
-  Contactus: {
-    screen: ContactUsScreen,
-    navigationOptions: {
-      tabBarLabel: 'ContactUsScreen'
-    }
-  }
-})
+});
 
 const MainSwitch = createSwitchNavigator({
   Auth: {
@@ -92,7 +139,7 @@ const MainSwitch = createSwitchNavigator({
   Home: {
     screen: HomeStack
   }
-})
+});
 const AppContainer = createAppContainer(MainSwitch);
 
 export default AppContainer;

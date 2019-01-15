@@ -43,13 +43,13 @@ export default class App extends Component<{}> {
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Evaluate')} style={styles.tile}>
                 <View><Text style={styles.tileText}>EVALUATE</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}
                 style={{width: 40, height: 30}} /></View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Advertisement')} style={styles.tile}>
                 <View><Text style={styles.tileText}>ADS</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}
@@ -57,7 +57,7 @@ export default class App extends Component<{}> {
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Rfm')} style={styles.tile}>
                 <View><Text style={styles.tileText}>RFM</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}
@@ -77,7 +77,7 @@ export default class App extends Component<{}> {
                 resizeMode={'contain'}
                 style={{width: 40, height: 30}} /></View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('AccountRequest')} style={styles.tile}>
                 <View><Text style={styles.tileText}>ACCOUNT REQUEST</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}
@@ -99,11 +99,6 @@ export default class App extends Component<{}> {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.contactView}>
-            <TouchableOpacity style={styles.contactButton}>
-              <Text style={styles.contactText}>Contact Us</Text>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
       </View>
     )
@@ -119,7 +114,7 @@ const styles = {
     backgroundColor: '#f33155',
     height: 60,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    // justifyContent: 'space-between'
   },
   dashboardView: {
     height: 250,

@@ -20,7 +20,7 @@ export default class App extends Component<{}> {
   navigation = this.props.navigation;
 
   state = {
-    phone_number: '03452962859',
+    phone_number: '042435546',
     password: '123456',
     fcm_token: '',
     device_id: ''

@@ -29,31 +29,17 @@ export default class App extends Component<{}> {
       data: responseInJson.data
     });
   }
-  // product_id = this.props.navigation.state.params.product_id;
-  async addToCart(){
-    const token = await AsyncStorage.getItem('user_token');
-    const data = {
-      token: token,
-      // product_id: this.product_id
-    };
-    const resp = await services.addToCart(data);
-    const responseInJson = await resp.json();
-    console.log(responseInJson);
-    // this.setState({
-    //   data: responseInJson.data
-    // });
-  }
+
   render() {
     return(
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} />
-          <View style={styles.nameView}><Text style={styles.nameText}>Categories</Text></View>
           <FlatList
           contentContainerStyle={styles.flatList}
           // style={{flex: 1}}
           numColumns={2}
           data={this.state.data}
           // keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) =>
             <TouchableOpacity onPress={
               item.has_sub_category == 1
@@ -83,16 +69,6 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#edf1f5',
-  },
-  nameView: {
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  nameText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black'
   },
   flatList: {
     // backgroundColor: 'red',

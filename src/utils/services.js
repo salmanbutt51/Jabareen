@@ -86,6 +86,23 @@ export default {
     }
   },
 
+  async cartList(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'cart_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async subCategory(data) {
     console.log('data: ', data);
     try {
@@ -120,6 +137,108 @@ export default {
     }
   },
 
+  async companyTeamList(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'company_team_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async sendRfm(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'send_rfm', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async sendRfq(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'send_rfq', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async advertiseList(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'advertise_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async rfmHistory(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'rfm_history', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async changeRfmStatus(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'change_rfm_status', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async whoWeAre(data) {
     console.log('data: ', data);
     try {
@@ -141,6 +260,23 @@ export default {
     console.log('data: ', data);
     try {
       let response = await fetch(BASE_URL + 'contact_us', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async AccountRequest(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'account_request', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({

@@ -11,7 +11,7 @@ import {
   AsyncStorage,
   FlatList
 } from 'react-native';
-import { WebView } from "react-native-webview";
+import { WebView } from 'react-native-webview';
 import Header from '../components/Header';
 import services from '../utils/services';
 export default class App extends Component<{}> {

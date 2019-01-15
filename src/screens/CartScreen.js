@@ -8,47 +8,148 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
-  TextInput
+  TextInput,
+  AsyncStorage,
+  FlatList
 } from 'react-native';
 import Header from '../components/Header';
+import services from '../utils/services';
+import { Dropdown } from 'react-native-material-dropdown';
 export default class App extends Component<{}> {
-  constructor(props) {
-    super(props);
-    this.state = { quantity: 1 };
+  state = {
+    data: [],
+    quantity: '',
+    unit: ''
   }
+
+  async componentDidMount(){
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token,
+    };
+    const resp = await services.cartList(data);
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    this.setState({
+      data: responseInJson.data
+    });
+  }
+
+  _dropdownQuantity = (quantity) => {
+    console.log('quantitySelected from button: ', quantity);
+    this.setState({
+      quantity: quantity
+    });
+  }
+
+  _dropdownUnit = (unit) => {
+    console.log('quantitySelected from button: ', unit);
+    this.setState({
+      unit: unit
+    });
+  }
+
+  async sendRfq(cart_id){
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token,
+      cart_id: cart_id,
+      quantity: this.state.quantity,
+      unit: this.state.unit
+    };
+    const resp = await services.sendRfq(data);
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    // this.setState({
+    //   popupVisible: false,
+    // });
+  }
+
   render() {
+    let dropdownQuantity = [
+      {
+        value: '1',
+      },
+      {
+        value: '2',
+      },
+      {
+        value: '3',
+      },
+      {
+        value: '4',
+      },
+      {
+        value: '5',
+      },
+    ];
+    let dropdownUnit = [
+      {
+        value: 'كرتونه',
+      },
+      {
+        value: 'قطعة',
+      },
+      {
+        value: 'دزينة',
+      },
+      {
+        value: 'رزمة',
+      },
+      {
+        value: 'رول',
+      },
+    ];
     return(
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} />
+        {/*<Header navigation={this.props.navigation} title={'My Cart'}/>*/}
         <ScrollView>
           <View style={styles.cartsView}>
-            <View style={styles.nameView}><Text style={styles.nameText}>My Cart</Text></View>
+            <FlatList
+            contentContainerStyle={styles.flatList}
+            data={this.state.data}
+            // keyExtractor={(item) => item.name}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({item}) =>
             <View style={styles.productView}>
-              <View style={styles.imageView}>
-                <Image source={require('../images/crockery1.png')}
-                resizeMode={'contain'}
-                style={{width: 150, height: 130}} />
+
+              <View style={styles.prodetailView}>
+                <Text style={styles.name}>{item.product_name}</Text>
+                <TouchableOpacity style={styles.delButton}>
+                  <Image source={require('../images/del_icon.png')}
+                  resizeMode={'contain'}
+                  style={{width: 20, height: 20}} />
+                </TouchableOpacity>
               </View>
               <View style={styles.prodetailView}>
-                <Text style={styles.name}>Product name</Text>
-                <Text style={styles.price}>Price</Text>
-                <View style={styles.addRemoveButton}>
-                  <TouchableOpacity onPress =  {() => this.setState({quantity: this.state.quantity-1})} style={styles.quantityView}>
-                    <Text style={styles.quantityText}>-</Text>
-                  </TouchableOpacity>
-                  <View style={styles.quantityItemsView}>
-                    <Text style={styles.quantityText}>{this.state.quantity}</Text>
-                  </View>
-                  <TouchableOpacity onPress = {() => this.setState({quantity: this.state.quantity+1})} style={styles.quantityView}>
-                    <Text style={styles.quantityText}>+</Text>
-                  </TouchableOpacity>
-                </View>
+                <Dropdown
+                  containerStyle={styles.dropdownQuantity}
+                  dropdownPosition={0.1}
+                  label='Quantity'
+                  data={dropdownQuantity}
+                  itemCount={5}
+                  onChangeText={this._dropdownQuantity}
+                />
+                <Dropdown
+                  containerStyle={styles.dropdownUnit}
+                  dropdownPosition={0.1}
+                  label='Unit'
+                  data={dropdownUnit}
+                  itemCount={5}
+                  onChangeText={this._dropdownUnit}
+                />
               </View>
+
             </View>
+            }
+            />
+            <TouchableOpacity onPress={() => this.sendRfq()} style={styles.rfmButton}>
+              <Text style={styles.rfmText}>Request for quotation</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 const styles = {
@@ -59,28 +160,29 @@ const styles = {
   cartsView: {
     padding: 10
   },
-  nameView: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  nameText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black'
-  },
   productView: {
+
+  },
+  imageView: {
+    width: '10%',
+    alignItems: 'center',
+    height: '100%'
+  },
+  prodetailView: {
     flexDirection: 'row',
-    // justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     // backgroundColor: 'blue'
   },
-  imageView: {
-    marginRight: 5
+  dropdownQuantity: {
+    width: '70%'
   },
-  prodetailView: {
-    // backgroundColor: 'blue',
-    flex: 1
+  dropdownUnit: {
+    width: '30%'
+  },
+  nameAndDel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   name: {
     fontSize: 20,
@@ -111,5 +213,20 @@ const styles = {
   quantityText: {
     fontSize: 15,
     fontWeight: 'bold'
-  }
-}
+  },
+  rfmButton: {
+    backgroundColor: '#f33155',
+    height: 40,
+    borderRadius: 5,
+    // paddingVertical: 5,
+    // paddingHorizontal: 8,
+    marginTop: 3,
+    // width: '40%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  rfmText: {
+    color: '#fff',
+    fontSize: 15
+  },
+};

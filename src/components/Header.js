@@ -15,8 +15,7 @@ export default class Navbar extends Component<{}> {
   //   logoutData: []
   // }
 
-  async logout(){
-    const device_id = this.props.navigation.state.params.device_id;
+  async logout(device_id){
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -34,13 +33,13 @@ export default class Navbar extends Component<{}> {
             resizeMode={'contain'} style={{width: 70, height: 50}}/>
           </TouchableOpacity>
         </View>
-        <Text>{this.props.title}</Text>
+        <View style={styles.headerTextView}><Text style={styles.headerText}>{this.props.title}</Text></View>
         <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Cart')}>
             <Image source={require('../images/cart-icon2.png')}
             resizeMode={'contain'} style={{width: 40, height: 30}}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.logout()}>
+          <TouchableOpacity onPress={(item) => this.logout(item.id)}>
             <Image source={require('../images/logout.png')}
             resizeMode={'contain'} style={{width: 40, height: 30}}/>
           </TouchableOpacity>
@@ -55,5 +54,14 @@ const styles = {
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  headerTextView:{
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  headerText: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    color: '#fff'
   }
 }
