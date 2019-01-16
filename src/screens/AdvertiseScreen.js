@@ -44,6 +44,7 @@ export default class App extends Component<{}> {
             // numColumns={2}
             data={this.state.data}
             // keyExtractor={(item) => item.name}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({item}) =>
                 <View style={styles.memberView}>
                   <View style={styles.nameView}><Text style={styles.nameText}>{item.title}</Text></View>

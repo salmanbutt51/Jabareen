@@ -93,6 +93,12 @@ const HomeStack = createDrawerNavigator({
       drawerLabel: 'Dashboard',
     }
   },
+  Companyteam: {
+    screen: CompanyTeamScreen,
+    navigationOptions: {
+      title: 'Company Team'
+    }
+  },
   Products: {
     screen: ProductStack,
     navigationOptions: {
@@ -111,44 +117,41 @@ const HomeStack = createDrawerNavigator({
   Evaluate:{
     screen: EvaluateScreen
   },
+  CompanyMap:{
+    screen: MapScreen,
+    navigationOptions: {
+      title: 'Company Map'
+    }
+  },
+  Whoweare: {
+    screen: WhoWeAreScreen,
+    navigationOptions: {
+      title: 'Who We Are'
+    }
+  },
   Advertisement:{
     screen: AdvertiseScreen
   },
   Rfm:{
     screen: RfmScreen
   },
-  Whoweare: {
-    screen: WhoWeAreScreen,
-    navigationOptions: {
-      tabBarLabel: 'Who We Are'
-    }
-  },
   Contactus: {
     screen: ContactUsScreen,
     navigationOptions: {
-      tabBarLabel: 'ContactUsScreen'
+      title: 'Contact Us'
     }
   },
   AccountRequest: {
     screen: AccountRequestScreen,
     navigationOptions: {
-      tabBarLabel: 'ContactUsScreen'
-    }
-  },
-  Companyteam: {
-    screen: CompanyTeamScreen,
-    navigationOptions: {
-      tabBarLabel: 'Company Team'
+      title: 'Account Request'
     }
   },
   Complaints: {
     screen: ComplaintsScreen,
     navigationOptions: {
-      tabBarLabel: 'Complaints'
+      title: 'Complaints'
     }
-  },
-  CompanyMap:{
-    screen: MapScreen
   },
 });
 

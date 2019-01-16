@@ -17,7 +17,7 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <ScrollView>
-          <Header navigation={this.props.navigation} />
+          <Header navigation={this.props.navigation} title={'Dashboard'} />
           <View style={styles.dashboardView}>
           <ImageSlider images={[
             'http://vishalfurnishings.com/wp-content/uploads/2015/04/Melamine-Crockery-in-Faridabad.jpg',
@@ -29,7 +29,7 @@ export default class App extends Component<{}> {
           </View>
           <View style={styles.tilesView}>
             <View style={styles.flexView}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Products')} style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Categories')} style={styles.tile}>
                 <View><Text style={styles.tileText}>PRODUCTS</Text></View>
                 <View><Image source={require('../images/products.png')}
                 resizeMode={'contain'}

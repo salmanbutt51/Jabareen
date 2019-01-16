@@ -11,8 +11,23 @@ import {
   TextInput
 } from 'react-native';
 import Header from '../components/Header';
+import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import Textarea from 'react-native-textarea';
 export default class App extends Component<{}> {
+
+  attachFile(){
+    DocumentPicker.show({
+        filetype: [DocumentPickerUtil.images()],
+      },(error,res) => {
+        // Android
+        console.log(
+           res.uri,
+           res.type, // mime type
+           res.fileName,
+           res.fileSize
+        );
+      });
+  }
 
   render() {
     return(
@@ -29,13 +44,16 @@ export default class App extends Component<{}> {
               underlineColorAndroid={'transparent'}
             />
             <Text style={styles.inputText}>Attachment<Text style={{color: 'red'}}>*</Text></Text>
+            <TouchableOpacity onPress={() => this.attachFile()} style={styles.rfmButton}>
+              <Text style={styles.rfmText}>Attach file</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => this.sendComplaints()} style={styles.rfmButton}>
               <Text style={styles.rfmText}>Submit request</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 const styles = {
@@ -66,7 +84,8 @@ const styles = {
     padding: 5,
     backgroundColor: '#fff',
     marginTop: 8,
-    marginBottom: 15
+    marginBottom: 15,
+    borderRadius: 5
   },
   textarea: {
     textAlignVertical: 'top',  // hack android

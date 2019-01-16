@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
+import Dialog, { SlideAnimation, DialogContent, ScaleAnimation } from 'react-native-popup-dialog';
 import {
   Platform,
   StyleSheet,
@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 import { Dropdown } from 'react-native-material-dropdown';
 export default class App extends Component<{}> {
   state = {
@@ -55,13 +56,18 @@ export default class App extends Component<{}> {
     this.setState({
       popupVisible: false,
     });
+    if (responseInJson.response === 'success') {
+      this._dropdown.itemAction({type: 'success', title: 'Status changed', message: responseInJson.message});
+    } else {
+      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+    }
   }
 
   render() {
     let dropdownData = [{
       value: 'Meeting done',
-    },
-  ];
+      },
+    ];
     return(
       <View style={styles.container}>
         <ScrollView>
@@ -72,6 +78,7 @@ export default class App extends Component<{}> {
             // style={{flex: 1}}
             // numColumns={2}
             data={this.state.data}
+            keyExtractor={(item) => item.id.toString()}
             // keyExtractor={(item) => item.name}
             renderItem={({item}) =>
                 <View style={styles.memberView}>
@@ -106,8 +113,9 @@ export default class App extends Component<{}> {
             onTouchOutside={() => {
               this.setState({ popupVisible: false });
             }}
-            dialogAnimation={new SlideAnimation({
-              slideFrom: 'top',
+            dialogAnimation={new ScaleAnimation({
+              toValue: 0,
+              useNativeDriver: true,
             })}
           >
             <DialogContent>
@@ -122,6 +130,7 @@ export default class App extends Component<{}> {
             </DialogContent>
           </Dialog>
         </ScrollView>
+        <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }

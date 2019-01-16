@@ -103,11 +103,27 @@ export default class App extends Component<{}> {
     });
   }
 
-  _zeroEvaluation = (zeroeval) => {
-    console.log('status zero: ', zeroeval);
-    // this.setState({
-    //   zero: zero
-    // });
+  _zeroEvaluation(type) {
+    if (type==='p'){
+      this.setState({
+        starCountPromoter: 0
+      });
+    }
+    if (type==='s'){
+      this.setState({
+        starCountSalesman: 0
+      });
+    }
+    if (type==='d'){
+      this.setState({
+        starCountDriver: 0
+      });
+    }
+    if (type==='a'){
+      this.setState({
+        starCountApp: 0
+      });
+    }
   }
 
   render() {
@@ -143,72 +159,76 @@ export default class App extends Component<{}> {
           <Header navigation={this.props.navigation} title={'Evaluate'} />
           <View style={styles.subContainer}>
             <View style={styles.evaluation}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.text}>Promoter Evaluation </Text>
-                <TouchableOpacity style={styles.minusButton} onPress={this._zeroEvaluation}>
+              <Text style={styles.text}>Promoter Evaluation </Text>
+              <View style={styles.ratingView}>
+                <TouchableOpacity style={styles.minusButton} onPress={() => this._zeroEvaluation('p')}>
                   <Image source={require('../images/minus.png')}
                   resizeMode={'center'}
                   style={styles.minusImage} />
                 </TouchableOpacity>
+                <StarRating
+                  containerStyle={styles.starRating}
+                  disabled={false}
+                  maxStars={5}
+                  fullStarColor='#fde16d'
+                  rating={this.state.starCountPromoter}
+                  selectedStar={(rating) => this.onStarRatingPressPromoter(rating)}
+                />
               </View>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                fullStarColor='#fde16d'
-                rating={this.state.starCountPromoter}
-                selectedStar={(rating) => this.onStarRatingPressPromoter(rating)}
-              />
             </View>
             <View style={styles.evaluation}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.text}>Sales Man Evaluation </Text>
-                <TouchableOpacity style={styles.minusButton} onPress={this._zeroEvaluation}>
+              <Text style={styles.text}>Sales Man Evaluation </Text>
+              <View style={styles.ratingView}>
+                <TouchableOpacity style={styles.minusButton} onPress={() => this._zeroEvaluation('s')}>
                   <Image source={require('../images/minus.png')}
                   resizeMode={'center'}
                   style={styles.minusImage} />
                 </TouchableOpacity>
+                <StarRating
+                  containerStyle={styles.starRating}
+                  disabled={false}
+                  maxStars={5}
+                  fullStarColor='#fde16d'
+                  rating={this.state.starCountSalesman}
+                  selectedStar={(rating) => this.onStarRatingPressSalesman(rating)}
+                />
               </View>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                fullStarColor='#fde16d'
-                rating={this.state.starCountSalesman}
-                selectedStar={(rating) => this.onStarRatingPressSalesman(rating)}
-              />
             </View>
             <View style={styles.evaluation}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.text}>Driver Evaluation </Text>
-                <TouchableOpacity style={styles.minusButton} onPress={this._zeroEvaluation}>
+              <Text style={styles.text}>Driver Evaluation </Text>
+              <View style={styles.ratingView}>
+                <TouchableOpacity style={styles.minusButton} onPress={() => this._zeroEvaluation('d')}>
                   <Image source={require('../images/minus.png')}
                   resizeMode={'center'}
                   style={styles.minusImage} />
                 </TouchableOpacity>
+                <StarRating
+                  containerStyle={styles.starRating}
+                  disabled={false}
+                  maxStars={5}
+                  fullStarColor='#fde16d'
+                  rating={this.state.starCountDriver}
+                  selectedStar={(rating) => this.onStarRatingPressDriver(rating)}
+                />
               </View>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                fullStarColor='#fde16d'
-                rating={this.state.starCountDriver}
-                selectedStar={(rating) => this.onStarRatingPressDriver(rating)}
-              />
             </View>
             <View style={styles.evaluation}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.text}>Application Evaluation </Text>
-                <TouchableOpacity style={styles.minusButton} onPress={this._zeroEvaluation}>
+              <Text style={styles.text}>Application Evaluation </Text>
+              <View style={styles.ratingView}>
+                <TouchableOpacity style={styles.minusButton} onPress={() => this._zeroEvaluation('a')}>
                   <Image source={require('../images/minus.png')}
                   resizeMode={'center'}
                   style={styles.minusImage} />
                 </TouchableOpacity>
+                <StarRating
+                  containerStyle={styles.starRating}
+                  disabled={false}
+                  maxStars={5}
+                  fullStarColor='#fde16d'
+                  rating={this.state.starCountApp}
+                  selectedStar={(rating) => this.onStarRatingPressApp(rating)}
+                />
               </View>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                fullStarColor='#fde16d'
-                rating={this.state.starCountApp}
-                selectedStar={(rating) => this.onStarRatingPressApp(rating)}
-              />
             </View>
             <View style={styles.evaluation}>
               <Text style={styles.overalltext}>Overall Evaluation</Text>
@@ -251,10 +271,19 @@ const styles = {
     padding: 10
   },
   evaluation: {
-    marginBottom: 20
+    marginBottom: 30
+  },
+  ratingView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // justifyContent: 'space-around'
   },
   minusButton: {
-    marginTop: 4
+    // marginRight: 10
+    width: '10%'
+  },
+  starRating: {
+    width: '70%'
   },
   minusImage: {
     width: 20,
