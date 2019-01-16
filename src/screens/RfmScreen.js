@@ -19,7 +19,8 @@ export default class App extends Component<{}> {
   state = {
     data: [],
     popupVisible: false,
-    statusSelected: ''
+    statusSelected: '',
+    rfm_id: '',
   }
   async componentDidMount(){
     const token = await AsyncStorage.getItem('user_token');
@@ -41,11 +42,11 @@ export default class App extends Component<{}> {
     });
   }
 
-  async changeRfmStatus(rfm_id){
+  async changeRfmStatus(){
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
-      rfm_id: rfm_id,
+      rfm_id: this.state.rfm_id,
       status: this.state.statusSelected
     };
     const resp = await services.changeRfmStatus(data);
@@ -89,7 +90,7 @@ export default class App extends Component<{}> {
                     <View style={styles.meetingButton}>
                       <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => this.setState({ popupVisible: true })} style={styles.rfmButton}>
+                    <TouchableOpacity onPress={() => this.setState({ popupVisible: true, rfm_id: item.id })} style={styles.rfmButton}>
                       <Text style={styles.rfmText}>Change Status</Text>
                     </TouchableOpacity>
 

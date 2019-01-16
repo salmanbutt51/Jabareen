@@ -15,12 +15,16 @@ import {
 import Header from '../components/Header';
 import services from '../utils/services';
 import { Dropdown } from 'react-native-material-dropdown';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   state = {
     data: [],
     quantity: '',
     unit: ''
   }
+
+  quantity = [];
+  unit = [];
 
   async componentDidMount(){
     const token = await AsyncStorage.getItem('user_token');
@@ -37,32 +41,41 @@ export default class App extends Component<{}> {
 
   _dropdownQuantity = (quantity) => {
     console.log('quantitySelected from button: ', quantity);
+    this.quantity.push(quantity);
     this.setState({
       quantity: quantity
     });
   }
 
   _dropdownUnit = (unit) => {
-    console.log('quantitySelected from button: ', unit);
+    console.log('unitSelected from button: ', unit);
+    this.unit.push(unit);
     this.setState({
       unit: unit
     });
   }
 
-  async sendRfq(cart_id){
+  async sendRfq(){
     const token = await AsyncStorage.getItem('user_token');
+    let cart_id = [];
+    this.state.data.map((item) => {
+      cart_id.push(item.id);
+    });
+    console.log('both ids: ', cart_id)
     const data = {
       token: token,
       cart_id: cart_id,
-      quantity: this.state.quantity,
-      unit: this.state.unit
+      quantity: this.quantity,
+      unit: this.unit,
     };
     const resp = await services.sendRfq(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
-    // this.setState({
-    //   popupVisible: false,
-    // });
+    if (responseInJson.response === 'success') {
+      this._dropdown.itemAction({type: 'success', title: 'Quotation Sent', message: responseInJson.message});
+    } else {
+      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+    }
   }
 
   render() {
@@ -148,6 +161,7 @@ export default class App extends Component<{}> {
             </TouchableOpacity>
           </View>
         </ScrollView>
+        <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }

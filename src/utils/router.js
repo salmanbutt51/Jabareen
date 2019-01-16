@@ -8,6 +8,8 @@ import ProductsScreen from '../screens/ProductsScreen';
 import ProductsListScreen from '../screens/ProductsListScreen';
 import SubCategoryScreen from '../screens/SubCategoryScreen';
 import CartScreen from '../screens/CartScreen';
+import RfqHistoryScreen from '../screens/RfqHistoryScreen';
+import RfqDetailScreen from '../screens/RfqDetailScreen';
 import EvaluateScreen from '../screens/EvaluateScreen';
 import AdvertiseScreen from '../screens/AdvertiseScreen';
 import RfmScreen from '../screens/RfmScreen';
@@ -66,7 +68,22 @@ const CartStack = createStackNavigator({
     navigationOptions: {
     title: 'Cart'
     },
-  }
+  },
+});
+
+const OrderStack = createStackNavigator({
+  Rfqhistory:{
+    screen: RfqHistoryScreen,
+    navigationOptions: {
+    title: 'Rfq History'
+    },
+  },
+  Rfqhistorydetail:{
+    screen: RfqDetailScreen,
+    navigationOptions: {
+    title: 'Rfq History Detail'
+    },
+  },
 });
 
 const HomeStack = createDrawerNavigator({
@@ -87,6 +104,9 @@ const HomeStack = createDrawerNavigator({
     navigationOptions: {
       tabBarLabel: 'Cart'
     }
+  },
+  Orders:{
+    screen: OrderStack,
   },
   Evaluate:{
     screen: EvaluateScreen

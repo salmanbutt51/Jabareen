@@ -188,6 +188,57 @@ export default {
     }
   },
 
+  async rfqHistory(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'rfq_history', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async rfqHistoryDetail(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'rfq_history_details', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async changeRfqStatus(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'change_rfq_status', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async advertiseList(data) {
     console.log('data: ', data);
     try {
@@ -273,6 +324,23 @@ export default {
     }
   },
 
+  async evaluate(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'evaluate', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async AccountRequest(data) {
     console.log('data: ', data);
     try {
@@ -288,5 +356,22 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  async sendComplaints(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'send_complaints_proposal', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
+};

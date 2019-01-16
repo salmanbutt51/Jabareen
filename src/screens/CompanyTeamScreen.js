@@ -15,6 +15,7 @@ import {
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Header from '../components/Header';
 import services from '../utils/services';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   state = {
     data: [],
@@ -62,9 +63,11 @@ export default class App extends Component<{}> {
     const resp = await services.sendRfm(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
-    // this.setState({
-    //   data: responseInJson.data
-    // });
+    if (responseInJson.response === 'success') {
+      this._dropdown.itemAction({type: 'success', title: 'Rfm sent', message: responseInJson.message});
+    } else {
+      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+    }
   }
 
   render() {
@@ -114,6 +117,7 @@ export default class App extends Component<{}> {
 
             </View>
         </ScrollView>
+        <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }

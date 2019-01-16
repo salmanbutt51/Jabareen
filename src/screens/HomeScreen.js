@@ -20,9 +20,9 @@ export default class App extends Component<{}> {
           <Header navigation={this.props.navigation} />
           <View style={styles.dashboardView}>
           <ImageSlider images={[
-            'https://c.tribune.com.pk/2018/12/1877683-imrankhanofficialxx-1546178992-959-640x480.jpeg',
-            'https://c.tribune.com.pk/2018/06/1736644-imrankhanepa-1529252546-908-640x480.jpg',
-            'https://images.indianexpress.com/2018/08/imran-khan-7591.jpg']}
+            'http://vishalfurnishings.com/wp-content/uploads/2015/04/Melamine-Crockery-in-Faridabad.jpg',
+            'https://cld.forkly.com/image/upload/t_tn,f_auto,q_auto,$h_390,$w_748/fo/2018/06/shutterstock_69995371-1.jpg',
+            'https://www.plasticsrecycling.org/images/pdf/Toolkits/Bulky/Plastics_grouping_bulky.jpg']}
             loopBothSides= {true}
             autoPlayWithInterval={3000}
           />

@@ -42,8 +42,7 @@ export default class App extends Component<{}> {
     const responseInJson = await resp.json();
     console.log(responseInJson);
     if (responseInJson.response === 'success') {
-      // await AsyncStorage.setItem('user_token', responseInJson.data.token);
-      this._dropdown.itemAction({type: 'success', title: 'Success', message: responseInJson.message});
+      this._dropdown.itemAction({type: 'success', title: 'Product added to cart', message: responseInJson.message});
     } else {
       this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
     }
@@ -66,10 +65,7 @@ export default class App extends Component<{}> {
             <View
               style={styles.item} >
               <View style={{alignItems: 'center'}}>
-                <Image source={require('../images/crockery3.png')}
-                resizeMode={'contain'}
-                style={styles.proImage}
-                 />
+
               </View>
               <View style={{alignItems: 'flex-start'}}>
                 <Text style={styles.name} >{item.product_name}</Text>
