@@ -155,8 +155,9 @@ export default class App extends Component<{}> {
     ];
     return(
       <View style={styles.container}>
+        <Header navigation={this.props.navigation} title={'Evaluate'} />
         <ScrollView>
-          <Header navigation={this.props.navigation} title={'Evaluate'} />
+
           <View style={styles.subContainer}>
             <View style={styles.evaluation}>
               <Text style={styles.text}>Promoter Evaluation </Text>

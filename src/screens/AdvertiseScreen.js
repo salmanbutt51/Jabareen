@@ -34,9 +34,8 @@ export default class App extends Component<{}> {
     console.log(this.state.data.description);
     return(
       <View style={styles.container}>
+        <Header navigation={this.props.navigation} title={'Advertisement'} />
         <ScrollView>
-
-            <Header navigation={this.props.navigation} title={'Advertisement'} />
             <View style={styles.subContainer}>
             <FlatList
             contentContainerStyle={styles.flatList}

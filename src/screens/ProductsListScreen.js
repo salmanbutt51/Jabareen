@@ -53,7 +53,6 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
-        {/*<Header navigation={this.props.navigation} title={'Product Lists'} />*/}
           <FlatList
           contentContainerStyle={styles.flatList}
           // style={{flex: 1}}

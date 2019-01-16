@@ -53,7 +53,7 @@ export default class Navbar extends Component<{}> {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.logout()}>
             <Image source={require('../images/logout.png')}
-            resizeMode={'contain'} style={{width: 40, height: 30}}/>
+            resizeMode={'contain'} style={{width: 30, height: 25}}/>
           </TouchableOpacity>
         </View>
       </View>
