@@ -115,7 +115,7 @@ export default class App extends Component<{}> {
     ];
     return(
       <View style={styles.container}>
-        {/*<Header navigation={this.props.navigation} title={'My Cart'}/>*/}
+        <Header navigation={this.props.navigation} title={'My Cart'}/>
         <ScrollView>
           <View style={styles.cartsView}>
             <FlatList
