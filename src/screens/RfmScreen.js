@@ -70,8 +70,8 @@ export default class App extends Component<{}> {
     ];
     return(
       <View style={styles.container}>
+        <Header navigation={this.props.navigation} title={'RFM'} />
         <ScrollView>
-          <Header navigation={this.props.navigation} title={'RFM'} />
           <View style={styles.subContainer}>
             <FlatList
             contentContainerStyle={styles.flatList}

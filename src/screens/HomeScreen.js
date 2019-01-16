@@ -16,8 +16,9 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
+        <Header navigation={this.props.navigation} showDrawer={true} title={'Dashboard'} />
         <ScrollView>
-          <Header navigation={this.props.navigation} showDrawer={true} title={'Dashboard'} />
+
           <View style={styles.dashboardView}>
           <ImageSlider images={[
             'http://vishalfurnishings.com/wp-content/uploads/2015/04/Melamine-Crockery-in-Faridabad.jpg',

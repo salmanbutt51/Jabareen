@@ -32,8 +32,8 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
+        <Header navigation={this.props.navigation} title={'Account Request'} />
         <ScrollView>
-          <Header navigation={this.props.navigation} title={'Account Request'} />
           <View style={styles.subContainer}>
             <Text style={styles.text}>If you press this button. We will receive your account request & will reply you in the earliest.</Text>
             <Text style={styles.text}>إذا قمت بالضغط على الأيقونة الموجوده فسيتم إرسال طلب كشف حساب وسنقوم بإرساله لكم بأسرع وقت </Text>
