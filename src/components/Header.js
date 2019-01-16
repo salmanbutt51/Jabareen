@@ -10,28 +10,40 @@ import {
   AsyncStorage
 } from 'react-native';
 import services from '../utils/services';
+import PropTypes from 'prop-types';
 export default class Navbar extends Component<{}> {
   // state = {
   //   logoutData: []
   // }
 
-  async logout(device_id){
-    const token = await AsyncStorage.getItem('user_token');
-    const data = {
-      token: token,
-      device_id: device_id
-    };
-    const resp = await services.logout(data);
-    console.log(resp);
+  static propTypes = {
+    showDrawer: PropTypes.bool
+  }
+
+  async logout(){
+    await AsyncStorage.removeItem('user_token');
+    this.props.navigation.navigate('Auth');
   }
 
   render(){
     return(
       <View style={styles.navbar}>
-        <View style={{justifyContent: 'center'}}>
-          <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}><Image source={require('../images/menu_icon.png')}
-            resizeMode={'contain'} style={{width: 70, height: 50}}/>
-          </TouchableOpacity>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          {
+            this.props.showDrawer !== true
+            ? <TouchableOpacity onPress={() => this.props.navigation.navigate('Dashboard')}>
+              <Image source={require('../images/Back-arrow.png')}
+                resizeMode={'contain'} style={{width: 30, height: 30, marginLeft: 10}}
+              />
+            </TouchableOpacity>
+            : <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+              <Image source={require('../images/menu_icon.png')}
+                resizeMode={'contain'} style={{width: 70, height: 50}}
+              />
+            </TouchableOpacity>
+          }
+
+
         </View>
         <View style={styles.headerTextView}><Text style={styles.headerText}>{this.props.title}</Text></View>
         <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
@@ -39,7 +51,7 @@ export default class Navbar extends Component<{}> {
             <Image source={require('../images/cart-icon2.png')}
             resizeMode={'contain'} style={{width: 40, height: 30}}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={(item) => this.logout(item.id)}>
+          <TouchableOpacity onPress={() => this.logout()}>
             <Image source={require('../images/logout.png')}
             resizeMode={'contain'} style={{width: 40, height: 30}}/>
           </TouchableOpacity>

@@ -45,7 +45,7 @@ const ProductStack = createStackNavigator({
   Categories:{
     screen: ProductsScreen,
     navigationOptions: {
-    title: 'Categories'
+    header: null
     },
   },
   Subcategory:{
@@ -60,15 +60,6 @@ const ProductStack = createStackNavigator({
     title: 'Products List'
     },
   }
-});
-
-const CartStack = createStackNavigator({
-  Cart:{
-    screen: CartScreen,
-    navigationOptions: {
-    title: 'Cart'
-    },
-  },
 });
 
 const OrderStack = createStackNavigator({
@@ -106,7 +97,7 @@ const HomeStack = createDrawerNavigator({
     }
   },
   Cart: {
-    screen: CartStack,
+    screen: CartScreen,
     navigationOptions: {
       tabBarLabel: 'Cart'
     }

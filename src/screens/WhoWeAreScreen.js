@@ -34,7 +34,7 @@ export default class App extends Component<{}> {
     console.log(this.state.data.value);
     return(
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} />
+        <Header navigation={this.props.navigation} title={'Who We Are'} />
         <WebView
           source={{ html: this.state.data.value }}
           style={{ marginTop: 20 }}
