@@ -16,7 +16,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import Header from '../components/Header';
 import services from '../utils/services';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
-export default class App extends Component<{}> {
+
+export default class CompanyTeamScreen extends Component<{}> {
   state = {
     data: [],
     isDateTimePickerVisible: false,
@@ -36,13 +37,9 @@ export default class App extends Component<{}> {
     });
   }
 
-  _showDateTimePicker() {
-    this.setState({ isDateTimePickerVisible: true });
-  }
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-
 
   _handleDatePicked = (date) => {
     console.log('A date has been picked: ', date);
@@ -78,12 +75,11 @@ export default class App extends Component<{}> {
             <Header navigation={this.props.navigation} title={'Company Section'} />
             <View style={styles.subContainer}>
             <FlatList
-            contentContainerStyle={styles.flatList}
-            // style={{flex: 1}}
-            // numColumns={2}
-            data={this.state.data}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({item}) =>
+              contentContainerStyle={styles.flatList}
+              extraData={this.state}
+              data={this.state.data}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({item}) =>
                 <View style={styles.memberView}>
                   <View style={styles.imageView}>
                     <Image source={{uri: item.image}}
@@ -98,7 +94,7 @@ export default class App extends Component<{}> {
                     <Text style={styles.position}>{item.position}</Text>
                     <Text style={styles.mobile}>Tel: {item.mobile}</Text>
                     <Text style={styles.email}>Email: {item.email}</Text>
-                    <TouchableOpacity onPress={() => this._showDateTimePicker()}>
+                    <TouchableOpacity onPress={this._showDateTimePicker}>
                       <Text>{this.state.date}</Text>
                     </TouchableOpacity>
                     <DateTimePicker
