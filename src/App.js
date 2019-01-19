@@ -9,27 +9,11 @@ from 'react-native';
 import AppContainer from './utils/router';
 export default class App extends Component<{}> {
 
-  state = {
-    videoEnded: false
-  }
 
   render() {
     return (
-      <View style={styles.container}>
-      {
-        this.state.videoEnded
-        ? <AppContainer />
-        : <Video source={require('./videos/video.mp4')}   // Can be a URL or a local file.
-           ref={(ref) =>
-             this.player = ref
-           }
-           onError={() => console.log('Video was not loaded')}
-           style={styles.backgroundVideo}
-           resizeMode='cover'
-           onEnd={() => this.setState({videoEnded: true})}
-        />
-      }
-      </View>
+
+      <AppContainer />
     );
   }
 }

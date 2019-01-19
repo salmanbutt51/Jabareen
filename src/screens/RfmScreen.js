@@ -22,6 +22,7 @@ export default class App extends Component<{}> {
     popupVisible: false,
     statusSelected: '',
     rfm_id: '',
+    isMeetingTimeVisible: true
   }
   async componentDidMount(){
     const token = await AsyncStorage.getItem('user_token');
@@ -55,6 +56,7 @@ export default class App extends Component<{}> {
     console.log(responseInJson);
     this.setState({
       popupVisible: false,
+      isrfmbuttonVisible: false
     });
     if (responseInJson.response === 'success') {
       this._dropdown.itemAction({type: 'success', title: 'Status changed', message: responseInJson.message});
@@ -93,10 +95,16 @@ export default class App extends Component<{}> {
 
                     </View>
                     <Text style={styles.position}>{item.compnay_position}</Text>
-                    <Text style={styles.mobile}>Meeting Time:</Text>
-                    <View style={styles.meetingButton}>
-                      <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
-                    </View>
+                    {
+                      this.state.isMeetingTimeVisible !== true
+                      ? <View>
+                          <Text style={styles.mobile}>Meeting Time:</Text>
+                          <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
+                        </View>
+                      : <Text style={styles.mobile}>Meeting done</Text>
+                    }
+
+
                     <TouchableOpacity onPress={() => this.setState({ popupVisible: true, rfm_id: item.id })} style={styles.rfmButton}>
                       <Text style={styles.rfmText}>Change Status</Text>
                     </TouchableOpacity>
