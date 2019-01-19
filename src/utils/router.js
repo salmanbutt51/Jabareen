@@ -19,6 +19,7 @@ import AccountRequestScreen from '../screens/AccountRequestScreen';
 import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 import ComplaintsScreen from '../screens/ComplaintsScreen';
 import MapScreen from '../screens/MapScreen';
+import Root from '../screens/Root';
 
 const AuthStack = createStackNavigator({
   Welcome: {
@@ -156,6 +157,7 @@ const HomeStack = createDrawerNavigator({
 });
 
 const MainSwitch = createSwitchNavigator({
+  AuthLoading: Root,
   Auth: {
     screen: AuthStack
   },

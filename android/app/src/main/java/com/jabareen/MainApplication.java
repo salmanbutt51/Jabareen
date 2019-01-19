@@ -2,10 +2,9 @@ package com.jabareen;
 
 import android.app.Application;
 
-import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactApplication;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,7 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new ReactNativeDocumentPicker(),
             new VectorIconsPackage(),
-            new RNCWebViewPackage(),
+            // new RNCWebViewPackage(),
             new RNGestureHandlerPackage()
       );
     }

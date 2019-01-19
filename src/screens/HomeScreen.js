@@ -30,7 +30,7 @@ export default class App extends Component<{}> {
           </View>
           <View style={styles.tilesView}>
             <View style={styles.flexView}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Categories')} style={styles.tile}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Products')} style={styles.tile}>
                 <View><Text style={styles.tileText}>PRODUCTS</Text></View>
                 <View><Image source={require('../images/products1.png')}
                 resizeMode={'contain'}

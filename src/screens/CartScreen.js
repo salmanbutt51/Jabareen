@@ -16,6 +16,7 @@ import Header from '../components/Header';
 import services from '../utils/services';
 import { Dropdown } from 'react-native-material-dropdown';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
+import LoadingButton from '../components/LoadingButton';
 export default class App extends Component<{}> {
   state = {
     data: [],
@@ -55,27 +56,45 @@ export default class App extends Component<{}> {
     });
   }
 
-  async sendRfq(){
-    const token = await AsyncStorage.getItem('user_token');
-    let cart_id = [];
-    this.state.data.map((item) => {
-      cart_id.push(item.id);
-    });
-    console.log('both ids: ', cart_id)
-    const data = {
-      token: token,
-      cart_id: cart_id,
-      quantity: this.quantity,
-      unit: this.unit,
-    };
-    const resp = await services.sendRfq(data);
-    const responseInJson = await resp.json();
-    console.log(responseInJson);
-    if (responseInJson.response === 'success') {
-      this._dropdown.itemAction({type: 'success', title: 'Quotation Sent', message: responseInJson.message});
+  async sendRfq() {
+    if (this.quantity.length < this.state.data.length || this.unit.length < this.state.data.length) {
+      this._dropdown.itemAction({type: 'error', message: 'Please select quantities and units of all the items in cart', title: 'Error'});
     } else {
-      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+      this._loadingButton.showLoading(true);
+      const token = await AsyncStorage.getItem('user_token');
+      let cart_id = [];
+      this.state.data.map((item) => {
+        cart_id.push(item.id);
+      });
+      console.log('both ids: ', cart_id);
+      const data = {
+        token: token,
+        cart_id: cart_id,
+        quantity: this.quantity,
+        unit: this.unit,
+      };
+      const resp = await services.sendRfq(data);
+      this._loadingButton.showLoading(false);
+      const responseInJson = await resp.json();
+      console.log(responseInJson);
+      if (responseInJson.response === 'success') {
+        this._dropdown.itemAction({type: 'success', title: 'Quotation Sent', message: responseInJson.message});
+      } else {
+        this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+      }
     }
+  }
+
+  deleteItemFromCart(item) {
+    // console.log(item);
+    var cartItems = this.state.data;
+    this.state.data.map((cartItem, index) => {
+      if (item.id === cartItem.id) {
+        cartItems.splice(index, 1);
+      }
+    });
+    console.log(cartItems);
+    this.setState({data: cartItems});
   }
 
   render() {
@@ -122,13 +141,15 @@ export default class App extends Component<{}> {
             contentContainerStyle={styles.flatList}
             data={this.state.data}
             // keyExtractor={(item) => item.name}
+            extraData={this.state}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({item}) =>
             <View style={styles.productView}>
-
               <View style={styles.prodetailView}>
                 <Text style={styles.name}>{item.product_name}</Text>
-                <TouchableOpacity style={styles.delButton}>
+                <TouchableOpacity style={styles.delButton}
+                  onPress={() => this.deleteItemFromCart(item)}
+                  >
                   <Image source={require('../images/del_icon.png')}
                   resizeMode={'contain'}
                   style={{width: 20, height: 20}} />
@@ -156,9 +177,7 @@ export default class App extends Component<{}> {
             </View>
             }
             />
-            <TouchableOpacity onPress={() => this.sendRfq()} style={styles.rfmButton}>
-              <Text style={styles.rfmText}>Request for quotation</Text>
-            </TouchableOpacity>
+            <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotataion' onPress={() => this.sendRfq()} />
           </View>
         </ScrollView>
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />

@@ -21,7 +21,6 @@
     "react-native-textarea": "^1.0.2",
     "react-native-vector-icons": "^6.1.0",
     "react-native-video": "^4.3.1",
-    "react-native-webview": "^3.0.2",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {

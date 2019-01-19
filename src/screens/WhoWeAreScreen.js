@@ -9,9 +9,10 @@ import {
   ScrollView,
   Button,
   AsyncStorage,
-  FlatList
+  FlatList,
+  WebView
 } from 'react-native';
-import { WebView } from 'react-native-webview';
+// import { WebView } from 'react-native-webview';
 import Header from '../components/Header';
 import services from '../utils/services';
 export default class App extends Component<{}> {
@@ -37,8 +38,8 @@ export default class App extends Component<{}> {
         <Header navigation={this.props.navigation} title={'Who We Are'} />
         <WebView
           source={{ html: this.state.data.value }}
-          style={{ marginTop: 20 }}
-          originWhitelist={['*']}
+          // style={{ marginTop: 20 }}
+          // originWhitelist={['*']}
         />
       </View>
     );

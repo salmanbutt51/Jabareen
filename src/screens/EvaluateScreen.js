@@ -16,6 +16,7 @@ import Header from '../components/Header';
 import Textarea from 'react-native-textarea';
 import services from '../utils/services';
 import { Dropdown } from 'react-native-material-dropdown';
+import LoadingButton from '../components/LoadingButton';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   state = {
@@ -34,6 +35,7 @@ export default class App extends Component<{}> {
   dropdownOverall= [];
 
   async submitEvaluation(){
+    this._loadingButton.showLoading(true);
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -45,6 +47,7 @@ export default class App extends Component<{}> {
       comments: this.state.comments
     };
     const resp = await services.evaluate(data);
+    this._loadingButton.showLoading(false);
     const responseInJson = await resp.json();
     console.log(responseInJson);
     // this.setState({
@@ -254,9 +257,7 @@ export default class App extends Component<{}> {
                 underlineColorAndroid={'transparent'}
               />
             </View>
-            <TouchableOpacity onPress={() => this.submitEvaluation()} style={styles.rfmButton}>
-              <Text style={styles.rfmText}>Submit Review</Text>
-            </TouchableOpacity>
+            <LoadingButton ref={(c) => this._loadingButton = c} title='Submit Review' onPress={() => this.submitEvaluation()} />
           </View>
         </ScrollView>
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />

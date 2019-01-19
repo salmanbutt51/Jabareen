@@ -19,6 +19,11 @@ export default {
     }
   },
 
+  async submitComplaint(data) {
+    console.log('data: ', data);
+    const formData = new FormData();
+  },
+
   async login(data) {
     console.log('data: ', data);
     try {

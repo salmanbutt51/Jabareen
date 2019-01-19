@@ -9,16 +9,18 @@ import {
   ScrollView,
   Button,
   AsyncStorage,
-  FlatList
+  FlatList,
+  WebView
 } from 'react-native';
-import { WebView } from 'react-native-webview';
+// import { WebView } from 'react-native-webview';
 import Header from '../components/Header';
 import services from '../utils/services';
 export default class App extends Component<{}> {
   state = {
     data: []
   }
-  async componentDidMount(){
+
+  async componentDidMount() {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -30,35 +32,20 @@ export default class App extends Component<{}> {
       data: responseInJson.data
     });
   }
+
   render() {
-    console.log(this.state.data.description);
+    // console.log(this.state.data.description);
+    const {data} = this.state;
+    var html = '';
+    if (data.length > 0) {
+      html = this.state.data[0].description;
+    }
     return(
       <View style={styles.container}>
         <Header navigation={this.props.navigation} title={'Advertisement'} />
-        <ScrollView>
-            <View style={styles.subContainer}>
-            <FlatList
-            contentContainerStyle={styles.flatList}
-            // style={{flex: 1}}
-            // numColumns={2}
-            data={this.state.data}
-            // keyExtractor={(item) => item.name}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({item}) =>
-                <View style={styles.memberView}>
-                  <View style={styles.nameView}><Text style={styles.nameText}>{item.title}</Text></View>
-                  <View style={styles.detailView}>
-                    <Image source={{uri: item.image}}
-                    resizeMode={'contain'}
-                    style={styles.adImage} />
-                  </View>
-
-                </View>
-            }
-            />
-
-            </View>
-        </ScrollView>
+        <WebView
+          source={{html: html}}
+        />
       </View>
     );
   }
@@ -68,10 +55,11 @@ const styles = {
     flex: 1,
   },
   subContainer: {
-    padding: 10
+    padding: 10,
+    backgroundColor: 'red'
   },
   memberView: {
-
+    backgroundColor: 'green',
   },
   nameView: {
     height: 80,
@@ -84,7 +72,8 @@ const styles = {
     color: 'black'
   },
   flatList: {
-    // flex: 1
+    flex: 1,
+    backgroundColor: 'purple'
   },
   adImage: {
     width: '100%',

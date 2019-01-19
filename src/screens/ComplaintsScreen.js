@@ -14,19 +14,17 @@ import Header from '../components/Header';
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import Textarea from 'react-native-textarea';
 export default class App extends Component<{}> {
+  state = {
+    file: {},
+  }
 
-  attachFile(){
+  attachFile() {
     DocumentPicker.show({
-        filetype: [DocumentPickerUtil.images()],
-      },(error,res) => {
-        // Android
-        console.log(
-           res.uri,
-           res.type, // mime type
-           res.fileName,
-           res.fileSize
-        );
-      });
+      filetype: [DocumentPickerUtil.allFiles()],
+    },(error, file) => {
+      this.setState({file: file});
+      console.log(file);
+    });
   }
 
   render() {
@@ -44,6 +42,7 @@ export default class App extends Component<{}> {
               underlineColorAndroid={'transparent'}
             />
             <Text style={styles.inputText}>Attachment<Text style={{color: 'red'}}>*</Text></Text>
+            <Text>{this.state.file.fileName}</Text>
             <TouchableOpacity onPress={() => this.attachFile()} style={styles.rfmButton}>
               <Text style={styles.rfmText}>Attach file</Text>
             </TouchableOpacity>

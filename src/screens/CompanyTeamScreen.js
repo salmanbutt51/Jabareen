@@ -21,11 +21,11 @@ export default class CompanyTeamScreen extends Component<{}> {
   state = {
     data: [],
     isDateTimePickerVisible: false,
-    date: [],
-    dateObj: 'Select date',
-    isrfmbuttonVisible: false
+    isrfmbuttonVisible: false,
+    item: {}
   }
-  async componentDidMount(){
+
+  async componentDidMount() {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -38,27 +38,33 @@ export default class CompanyTeamScreen extends Component<{}> {
     });
   }
 
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+  showDateTimePicker(item) {
+    this.setState({ isDateTimePickerVisible: true, item });
+  }
 
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
   _handleDatePicked = (date) => {
     console.log('A date has been picked: ', date);
-    this._hideDateTimePicker();
-    this.setState({
-      // date: date.toString(),
-      dateObj: date.toString(),
-      date: date,
-      isrfmbuttonVisible: true
+    console.log('item:', this.state.item);
+    var companies = this.state.data;
+    companies.map((company) => {
+      if (this.state.item.id === company.id) {
+        company.date = date;
+        console.log(company);
+      }
     });
+    console.log(companies);
+    this.setState({data: companies});
+    this._hideDateTimePicker();
   }
 
-  async sendRfm(team_id){
+  async sendRfm(item) {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
-      company_team_id: team_id,
-      meeting_date_time: this.state.dateObj
+      company_team_id: item.id,
+      meeting_date_time: item.date
     };
     const resp = await services.sendRfm(data);
     const responseInJson = await resp.json();
@@ -92,7 +98,9 @@ export default class CompanyTeamScreen extends Component<{}> {
                     <Text style={styles.name}>{item.name}</Text>
                     <View style={styles.rfmView}>
                       <Text style={styles.position}>{item.position}</Text>
-                      <TouchableOpacity onPress={this._showDateTimePicker}>
+                      <TouchableOpacity onPress={() => {
+                          this.showDateTimePicker(item);
+                        }}>
                         <Image source={require('../images/rfm_icon2.png')}
                         resizeMode={'contain'}
                         style={{width: 40, height: 30}} />
@@ -101,26 +109,26 @@ export default class CompanyTeamScreen extends Component<{}> {
 
                     <Text style={styles.mobile}>Tel: {item.mobile}</Text>
                     <Text style={styles.email}>Email: {item.email}</Text>
-                    <Text>{this.state.dateObj}</Text>
-                    <DateTimePicker
-                      isVisible={this.state.isDateTimePickerVisible}
-                      onConfirm={this._handleDatePicked}
-                      onCancel={this._hideDateTimePicker}
-                      mode='datetime'
-                    />
                     {
-                      this.state.isrfmbuttonVisible == true
-                      ? <TouchableOpacity onPress={() => this.sendRfm(item.id)} style={styles.rfmButton}>
-                          <Text style={styles.rfmText}>Send RFM</Text>
-                        </TouchableOpacity>
-                      : <View></View>
+                      item.date === undefined
+                      ? <Text>Select any date</Text>
+                      : <View>
+                          <Text>{item.date.toString()}</Text>
+                          <TouchableOpacity onPress={() => this.sendRfm(item)} style={styles.rfmButton}>
+                            <Text style={styles.rfmText}>Send RFM</Text>
+                          </TouchableOpacity>
+                        </View>
                     }
-
                   </View>
                 </View>
             }
             />
-
+            <DateTimePicker
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+              mode='datetime'
+            />
             </View>
         </ScrollView>
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />

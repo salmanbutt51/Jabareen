@@ -58,6 +58,7 @@ export default class App extends Component<{}> {
       console.log('Response in JSON: ', responseJson);
       if (responseJson.response === 'success') {
         await AsyncStorage.setItem('user_token', responseJson.data.token);
+        await AsyncStorage.setItem('isloggedin', '1');
         this.navigation.navigate('Home');
       } else {
         this._dropdown.itemAction({type: 'error', title: 'Error', message: responseJson.message});

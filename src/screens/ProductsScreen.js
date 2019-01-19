@@ -12,12 +12,14 @@ import {
   FlatList
 } from 'react-native';
 import Header from '../components/Header';
+import { NavigationEvents } from 'react-navigation';
 import services from '../utils/services';
 export default class App extends Component<{}> {
   state = {
     data: []
   }
-  async componentDidMount(){
+
+  async getCategories(){
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -33,6 +35,9 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
+        <NavigationEvents
+          onWillFocus={() => this.getCategories()}
+        />
         <Header navigation={this.props.navigation} title={'Categories'} />
           <FlatList
           contentContainerStyle={styles.flatList}
