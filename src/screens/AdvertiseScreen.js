@@ -52,6 +52,7 @@ export default class App extends Component<{}> {
                     resizeMode={'contain'}
                     style={styles.adImage} />
                   </View>
+
                 </View>
             }
             />
@@ -59,7 +60,7 @@ export default class App extends Component<{}> {
             </View>
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 const styles = {
@@ -73,12 +74,12 @@ const styles = {
 
   },
   nameView: {
-    height: 50,
+    height: 80,
     alignItems: 'center',
     justifyContent: 'center'
   },
   nameText: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     color: 'black'
   },
@@ -87,7 +88,7 @@ const styles = {
   },
   adImage: {
     width: '100%',
-    height: 150,
+    height: 350,
     // backgroundColor: 'blue'
   }
 };

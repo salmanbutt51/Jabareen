@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   // state = {
   //   data: []
@@ -25,6 +26,11 @@ export default class App extends Component<{}> {
     const resp = await services.AccountRequest(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
+    if (responseInJson.response === 'success') {
+      this._dropdown.itemAction({type: 'success', title: 'Report Sent', message: responseInJson.message});
+    } else {
+      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+    }
     // this.setState({
     //   data: responseInJson.data
     // });
@@ -38,12 +44,13 @@ export default class App extends Component<{}> {
             <Text style={styles.text}>If you press this button. We will receive your account request & will reply you in the earliest.</Text>
             <Text style={styles.text}>إذا قمت بالضغط على الأيقونة الموجوده فسيتم إرسال طلب كشف حساب وسنقوم بإرساله لكم بأسرع وقت </Text>
             <TouchableOpacity onPress={() => this.accountRequest()} style={styles.submitButton}>
-              <Text style={styles.submitText}>Submit Request</Text>
+              <Text style={styles.submitText}>Send Financial Account Report</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
+        <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
-    )
+    );
   }
 }
 const styles = {

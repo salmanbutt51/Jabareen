@@ -66,13 +66,22 @@ const OrderStack = createStackNavigator({
   Rfqhistory:{
     screen: RfqHistoryScreen,
     navigationOptions: {
-    title: 'Rfq History'
+    header: null
     },
   },
   Rfqhistorydetail:{
     screen: RfqDetailScreen,
     navigationOptions: {
     title: 'Rfq History Detail'
+    },
+  },
+});
+
+const CartStack = createStackNavigator({
+  Cartscreen:{
+    screen: CartScreen,
+    navigationOptions: {
+    header: null
     },
   },
 });
@@ -97,7 +106,7 @@ const HomeStack = createDrawerNavigator({
     }
   },
   Cart: {
-    screen: CartScreen,
+    screen: CartStack,
     navigationOptions: {
       tabBarLabel: 'Cart'
     }

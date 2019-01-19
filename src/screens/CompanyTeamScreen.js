@@ -21,8 +21,9 @@ export default class CompanyTeamScreen extends Component<{}> {
   state = {
     data: [],
     isDateTimePickerVisible: false,
-    date: 'Select Date',
-    dateObj: {}
+    date: [],
+    dateObj: 'Select date',
+    isrfmbuttonVisible: false
   }
   async componentDidMount(){
     const token = await AsyncStorage.getItem('user_token');
@@ -45,10 +46,12 @@ export default class CompanyTeamScreen extends Component<{}> {
     console.log('A date has been picked: ', date);
     this._hideDateTimePicker();
     this.setState({
-      date: date.toString(),
-      dateObj: date
+      // date: date.toString(),
+      dateObj: date.toString(),
+      date: date,
+      isrfmbuttonVisible: true
     });
-  };
+  }
 
   async sendRfm(team_id){
     const token = await AsyncStorage.getItem('user_token');
@@ -86,25 +89,33 @@ export default class CompanyTeamScreen extends Component<{}> {
                     style={styles.profilePic} />
                   </View>
                   <View style={styles.detailView}>
+                    <Text style={styles.name}>{item.name}</Text>
                     <View style={styles.rfmView}>
-                      <Text style={styles.name}>{item.name}</Text>
-
+                      <Text style={styles.position}>{item.position}</Text>
+                      <TouchableOpacity onPress={this._showDateTimePicker}>
+                        <Image source={require('../images/rfm_icon2.png')}
+                        resizeMode={'contain'}
+                        style={{width: 40, height: 30}} />
+                      </TouchableOpacity>
                     </View>
-                    <Text style={styles.position}>{item.position}</Text>
+
                     <Text style={styles.mobile}>Tel: {item.mobile}</Text>
                     <Text style={styles.email}>Email: {item.email}</Text>
-                    <TouchableOpacity onPress={this._showDateTimePicker}>
-                      <Text>{this.state.date}</Text>
-                    </TouchableOpacity>
+                    <Text>{this.state.dateObj}</Text>
                     <DateTimePicker
                       isVisible={this.state.isDateTimePickerVisible}
                       onConfirm={this._handleDatePicked}
                       onCancel={this._hideDateTimePicker}
                       mode='datetime'
                     />
-                    <TouchableOpacity onPress={() => this.sendRfm(item.id)} style={styles.rfmButton}>
-                      <Text style={styles.rfmText}>Send RFM</Text>
-                    </TouchableOpacity>
+                    {
+                      this.state.isrfmbuttonVisible == true
+                      ? <TouchableOpacity onPress={() => this.sendRfm(item.id)} style={styles.rfmButton}>
+                          <Text style={styles.rfmText}>Send RFM</Text>
+                        </TouchableOpacity>
+                      : <View></View>
+                    }
+
                   </View>
                 </View>
             }
@@ -144,6 +155,7 @@ const styles = {
   rfmView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
   },
   name: {
     fontSize: 25,
