@@ -14,8 +14,8 @@ export default class App extends Component<{}> {
       <View style={styles.container}>
         <View style={styles.logo}>
           <Image source={require('../images/logo.png')}
-          resizeMode={'center'}
-          style={{width: 300, height: 150}} />
+            resizeMode={'contain'}
+            style={{width: 300, height: 150}} />
         </View>
         <View style={styles.bothButtons}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.loginButton}>

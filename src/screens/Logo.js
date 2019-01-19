@@ -11,10 +11,13 @@ export default class Logo extends Component<{}> {
     return(
       <View style={styles.logo}>
         <Image source={require('../images/logo.png')}
-        resizeMode={'center'}
-        style={{width: 300, height: 150}} />
+        resizeMode={'contain'}
+        style={{
+          width: 300,
+          height: 150,
+        }} />
       </View>
-    )
+    );
   }
 }
 const styles = {
@@ -24,6 +27,5 @@ const styles = {
     alignItems: 'center',
     padding: 0,
     marginBottom: 30
-    // backgroundColor: 'blue'
   }
-}
+};
