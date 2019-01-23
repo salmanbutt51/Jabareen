@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
   Platform,
   StyleSheet,
@@ -9,14 +10,16 @@ import {
   ScrollView,
   Button,
   AsyncStorage,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   state = {
-    data: []
+    data: [],
+    showLoader: true
   }
   category_id = this.props.navigation.state.params.category_id;
   async componentDidMount(){
@@ -29,7 +32,8 @@ export default class App extends Component<{}> {
     const responseInJson = await resp.json();
     console.log(responseInJson);
     this.setState({
-      data: responseInJson.data
+      data: responseInJson.data,
+      showLoader: false
     });
   }
   async addToCart(p_id){
@@ -53,7 +57,12 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
-          <FlatList
+        {
+          this.state.showLoader === true
+          ? <View style={styles.loader}>
+              <Bubbles size={10} color="#f33155" />
+            </View>
+          : <FlatList
           contentContainerStyle={styles.flatList}
           // style={{flex: 1}}
           numColumns={2}
@@ -77,6 +86,8 @@ export default class App extends Component<{}> {
             </View>
           }
           />
+        }
+
           <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
@@ -86,6 +97,11 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#edf1f5',
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   nameView: {
     height: 60,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
   Platform,
   StyleSheet,
@@ -10,11 +11,14 @@ import {
   Button,
   AsyncStorage,
   FlatList,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Header from '../components/Header';
 import services from '../utils/services';
+import LoadingButton from '../components/LoadingButton';
+import { NavigationEvents } from 'react-navigation';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 
 export default class CompanyTeamScreen extends Component<{}> {
@@ -22,10 +26,11 @@ export default class CompanyTeamScreen extends Component<{}> {
     data: [],
     isDateTimePickerVisible: false,
     isrfmbuttonVisible: false,
-    item: {}
+    item: {},
+    showLoader: true
   }
 
-  async componentDidMount() {
+  async companyTeamOpen() {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -34,7 +39,8 @@ export default class CompanyTeamScreen extends Component<{}> {
     const responseInJson = await resp.json();
     console.log(responseInJson);
     this.setState({
-      data: responseInJson.data
+      data: responseInJson.data,
+      showLoader: false
     });
   }
 
@@ -60,6 +66,7 @@ export default class CompanyTeamScreen extends Component<{}> {
   }
 
   async sendRfm(item) {
+    this._loadingButton.showLoading(true);
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -67,6 +74,7 @@ export default class CompanyTeamScreen extends Component<{}> {
       meeting_date_time: item.date
     };
     const resp = await services.sendRfm(data);
+    this._loadingButton.showLoading(false);
     const responseInJson = await resp.json();
     console.log(responseInJson);
     if (responseInJson.response === 'success') {
@@ -79,58 +87,66 @@ export default class CompanyTeamScreen extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
+        <NavigationEvents
+          onWillFocus={() => this.companyTeamOpen()}
+        />
         <Header navigation={this.props.navigation} title={'Company Section'} />
-        <ScrollView>
-            <View style={styles.subContainer}>
-            <FlatList
-              contentContainerStyle={styles.flatList}
-              extraData={this.state}
-              data={this.state.data}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({item}) =>
-                <View style={styles.memberView}>
-                  <View style={styles.imageView}>
-                    <Image source={{uri: item.image}}
-                    resizeMode={'contain'}
-                    style={styles.profilePic} />
-                  </View>
-                  <View style={styles.detailView}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <View style={styles.rfmView}>
-                      <Text style={styles.position}>{item.position}</Text>
-                      <TouchableOpacity onPress={() => {
-                          this.showDateTimePicker(item);
-                        }}>
-                        <Image source={require('../images/rfm_icon2.png')}
-                        resizeMode={'contain'}
-                        style={{width: 40, height: 30}} />
-                      </TouchableOpacity>
-                    </View>
-
-                    <Text style={styles.mobile}>Tel: {item.mobile}</Text>
-                    <Text style={styles.email}>Email: {item.email}</Text>
-                    {
-                      item.date === undefined
-                      ? <Text>Select any date</Text>
-                      : <View>
-                          <Text>{item.date.toString()}</Text>
-                          <TouchableOpacity onPress={() => this.sendRfm(item)} style={styles.rfmButton}>
-                            <Text style={styles.rfmText}>Send RFM</Text>
-                          </TouchableOpacity>
-                        </View>
-                    }
-                  </View>
-                </View>
-            }
-            />
-            <DateTimePicker
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-              mode='datetime'
-            />
+        {
+          this.state.showLoader === true
+          ? <View style={styles.loader}>
+              <Bubbles size={10} color="#f33155" />
             </View>
-        </ScrollView>
+          : <ScrollView>
+              <View style={styles.subContainer}>
+              <FlatList
+                contentContainerStyle={styles.flatList}
+                extraData={this.state}
+                data={this.state.data}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item}) =>
+                  <View style={styles.memberView}>
+                    <View style={styles.imageView}>
+                      <Image source={{uri: item.image}}
+                      resizeMode={'contain'}
+                      style={styles.profilePic} />
+                    </View>
+                    <View style={styles.detailView}>
+                      <Text style={styles.name}>{item.name}</Text>
+                      <View style={styles.rfmView}>
+                        <Text style={styles.position}>{item.position}</Text>
+                        <TouchableOpacity onPress={() => {
+                            this.showDateTimePicker(item);
+                          }}>
+                          <Image source={require('../images/rfm_icon2.png')}
+                          resizeMode={'contain'}
+                          style={{width: 40, height: 30}} />
+                        </TouchableOpacity>
+                      </View>
+
+                      <Text style={styles.mobile}>Tel: {item.mobile}</Text>
+                      <Text style={styles.email}>Email: {item.email}</Text>
+                      {
+                        item.date === undefined
+                        ? <Text>Select date</Text>
+                        : <View>
+                            <Text>{item.date.toString()}</Text>
+                            <LoadingButton ref={(c) => this._loadingButton = c} style={{width: '50%', height: 30, marginTop: 10}} title='Send RFM' titleStyle={{fontSize: 16}} onPress={() => this.sendRfm(item)} />
+                          </View>
+                      }
+                    </View>
+                  </View>
+              }
+              />
+              <DateTimePicker
+                isVisible={this.state.isDateTimePickerVisible}
+                onConfirm={this._handleDatePicked}
+                onCancel={this._hideDateTimePicker}
+                mode='datetime'
+              />
+              </View>
+          </ScrollView>
+        }
+
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
@@ -142,6 +158,11 @@ const styles = {
   },
   subContainer: {
     padding: 10
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   flatList: {
     // flex: 1
@@ -200,8 +221,8 @@ const styles = {
     color: '#444c47'
   },
   imageView: {
-    // alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'center',
+    // justifyContent: 'center'
   },
   profilePic: {
     width: 150,

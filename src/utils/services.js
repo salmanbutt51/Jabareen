@@ -19,11 +19,6 @@ export default {
     }
   },
 
-  async submitComplaint(data) {
-    console.log('data: ', data);
-    const formData = new FormData();
-  },
-
   async login(data) {
     console.log('data: ', data);
     try {
@@ -365,6 +360,7 @@ export default {
 
   async sendComplaints(data) {
     console.log('data: ', data);
+    const formData = new FormData();
     try {
       let response = await fetch(BASE_URL + 'send_complaints_proposal', {
         method: 'POST',

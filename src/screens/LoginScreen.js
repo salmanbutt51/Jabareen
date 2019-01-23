@@ -71,7 +71,12 @@ export default class App extends Component<{}> {
       <View style={{flex: 1}}>
         <ScrollView keyboardDismissMode={'on-drag'}>
           <View style={styles.container}>
-            <Logo />
+            <View style={styles.logoView}>
+              <Image source={require('../images/logo.png')}
+                resizeMode={'contain'}
+                style={{width: '100%', height: 130}}
+              />
+            </View>
             <View style={styles.form}>
               <Text style={styles.inputText}>Mobile</Text>
               <TextInput style={styles.inputBox}
@@ -91,16 +96,16 @@ export default class App extends Component<{}> {
                 autoCapitalize='none'
                 placeholderTextColor = "#a6b8d4"
               />
-              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' onPress={() => this.login()} />
-              <View style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
-              </View>
+              <LoadingButton ref={(c) => this._loginBtn = c} title='Login' style={styles.button} onPress={() => this.login()} />
+            </View>
+            <View style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Don't have an account? <Text style={{color: '#28609e'}} onPress={() => this.navigation.navigate('Signup')}>Sign Up</Text></Text>
             </View>
           </View>
           <DropdownMessageAlert ref={(c) => this._dropdown = c} />
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 const styles = {
@@ -108,35 +113,40 @@ const styles = {
     // flex: 1,
     padding: 20
   },
-  loginText:{
-    marginTop: 20,
-    color: 'black',
-    fontSize: 20
+  logoView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 200
   },
   form: {
-    flex: 1,
-    justifyContent: 'flex-end'
+    // flex: 1,
+    justifyContent: 'center',
+    // backgroundColor: 'blue'
   },
   inputText:{
-    fontSize: 20,
+    fontSize: 18,
     color: 'black'
   },
   inputBox: {
     borderWidth: 1,
     borderColor: '#a6b8d4',
-    fontSize: 22,
+    fontSize: 18,
     color: 'black',
     marginTop: 10,
-    marginBottom: 30,
+    marginBottom: 20,
     paddingHorizontal: 8,
-    height: 50,
+    height: 40,
     borderRadius: 5,
   },
   button: {
-    backgroundColor: '#67c2fa',
-    borderRadius: 5,
-    marginVertical: 10,
-    paddingVertical: 13
+    // flex: 1,
+    backgroundColor: '#f33155',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '100%',
+    borderRadius: 5
+    // paddingVertical: 30
   },
   buttonText: {
     fontSize: 22,
@@ -146,9 +156,11 @@ const styles = {
   },
   forgotPassword: {
     alignItems: 'center',
-    marginTop: 20
+    marginTop: 20,
+    flex: 1,
+    // backgroundColor: 'blue'
   },
   forgotPasswordText: {
     fontSize: 22,
   }
-}
+};

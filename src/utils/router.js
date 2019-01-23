@@ -12,6 +12,7 @@ import RfqHistoryScreen from '../screens/RfqHistoryScreen';
 import RfqDetailScreen from '../screens/RfqDetailScreen';
 import EvaluateScreen from '../screens/EvaluateScreen';
 import AdvertiseScreen from '../screens/AdvertiseScreen';
+import AdvertiseDetailScreen from '../screens/AdvertiseDetailScreen';
 import RfmScreen from '../screens/RfmScreen';
 import WhoWeAreScreen from '../screens/WhoWeAreScreen';
 import ContactUsScreen from '../screens/ContactUsScreen';
@@ -58,7 +59,8 @@ const ProductStack = createStackNavigator({
   Productslist:{
     screen: ProductsListScreen,
     navigationOptions: {
-    title: 'Products List'
+    title: 'Products List',
+    backgroundColor: '#f33155'
     },
   }
 });
@@ -87,11 +89,26 @@ const CartStack = createStackNavigator({
   },
 });
 
+const AdvertiseStack = createStackNavigator({
+  Advertise:{
+    screen: AdvertiseScreen,
+    navigationOptions: {
+    header: null
+    },
+  },
+  Advertisedetail:{
+    screen: AdvertiseDetailScreen,
+    navigationOptions: {
+    title: 'Advertise Detail'
+    },
+  }
+});
+
 const HomeStack = createDrawerNavigator({
   Dashboard: {
     screen: HomeScreen,
     navigationOptions: {
-      drawerLabel: 'Dashboard',
+      title: 'Dashboard',
     }
   },
   Companyteam: {
@@ -131,7 +148,7 @@ const HomeStack = createDrawerNavigator({
     }
   },
   Advertisement:{
-    screen: AdvertiseScreen
+    screen: AdvertiseStack
   },
   Rfm:{
     screen: RfmScreen

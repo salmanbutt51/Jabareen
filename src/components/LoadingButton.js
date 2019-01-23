@@ -52,7 +52,7 @@ const styles = {
     justifyContent: 'center'
   },
   title: {
-    fontSize: 15,
+    fontSize: 18,
     color: 'white'
   },
 };

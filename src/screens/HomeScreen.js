@@ -34,13 +34,13 @@ export default class App extends Component<{}> {
                 <View><Text style={styles.tileText}>PRODUCTS</Text></View>
                 <View><Image source={require('../images/products1.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Cart')} style={styles.tile}>
                 <View><Text style={styles.tileText}>CART</Text></View>
                 <View><Image source={require('../images/cart_icon.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
@@ -48,13 +48,13 @@ export default class App extends Component<{}> {
                 <View><Text style={styles.tileText}>EVALUATE</Text></View>
                 <View><Image source={require('../images/evaluate.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Advertisement')} style={styles.tile}>
                 <View><Text style={styles.tileText}>ADS</Text></View>
                 <View><Image source={require('../images/ads.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
@@ -62,13 +62,13 @@ export default class App extends Component<{}> {
                 <View><Text style={styles.tileText}>RFM</Text></View>
                 <View><Image source={require('../images/rfm.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Whoweare')} style={styles.tile}>
                 <View><Text style={styles.tileText}>WHO WE ARE</Text></View>
                 <View><Image source={require('../images/whoweare.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
@@ -76,13 +76,13 @@ export default class App extends Component<{}> {
                 <View><Text style={styles.tileText}>CONTACT US</Text></View>
                 <View><Image source={require('../images/contactus.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('AccountRequest')} style={styles.tile}>
                 <View><Text style={styles.tileText}>ACCOUNT REQUEST</Text></View>
                 <View><Image source={require('../images/accountrequest.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
             </View>
             <View style={styles.flexView}>
@@ -90,13 +90,13 @@ export default class App extends Component<{}> {
                 <View><Text style={styles.tileText}>COMPANY TEAM</Text></View>
                 <View><Image source={require('../images/products1.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Complaints')} style={styles.tile}>
                 <View><Text style={styles.tileText}>COMPLAINTS & PROPOSALS</Text></View>
                 <View><Image source={require('../images/complaints.png')}
                 resizeMode={'contain'}
-                style={{width: 40, height: 30}} /></View>
+                style={styles.tileImage} /></View>
               </TouchableOpacity>
             </View>
           </View>
@@ -145,6 +145,10 @@ const styles = {
     fontSize: 17,
     color: '#f33155',
     textAlign: 'center'
+  },
+  tileImage: {
+    height: 25,
+    width: 30
   },
   contactView: {
     justifyContent: 'flex-end',

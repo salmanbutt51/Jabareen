@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
+  ActivityIndicator,
   Platform,
   StyleSheet,
   Text,
@@ -16,7 +18,8 @@ import { NavigationEvents } from 'react-navigation';
 import services from '../utils/services';
 export default class App extends Component<{}> {
   state = {
-    data: []
+    data: [],
+    showLoader: true
   }
 
   async getCategories(){
@@ -28,7 +31,8 @@ export default class App extends Component<{}> {
     const responseInJson = await resp.json();
     console.log(responseInJson);
     this.setState({
-      data: responseInJson.data
+      data: responseInJson.data,
+      showLoader: false
     });
   }
 
@@ -39,33 +43,41 @@ export default class App extends Component<{}> {
           onWillFocus={() => this.getCategories()}
         />
         <Header navigation={this.props.navigation} title={'Categories'} />
-          <FlatList
-          contentContainerStyle={styles.flatList}
-          // style={{flex: 1}}
-          numColumns={2}
-          data={this.state.data}
-          // keyExtractor={(item) => item.name}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({item}) =>
-            <TouchableOpacity onPress={
-              item.has_sub_category == 1
-              ? () => this.props.navigation.navigate('Subcategory', {category_id: item.id})
-              : () => this.props.navigation.navigate('Productslist', {category_id: item.id})
-              }
-              style={styles.item} >
-              <View style={{alignItems: 'center'}}>
-                <Image source={{uri: item.image}}
-                resizeMode={'contain'}
-                style={styles.proImage} />
+          {
+            this.state.showLoader === true
+            ? <View style={styles.loader}>
+                <Bubbles size={10} color="#f33155" />
               </View>
-              <View style={{alignItems: 'flex-start'}}>
-                <Text style={styles.name} >{item.name}</Text>
-                <Text style={styles.name} >{item.arabic_name}</Text>
-              </View>
+            : <FlatList
+                contentContainerStyle={styles.flatList}
+                // style={{flex: 1}}
+                numColumns={2}
+                data={this.state.data}
+                // keyExtractor={(item) => item.name}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item}) =>
+                  <TouchableOpacity onPress={
+                    item.has_sub_category == 1
+                    ? () => this.props.navigation.navigate('Subcategory', {category_id: item.id})
+                    : () => this.props.navigation.navigate('Productslist', {category_id: item.id})
+                    }
+                    style={styles.item} >
+                    <View style={{alignItems: 'center'}}>
+                      <Image source={{uri: item.image}}
+                      resizeMode={'contain'}
+                      style={styles.proImage} />
+                    </View>
+                    <View style={{alignItems: 'flex-start'}}>
+                      <Text style={styles.name} >{item.name}</Text>
+                      <Text style={styles.name} >{item.arabic_name}</Text>
+                    </View>
 
-            </TouchableOpacity>
+                  </TouchableOpacity>
+                }
+              />
           }
-          />
+
+
 
       </View>
     );
@@ -75,6 +87,11 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#edf1f5',
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   flatList: {
     // backgroundColor: 'red',
