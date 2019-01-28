@@ -42,7 +42,7 @@ export default class App extends Component<{}> {
         <NavigationEvents
           onWillFocus={() => this.getCategories()}
         />
-        <Header navigation={this.props.navigation} title={'Categories'} />
+        <Header navigation={this.props.navigation} title={'Categories'} showCartIcon={true} />
           {
             this.state.showLoader === true
             ? <View style={styles.loader}>
@@ -95,9 +95,9 @@ const styles = {
   },
   flatList: {
     // backgroundColor: 'red',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flex: 1,
+    // justifyContent: 'space-around',
+    // alignItems: 'center',
+    // flex: 1,
     // padding: 20,
     // backgroundColor: 'blue'
   },
@@ -109,7 +109,7 @@ const styles = {
     padding: 8,
     // alignItems: 'center',
     justifyContent: 'center',
-    // flex: 1
+    flex: 1
     // width: '100%'
   },
   proImage: {

@@ -19,7 +19,8 @@ export default class Navbar extends Component<{}> {
 
   static propTypes = {
     showDrawer: PropTypes.bool,
-    showCartIcon: PropTypes.bool
+    showCartIcon: PropTypes.bool,
+    showNotificationIcon: PropTypes.bool
   }
 
   async logout(){
@@ -59,15 +60,24 @@ export default class Navbar extends Component<{}> {
 
         </View>
         <View style={styles.headerTextView}><Text style={styles.headerText}>{this.props.title}</Text></View>
-        <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center',position: 'absolute', right: 0}}>
           {
             this.props.showCartIcon == true
             ? <TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center'}} onPress={() => this.props.navigation.navigate('Cart')}>
                 <Image source={require('../images/cart-icon2.png')}
                 resizeMode={'contain'} style={{width: 40, height: 30}}/>
               </TouchableOpacity>
+            : <View style={{width: 0, height: 0}}></View>
+          }
+          {
+            this.props.showNotificationIcon !== false
+            ? <TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center'}} onPress={() => this.props.navigation.navigate('Notifications')}>
+                <Image source={require('../images/notification.png')}
+                resizeMode={'contain'} style={{width: 40, height: 30}}/>
+              </TouchableOpacity>
             : <View style={{width: 40, height: 30}}></View>
           }
+
 
           <TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center'}} onPress={() => this.popupVisible()}>
             <Image source={require('../images/logout.png')}
@@ -89,14 +99,14 @@ export default class Navbar extends Component<{}> {
         >
           <DialogContent>
             <View>
-              <View style={{flexDirection: 'row', height: 40, alignItems: 'center'}}>
+              <View style={{flexDirection: 'row', height: 40, alignItems: 'center', justifyContent: 'space-between'}}>
                 <View>
                   <Image source={require('../images/logo.png')}
                     resizeMode={'contain'}
                     style={{
                       width: 45,
                       height: 25,
-                      marginRight: 5
+                      // marginRight: 5
                     }}
                   />
                 </View>
@@ -125,7 +135,7 @@ const styles = {
     backgroundColor: '#f33155',
     height: 60,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    // justifyContent: 'space-between'
   },
   headerTextView:{
     alignItems: 'center',

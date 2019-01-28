@@ -2,6 +2,23 @@ const BASE_URL = 'https://www.jabareen.app/api/';
 
 export default {
 
+  async dashboard(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'dashboard_slider_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async signup(data) {
     console.log('data: ', data);
     try {
@@ -73,6 +90,23 @@ export default {
     console.log('data: ', data);
     try {
       let response = await fetch(BASE_URL + 'add_to_cart', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async deleteCart(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'delete_cart', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
@@ -363,6 +397,24 @@ export default {
     const formData = new FormData();
     try {
       let response = await fetch(BASE_URL + 'send_complaints_proposal', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async sendNotifications(data) {
+    console.log('data: ', data);
+    const formData = new FormData();
+    try {
+      let response = await fetch(BASE_URL + 'sendNotificationTest', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({

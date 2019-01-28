@@ -57,6 +57,10 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
+        {/*<TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f33155', position: 'absolute', zIndex: 1111, right: 0, top: 0}} onPress={() => this.props.navigation.navigate('Cart')}>
+          <Image source={require('../images/cart-icon2.png')}
+          resizeMode={'contain'} style={{width: 40, height: 30}}/>
+        </TouchableOpacity>*/}
         {
           this.state.showLoader === true
           ? <View style={styles.loader}>
@@ -72,17 +76,16 @@ export default class App extends Component<{}> {
           renderItem={({item}) =>
             <View
               style={styles.item} >
-              <View style={{alignItems: 'center'}}>
-
-              </View>
               <View style={{alignItems: 'flex-start'}}>
-                <Text style={styles.name} >{item.product_name}</Text>
-                <Text style={styles.arabicName} >{item.product_name_arabic}</Text>
+                <Text style={styles.name}>{item.product_name}</Text>
+                <Text style={styles.arabicName}>{item.product_name_arabic}</Text>
                 <Text style={styles.price}>${item.price}</Text>
               </View>
-              <TouchableOpacity onPress={() => this.addToCart(item.id)} style={styles.addToCartButton}>
-                <Text style={styles.addToCartText}>Add to cart</Text>
-              </TouchableOpacity>
+              <View style={styles.buttonView}>
+                <TouchableOpacity onPress={() => this.addToCart(item.id)} style={styles.addToCartButton}>
+                  <Text style={styles.addToCartText}>Add to cart</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           }
           />
@@ -115,7 +118,7 @@ const styles = {
   },
   flatList: {
     // backgroundColor: 'red',
-    // justifyContent: 'space-between',
+    // justifyContent: 'space-around',
     // alignItems: 'center',
     // flex: 1,
     // padding: 20,
@@ -130,7 +133,7 @@ const styles = {
     // alignItems: 'center',
     // justifyContent: 'center',
     flex: 1
-    // width: '100%'
+    // width: '48%'
   },
   proImage: {
     width: '100%',
@@ -147,15 +150,22 @@ const styles = {
     fontSize: 25
   },
   price: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'red'
+  },
+  buttonView: {
+    justifyContent: 'flex-end',
+    flex: 1,
+    // backgroundColor: 'blue'
   },
   addToCartButton: {
     backgroundColor: '#f33155',
-    paddingVertical: 5,
+    // paddingVertical: 5,
     marginTop: 10,
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30
   },
   addToCartText: {
     color: '#fff'

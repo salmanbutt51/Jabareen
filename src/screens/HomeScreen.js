@@ -8,25 +8,51 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Button
+  Button,
+  AsyncStorage,
+  FlatList
 } from 'react-native';
 import Header from '../components/Header';
+import { NavigationEvents } from 'react-navigation';
+import services from '../utils/services';
 export default class App extends Component<{}> {
+
+  state = {
+    data: [],
+    showLoader: true
+  }
+
+  async dashboardOpen(){
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token,
+    };
+    const resp = await services.dashboard(data);
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    this.setState({
+      data: responseInJson.data,
+      showLoader: false
+    });
+  }
 
   render() {
     return(
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} showDrawer={true} showCartIcon={true} title={'Dashboard'} />
+        <NavigationEvents
+          onWillFocus={() => this.dashboardOpen()}
+        />
+        <Header navigation={this.props.navigation} showDrawer={true} showCartIcon={true} showNotificationIcon={true} title={'Dashboard'} />
         <ScrollView>
 
           <View style={styles.dashboardView}>
-          <ImageSlider images={[
-            'http://vishalfurnishings.com/wp-content/uploads/2015/04/Melamine-Crockery-in-Faridabad.jpg',
-            'https://cld.forkly.com/image/upload/t_tn,f_auto,q_auto,$h_390,$w_748/fo/2018/06/shutterstock_69995371-1.jpg',
-            'https://www.plasticsrecycling.org/images/pdf/Toolkits/Bulky/Plastics_grouping_bulky.jpg']}
-            loopBothSides= {true}
-            autoPlayWithInterval={3000}
-          />
+            <ImageSlider images={[
+              'https://www.jabareen.app/uploads/slider/chicago.jpg',
+              'https://www.jabareen.app/uploads/slider/la.jpg',
+              'https://www.jabareen.app/uploads/slider/ny.jpg']}
+              loopBothSides= {true}
+              autoPlayWithInterval={3000}
+            />
           </View>
           <View style={styles.tilesView}>
             <View style={styles.flexView}>

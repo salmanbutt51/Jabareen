@@ -19,6 +19,7 @@ import ContactUsScreen from '../screens/ContactUsScreen';
 import AccountRequestScreen from '../screens/AccountRequestScreen';
 import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 import ComplaintsScreen from '../screens/ComplaintsScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 import MapScreen from '../screens/MapScreen';
 import Root from '../screens/Root';
 
@@ -60,7 +61,6 @@ const ProductStack = createStackNavigator({
     screen: ProductsListScreen,
     navigationOptions: {
     title: 'Products List',
-    backgroundColor: '#f33155'
     },
   }
 });
@@ -169,6 +169,12 @@ const HomeStack = createDrawerNavigator({
     screen: ComplaintsScreen,
     navigationOptions: {
       title: 'Complaints'
+    }
+  },
+  Notifications: {
+    screen: NotificationsScreen,
+    navigationOptions: {
+      title: 'Notifications'
     }
   },
 });

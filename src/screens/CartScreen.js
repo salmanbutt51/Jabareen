@@ -25,7 +25,8 @@ export default class App extends Component<{}> {
     data: [],
     quantity: '',
     unit: '',
-    showLoader: true
+    showLoader: true,
+    enterQuantity: '1'
   }
 
   quantity = [];
@@ -45,13 +46,38 @@ export default class App extends Component<{}> {
     });
   }
 
-  // _textQuantity = (quantity) => {
-  //   console.log('quantitySelected from button: ', quantity);
-  //   this.quantity.push(quantity);
-  //   this.setState({
-  //     quantity: quantity
-  //   });
-  // }
+  async deleteCartItem(item){
+    var cartItems = this.state.data;
+    this.state.data.map((cartItem, index) => {
+      if (item.id === cartItem.id) {
+        cartItems.splice(index, 1);
+      }
+    });
+
+    this.setState({data: cartItems});
+
+    const token = await AsyncStorage.getItem('user_token');
+    const data = {
+      token: token,
+      cart_id: item.id
+    };
+    const resp = await services.deleteCart(data);
+    const responseInJson = await resp.json();
+    console.log(responseInJson);
+    this._dropdown.itemAction({type: 'success', title: 'Success', message: responseInJson.message});
+
+    // this.setState({
+    //   data: responseInJson.data,
+    // });
+  }
+
+  _textQuantity = (quantity) => {
+    console.log('quantitySelected from TextInput: ', quantity);
+    this.quantity.push(quantity);
+    this.setState({
+      quantity: quantity
+    });
+  }
 
   _dropdownUnit = (unit) => {
     console.log('unitSelected from button: ', unit);
@@ -62,9 +88,6 @@ export default class App extends Component<{}> {
   }
 
   async sendRfq() {
-    if (this.quantity.length < this.state.data.length || this.unit.length < this.state.data.length) {
-      this._dropdown.itemAction({type: 'error', message: 'Please select quantities and units of all the items in cart', title: 'Error'});
-    } else {
       this._loadingButton.showLoading(true);
       const token = await AsyncStorage.getItem('user_token');
       let cart_id = [];
@@ -85,22 +108,22 @@ export default class App extends Component<{}> {
       if (responseInJson.response === 'success') {
         this._dropdown.itemAction({type: 'success', title: 'Quotation Sent', message: responseInJson.message});
       } else {
-        this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+        this._dropdown.itemAction({type: 'error', title: 'Error', message: 'Please enter quantity and units'});
       }
     }
-  }
 
-  deleteItemFromCart(item) {
-    // console.log(item);
-    var cartItems = this.state.data;
-    this.state.data.map((cartItem, index) => {
-      if (item.id === cartItem.id) {
-        cartItems.splice(index, 1);
-      }
-    });
-    console.log(cartItems);
-    this.setState({data: cartItems});
-  }
+
+  // deleteItemFromCart(item) {
+  //   // console.log(item);
+  //   var cartItems = this.state.data;
+  //   this.state.data.map((cartItem, index) => {
+  //     if (item.id === cartItem.id) {
+  //       cartItems.splice(index, 1);
+  //     }
+  //   });
+  //   console.log(cartItems);
+  //   this.setState({data: cartItems});
+  // }
 
   render() {
     let dropdownUnit = [
@@ -144,7 +167,7 @@ export default class App extends Component<{}> {
                 <View style={styles.prodetailView}>
                   <Text style={styles.name}>{item.product_name}</Text>
                   <TouchableOpacity style={styles.delButton}
-                    onPress={() => this.deleteItemFromCart(item)}
+                    onPress={() => this.deleteCartItem(item)}
                     >
                     <Image source={require('../images/del_icon.png')}
                     resizeMode={'contain'}
@@ -153,10 +176,11 @@ export default class App extends Component<{}> {
                 </View>
                 <View style={styles.prodetailView}>
                   <TextInput
+                    value={this.state.enterQuantity}
                     style={styles.textQuantity}
                     placeholder={'Enter quantity'}
                     placeholderTextColor = "#a6b8d4"
-                    onChangeText={(quantity) => this.setState({ quantity: quantity})}
+                    onChangeText={this._textQuantity}
                   />
                   <Dropdown
                     containerStyle={styles.dropdownUnit}
@@ -194,9 +218,6 @@ const styles = {
   cartsView: {
     padding: 10
   },
-  productView: {
-
-  },
   imageView: {
     width: '10%',
     alignItems: 'center',
@@ -210,62 +231,19 @@ const styles = {
   },
   textQuantity: {
     width: '48%',
-    // borderWidth: 1,
+    borderBottomWidth: 1,
     height: 40,
-    borderColor: '#a6b8d4',
-    marginTop: 11,
-    borderRadius: 5
+    borderColor: '#4f5154',
+    marginTop: 13,
+    borderRadius: 5,
+    // paddingTop: 1,
+    marginBottom: 1
   },
   dropdownUnit: {
     width: '50%'
   },
-  nameAndDel: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
   name: {
     fontSize: 20,
     fontWeight: 'bold'
-  },
-  price: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'red'
-  },
-  addRemoveButton: {
-    flexDirection: 'row',
-    marginTop: 10
-  },
-  quantityView: {
-    width: 25,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#a6b8d4',
-    // backgroundColor: 'blue'
-  },
-  quantityItemsView: {
-    width: 50,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#a6b8d4',
-  },
-  quantityText: {
-    fontSize: 15,
-    fontWeight: 'bold'
-  },
-  rfmButton: {
-    backgroundColor: '#f33155',
-    height: 40,
-    borderRadius: 5,
-    // paddingVertical: 5,
-    // paddingHorizontal: 8,
-    marginTop: 3,
-    // width: '40%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  rfmText: {
-    color: '#fff',
-    fontSize: 15
   },
 };
