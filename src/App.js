@@ -1,19 +1,34 @@
 import React, {Component} from 'react';
 import Video from 'react-native-video';
 import {
-  Platform,
   StyleSheet,
   View,
 }
 from 'react-native';
 import AppContainer from './utils/router';
-export default class App extends Component<{}> {
 
+export default class App extends Component<{}> {
+  state = {
+    videoEnded: false
+  }
 
   render() {
     return (
-
-      <AppContainer />
+      <View style={styles.container}>
+      {
+        this.state.videoEnded
+        ? <AppContainer />
+        : <Video source={require('./videos/video.mp4')}   // Can be a URL or a local file.
+           ref={(ref) =>
+             this.player = ref
+           }
+           onError={() => console.log('Video was not loaded')}
+           style={styles.backgroundVideo}
+           resizeMode='cover'
+           onEnd={() => this.setState({videoEnded: true})}
+        />
+      }
+      </View>
     );
   }
 }
@@ -21,6 +36,7 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   backgroundVideo: {
     position: 'absolute',

@@ -53,13 +53,7 @@ export default class ContactUsScreen extends Component<{}> {
   }
 
   handleEmail(mail) {
-      email(mail, {
-        // Optional additional arguments
-        cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
-        bcc: 'mee@mee.com', // string or array of email addresses
-        subject: 'Show how to use',
-        body: 'Some body right here'
-      }).catch(console.error);
+      email(mail).catch(console.error);
     }
 
   render() {
