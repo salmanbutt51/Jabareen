@@ -27,10 +27,15 @@ export default class CompanyTeamScreen extends Component<{}> {
     isDateTimePickerVisible: false,
     isrfmbuttonVisible: false,
     item: {},
-    showLoader: true
+    refreshing: true
   }
 
-  async companyTeamOpen() {
+  componentDidMount(){
+    this.getCompanyTeam()
+  }
+
+  async getCompanyTeam() {
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -40,7 +45,7 @@ export default class CompanyTeamScreen extends Component<{}> {
     console.log(responseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      refreshing: false
     });
   }
 
@@ -88,69 +93,71 @@ export default class CompanyTeamScreen extends Component<{}> {
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.companyTeamOpen()}
+          onDidFocus={() => this.getCompanyTeam()}
         />
         <Header navigation={this.props.navigation} title={'Company Section'} />
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
+        <FlatList
+          contentContainerStyle={styles.flatList}
+          extraData={this.state}
+          onRefresh={() => (this.getCompanyTeam())}
+          refreshing={this.state.refreshing}
+          ListEmptyComponent={this.emptyView()}
+          data={this.state.data}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) =>
+          <View style={styles.memberView}>
+            <View style={styles.imageView}>
+              <Image source={{uri: item.image}}
+              resizeMode={'contain'}
+              style={styles.profilePic} />
             </View>
-          : <ScrollView>
-              <View style={styles.subContainer}>
-              <FlatList
-                contentContainerStyle={styles.flatList}
-                extraData={this.state}
-                data={this.state.data}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) =>
-                  <View style={styles.memberView}>
-                    <View style={styles.imageView}>
-                      <Image source={{uri: item.image}}
-                      resizeMode={'contain'}
-                      style={styles.profilePic} />
-                    </View>
-                    <View style={styles.detailView}>
-                      <Text style={styles.name}>{item.name}</Text>
-                      <View style={styles.rfmView}>
-                        <Text style={styles.position}>{item.position}</Text>
-                        <TouchableOpacity onPress={() => {
-                            this.showDateTimePicker(item);
-                          }}>
-                          <Image source={require('../images/rfm_icon2.png')}
-                          resizeMode={'contain'}
-                          style={{width: 40, height: 30}} />
-                        </TouchableOpacity>
-                      </View>
-
-                      <Text style={styles.mobile}>Tel: {item.mobile}</Text>
-                      <Text style={styles.email}>Email: {item.email}</Text>
-                      {
-                        item.date === undefined
-                        ? <Text>Select date</Text>
-                        : <View>
-                            <Text>{item.date.toString()}</Text>
-                            <LoadingButton ref={(c) => this._loadingButton = c} style={{width: '50%', height: 30, marginTop: 10}} title='Send RFM' titleStyle={{fontSize: 16}} onPress={() => this.sendRfm(item)} />
-                          </View>
-                      }
-                    </View>
+            <View style={styles.detailView}>
+              <Text style={styles.name}>{item.name}</Text>
+              <View style={styles.rfmView}>
+                <Text style={styles.position}>{item.position}</Text>
+                <TouchableOpacity onPress={() => {
+                    this.showDateTimePicker(item);
+                  }}>
+                  <Image source={require('../images/rfm_icon2.png')}
+                  resizeMode={'contain'}
+                  style={{width: 40, height: 30}} />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.mobile}>Tel: {item.mobile}</Text>
+              <Text style={styles.email}>Email: {item.email}</Text>
+              {
+                item.date === undefined
+                ? <Text>Select date</Text>
+                : <View>
+                    <Text>{item.date.toString()}</Text>
+                    <LoadingButton ref={(c) => this._loadingButton = c} style={{width: '50%', height: 30, marginTop: 10}} title='Send RFM' titleStyle={{fontSize: 16}} onPress={() => this.sendRfm(item)} />
                   </View>
               }
-              />
-              <DateTimePicker
-                isVisible={this.state.isDateTimePickerVisible}
-                onConfirm={this._handleDatePicked}
-                onCancel={this._hideDateTimePicker}
-                mode='datetime'
-              />
-              </View>
-          </ScrollView>
+            </View>
+          </View>
         }
-
+        />
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={this._handleDatePicked}
+          onCancel={this._hideDateTimePicker}
+          mode='datetime'
+        />
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>No data</Text>
+        </View>
+      );
+    }
+  }
+
 }
 const styles = {
   container: {
@@ -165,7 +172,7 @@ const styles = {
     alignItems: 'center'
   },
   flatList: {
-    // flex: 1
+    padding: 10
   },
   memberView: {
     flexDirection: 'row',
@@ -195,8 +202,6 @@ const styles = {
     backgroundColor: '#f33155',
     height: 30,
     borderRadius: 5,
-    // paddingVertical: 5,
-    // paddingHorizontal: 8,
     marginTop: 3,
     width: '50%',
     alignItems: 'center',
@@ -227,20 +232,5 @@ const styles = {
   profilePic: {
     width: 150,
     height: 140,
-  },
-  inputText:{
-    fontSize: 20,
-    color: 'black'
-  },
-  inputBox: {
-    borderWidth: 1,
-    borderColor: '#a6b8d4',
-    // fontSize: 12,
-    color: 'black',
-    marginVertical: 5,
-    // marginBottom: 10,
-    paddingHorizontal: 8,
-    height: 40,
-    borderRadius: 5,
   },
 };

@@ -37,11 +37,10 @@ export default class App extends Component<{}> {
     });
   }
   render() {
-    console.log(this.state.data.value);
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.whoWeAreOpen()}
+          onDidFocus={() => this.whoWeAreOpen()}
         />
         <Header navigation={this.props.navigation} title={'Who We Are'} />
         {
@@ -99,4 +98,4 @@ const styles = {
     fontSize: 20,
     marginBottom: 10
   }
-}
+};

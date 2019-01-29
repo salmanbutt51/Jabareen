@@ -28,11 +28,16 @@ export default class App extends Component<{}> {
     viewRfqPopupVisible: false,
     statusSelected: '',
     rfq_id: '',
-    showLoader: true,
+    refreshing: true,
     noData: true
   }
 
-  async rfqHistoryOpen(){
+  componentDidMount(){
+    this.getRfq()
+  }
+
+  async getRfq(){
+    this.setState({refreshing: true})
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -42,18 +47,18 @@ export default class App extends Component<{}> {
     console.log(responseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false,
+      refreshing: false,
     });
     // const rfqHistory = this.state.data;
-    if (this.state.data.length !== 0) {
-      this.setState({
-        noData: false
-      });
-    } else {
-      this.setState({
-        noData: true
-      });
-    }
+    // if (this.state.data.length !== 0) {
+    //   this.setState({
+    //     noData: false
+    //   });
+    // } else {
+    //   this.setState({
+    //     noData: true
+    //   });
+    // }
   }
 
 
@@ -114,123 +119,113 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.rfqHistoryOpen()}
+          onDidFocus={() => this.getRfq()}
         />
         <Header navigation={this.props.navigation} showCartIcon={true} title={'Rfq History'} />
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
-            </View>
-
-          : <View>
-          {
-            this.state.noData === true
-            ? <View style={{padding: 20}}>
-                <Text>No data available</Text>
+        <FlatList
+          contentContainerStyle={styles.flatlist}
+          onRefresh={() => (this.getRfq())}
+          refreshing={this.state.refreshing}
+          ListEmptyComponent={this.emptyView()}
+          data={this.state.data}
+          // keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) =>
+            <View style={styles.item}>
+              <View style={styles.historyView}>
+                <View style={styles.nameView}>
+                  <Text style={styles.heading}>Sender Name</Text>
+                  <Text style={styles.content}>{item.sender_name}</Text>
+                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Rfqhistorydetail', {group_id: item.id})}>
+                  <Image source={require('../images/eye-icon.png')}
+                    resizeMode={'contain'}
+                    style={{width: 40, height: 40}}
+                  />
+                </TouchableOpacity>
               </View>
-            : <ScrollView>
-              <View style={styles.cartsView}>
-                <FlatList
-                // contentContainerStyle={styles.flatList}
-                // style={{flex: 1}}
-                // numColumns={2}
-                data={this.state.data}
-                // keyExtractor={(item) => item.name}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) =>
-                  <View style={styles.item}>
-                    <View style={styles.historyView}>
-                      <View style={styles.nameView}>
-                        <Text style={styles.heading}>Sender Name</Text>
-                        <Text style={styles.content}>{item.sender_name}</Text>
-                      </View>
-                      <TouchableOpacity onPress={() => this.props.navigation.navigate('Rfqhistorydetail', {group_id: item.id})}>
-                        <Image source={require('../images/eye-icon.png')}
-                          resizeMode={'contain'}
-                          style={{width: 40, height: 40}}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.dateView}>
-                      <Text style={styles.heading}>Date</Text>
-                      <Text style={styles.content}>{item.date.date}</Text>
-                    </View>
-
-                    <View>
-                      <Text style={styles.heading}>Status</Text>
+              <View style={styles.dateView}>
+                <Text style={styles.heading}>Date</Text>
+                <Text style={styles.content}>{item.date.date}</Text>
+              </View>
+              <View>
+                <Text style={styles.heading}>Status</Text>
+                {
+                  item.status == 1
+                  ? <Text style={styles.content}>RFQ received</Text>
+                  : <View>
                       {
-                        item.status == 1
-                        ? <Text style={styles.content}>RFQ received</Text>
+                        item.status == 3
+                        ? <Text style={styles.content}>Quotaion received</Text>
                         : <View>
                             {
-                              item.status == 3
-                              ? <Text style={styles.content}>Quotaion received</Text>
+                              item.status == 4
+                              ? <Text style={styles.content}>Send items</Text>
                               : <View>
                                   {
-                                    item.status == 4
-                                    ? <Text style={styles.content}>Send items</Text>
+                                    item.status == 6
+                                    ? <Text style={styles.content}>Items received</Text>
                                     : <View>
                                         {
-                                          item.status == 6
-                                          ? <Text style={styles.content}>Items received</Text>
-                                          : <Text style={styles.content}>Money sent</Text>
+                                          item.status == 7
+                                          ? <Text style={styles.content}>Money sent</Text>
+                                          : <Text style={styles.content}>Waiting for approval</Text>
                                         }
                                       </View>
                                   }
                                 </View>
                             }
                           </View>
-
                       }
-                      {/*<Text style={styles.content}>{item.status}</Text>*/}
                     </View>
-                    <View style={styles.bothButtons}>
-                      <TouchableOpacity onPress={() => this.setState({ statusPopupVisible: true, rfq_id: item.id })} style={styles.rfmButton}>
-                        <Text style={styles.rfmText}>Change Status</Text>
-                      </TouchableOpacity>
-
-                      {/* <LoadingButton ref={(c) => this._loadingButton = c} title='View Rfq' style={{width: '48%'}} onPress={() => this.rfqHistoryDetail(item.group_id)} />*/}
-                    </View>
-                  </View>
                 }
-                />
               </View>
-              <Dialog
-                visible={this.state.statusPopupVisible}
-                // dialogTitle={<DialogTitle title="Change status" />}
-                width={0.8}
-                // height={350}
-                onTouchOutside={() => {
-                  this.setState({ statusPopupVisible: false });
-                }}
-                dialogAnimation={new SlideAnimation({
-                  toValue: 0,
-                  useNativeDriver: true,
-                  slideFrom: 'top'
-                })}
-              >
-                <DialogContent>
-                  <Dropdown
-                    label='Change Status'
-                    data={dropdownData}
-                    onChangeText={this._dropdownSelected}
-                  />
-                  <LoadingButton ref={(c) => this._loadingButton = c} title='Done' onPress={() => this.changeRfqStatus()} />
-                </DialogContent>
-              </Dialog>
-
-            </ScrollView>
-          }
+              <View style={styles.bothButtons}>
+                <TouchableOpacity onPress={() => this.setState({ statusPopupVisible: true, rfq_id: item.id })} style={styles.rfmButton}>
+                  <Text style={styles.rfmText}>Change Status</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-        }
-
-
-
+          }
+        />
+        <Dialog
+          visible={this.state.statusPopupVisible}
+          // dialogTitle={<DialogTitle title="Change status" />}
+          width={0.8}
+          // height={350}
+          onTouchOutside={() => {
+            this.setState({ statusPopupVisible: false });
+          }}
+          dialogAnimation={new SlideAnimation({
+            toValue: 0,
+            useNativeDriver: true,
+            slideFrom: 'top'
+          })}
+        >
+          <DialogContent>
+            <Dropdown
+              label='Change Status'
+              data={dropdownData}
+              onChangeText={this._dropdownSelected}
+            />
+            <LoadingButton ref={(c) => this._loadingButton = c} title='Done' onPress={() => this.changeRfqStatus()} />
+          </DialogContent>
+        </Dialog>
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>No data available</Text>
+        </View>
+      );
+    }
+  }
+
 }
 const styles = {
   container: {
@@ -242,7 +237,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center'
   },
-  cartsView: {
+  flatlist: {
     padding: 10
   },
   item: {
@@ -261,19 +256,13 @@ const styles = {
     fontSize: 16
   },
   bothButtons: {
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
     alignItems: 'center',
-    // marginTop: 10,
-    // marginBottom: 20
   },
   rfmButton: {
     backgroundColor: '#f33155',
     height: 35,
     borderRadius: 5,
-    // paddingVertical: 5,
-    // paddingHorizontal: 8,
-    marginTop: 3,
+    marginTop: 6,
     width: '48%',
     alignItems: 'center',
     justifyContent: 'center'
