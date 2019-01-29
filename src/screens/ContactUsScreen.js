@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
   Image,
-  TouchableOpacity,
   ScrollView,
-  Button,
   AsyncStorage,
   FlatList,
-  ActivityIndicator,
   Linking
 } from 'react-native';
 import Header from '../components/Header';
 import call from 'react-native-phone-call';
-import email from 'react-native-email'
+import email from 'react-native-email';
 import services from '../utils/services';
-export default class App extends Component<{}> {
+
+export default class ContactUsScreen extends Component<{}> {
   state = {
     data: [],
     showLoader: true
   }
-  async componentDidMount(){
+
+  async componentDidMount() {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -55,18 +52,14 @@ export default class App extends Component<{}> {
     call(args).catch(console.error);
   }
 
-  // handleEmail(email) {
-  //     email(email).catch(console.error);
-  // }
-
-  handleEmail(email){
-        email(email, {
-            // Optional additional arguments
-            cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
-            bcc: 'mee@mee.com', // string or array of email addresses
-            subject: 'Show how to use',
-            body: 'Some body right here'
-        }).catch(console.error);
+  handleEmail(mail) {
+      email(mail, {
+        // Optional additional arguments
+        cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
+        bcc: 'mee@mee.com', // string or array of email addresses
+        subject: 'Show how to use',
+        body: 'Some body right here'
+      }).catch(console.error);
     }
 
   render() {

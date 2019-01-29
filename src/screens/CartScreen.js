@@ -127,7 +127,10 @@ export default class App extends Component<{}> {
       const responseInJson = await resp.json();
       console.log(responseInJson);
       if (responseInJson.response === 'success') {
-        this._dropdown.itemAction({type: 'success', title: 'Quotation Sent', message: responseInJson.message});
+        this._dropdown.itemAction({type: 'success', title: 'Success', message: 'Quotation Sent'});
+        this.setState({data: []});
+        this.quantity = [];
+        this.unit = [];
       } else {
         this._dropdown.itemAction({type: 'error', title: 'Error', message: 'Please enter quantity and units'});
       }
@@ -138,7 +141,7 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.getCartItems()}
+          onDidFocus={() => this.getCartItems()}
         />
         <Header navigation={this.props.navigation} title={'My Cart'}/>
         <FlatList
@@ -147,8 +150,8 @@ export default class App extends Component<{}> {
           extraData={this.state}
           keyExtractor={(item) => item.id.toString()}
           renderItem={(topItem) => this.renderItem(topItem)}
-          ListEmptyComponent={this.emptyCartView()}
-          ListFooterComponent={this.state.refreshing === false && items.length > 0 ? <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotation' onPress={() => this.sendRfq()} /> : null}
+          ListEmptyComponent={this.emptyView()}
+          ListFooterComponent={items.length > 0 ? <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotation' onPress={() => this.sendRfq()} /> : null}
           onRefresh={() => (this.getCartItems())}
           refreshing={this.state.refreshing}
         />
@@ -157,7 +160,7 @@ export default class App extends Component<{}> {
     );
   }
 
-  emptyCartView() {
+  emptyView() {
     if (this.state.refreshing === false) {
       return (
         <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
@@ -188,6 +191,7 @@ export default class App extends Component<{}> {
             placeholder={'1'}
             onChange={this._textQuantityChange}
             onChangeText={(t) => this.changeQuantity(t, topItem)}
+            keyboardType={'number-pad'}
           />
           <Dropdown
             containerStyle={styles.dropdownUnit}

@@ -48,7 +48,7 @@ export default class App extends Component<{}> {
           />
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity onPress={() => this.makePayment()} style={styles.rfmButton}>
-              <Text style={styles.rfmText}>Pay with paypal</Text>
+              <Text style={styles.rfmText}>Pay with PayPal</Text>
             </TouchableOpacity>
           </View>
         </View>

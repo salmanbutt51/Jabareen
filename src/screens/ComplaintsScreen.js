@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   ScrollView,
-  Button,
-  TextInput,
   AsyncStorage
 } from 'react-native';
 import Header from '../components/Header';
@@ -17,6 +12,7 @@ import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker
 import Textarea from 'react-native-textarea';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 import LoadingButton from '../components/LoadingButton';
+
 export default class App extends Component<{}> {
   state = {
     file: {},
@@ -32,30 +28,40 @@ export default class App extends Component<{}> {
     DocumentPicker.show({
       filetype: [DocumentPickerUtil.allFiles()],
     },(error, file) => {
-      this.setState({file: file});
-      console.log(file);
+      if (file !== null) {
+        this.setState({file: file});
+      }
+      console.log('Error: ', error);
+      console.log('File: ', file);
     });
   }
 
-  async sendComplaints(){
-    if (this.state.description == '' || this.state.file == ''){
-      this._dropdown.itemAction({type: 'error', message: 'Please fill out required filelds', title: 'Error'});
+  async sendComplaints() {
+    const file = this.state.file;
+    console.log(file);
+    // return;
+    if (this.state.description === '' || file.fileName === undefined) {
+      this._dropdown.itemAction({type: 'error', message: 'Please fill all the required filelds', title: 'Error'});
     } else {
       this._loadingButton.showLoading(true);
       const token = await AsyncStorage.getItem('user_token');
       const data = {
         token: token,
         description: this.state.description,
-        attachment: this.state.file
       };
-      const resp = await services.sendComplaint(data);
+      const resp = await services.sendComplaint(data, file);
       this._loadingButton.showLoading(false);
-      const responseInJson = await resp.json();
-      console.log(responseInJson);
-      if (responseInJson.response === 'success') {
-        this._dropdown.itemAction({type: 'success', title: 'Complaint submitted', message: responseInJson.message});
-      } else {
-        this._dropdown.itemAction({type: 'error', title: 'Error', message: 'Something gone wrong'});
+      try {
+        const responseInJson = await resp.json();
+        console.log(responseInJson);
+        if (responseInJson.response === 'success') {
+          this._dropdown.itemAction({type: 'success', title: 'Success', message: 'Your complaint has been submitted'});
+          this.setState({file: {}, description: ''});
+        } else {
+          this._dropdown.itemAction({type: 'error', title: 'Error', message: 'Something went wrong, file was not uploaded'});
+        }
+      } catch {
+        this._dropdown.itemAction({type: 'error', title: 'Error', message: 'Something went wrong, file was not uploaded'});
       }
     }
 

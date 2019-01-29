@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
-  ScrollView,
-  Button,
   AsyncStorage,
   FlatList,
-  ActivityIndicator
 } from 'react-native';
-import Header from '../components/Header';
 import services from '../utils/services';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 export default class App extends Component<{}> {
   state = {
     data: [],
-    showLoader: true
+    refreshing: true
   }
 
   category_id = this.props.navigation.state.params.category_id;
-  async componentDidMount(){
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  async getProducts() {
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -37,11 +35,11 @@ export default class App extends Component<{}> {
     console.log(categoryResponseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      refreshing: false,
     });
   }
 
-  async addToCart(p_id){
+  async addToCart(p_id) {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -62,21 +60,13 @@ export default class App extends Component<{}> {
   render() {
     return(
       <View style={styles.container}>
-        {/*<TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f33155', position: 'absolute', zIndex: 1111, right: 0, top: 0}} onPress={() => this.props.navigation.navigate('Cart')}>
-          <Image source={require('../images/cart-icon2.png')}
-          resizeMode={'contain'} style={{width: 40, height: 30}}/>
-        </TouchableOpacity>*/}
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
-            </View>
-          : <FlatList
+        <FlatList
           contentContainerStyle={styles.flatList}
-          // style={{flex: 1}}
           numColumns={2}
+          onRefresh={() => (this.getProducts())}
+          refreshing={this.state.refreshing}
+          ListEmptyComponent={this.emptyView()}
           data={this.state.data}
-          // keyExtractor={(item) => item.name}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) =>
             <View
@@ -93,14 +83,24 @@ export default class App extends Component<{}> {
               </View>
             </View>
           }
-          />
-        }
-
-          <DropdownMessageAlert ref={(c) => this._dropdown = c} />
+        />
+        <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>No Products</Text>
+        </View>
+      );
+    }
+  }
+
 }
+
 const styles = {
   container: {
     flex: 1,
@@ -175,4 +175,4 @@ const styles = {
   addToCartText: {
     color: '#fff'
   },
-}
+};

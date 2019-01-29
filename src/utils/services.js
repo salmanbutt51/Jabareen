@@ -392,15 +392,20 @@ export default {
     }
   },
 
-  async AccountRequest(data) {
+  async sendComplaint(data, file) {
     console.log('data: ', data);
+    const formData = new FormData();
+    formData.append('attachment', {
+      uri: file.uri,
+      type: file.type,
+      name: file.fileName,
+    });
+    formData.append('description', data.description);
+    formData.append('token', data.token);
     try {
-      let response = await fetch(BASE_URL + 'account_request', {
+      let response = await fetch(BASE_URL + 'send_complaints_proposal', {
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
+        body: formData,
       });
       console.log(response);
       return response;
@@ -409,11 +414,10 @@ export default {
     }
   },
 
-  async sendComplaints(data) {
+  async AccountRequest(data) {
     console.log('data: ', data);
-    const formData = new FormData();
     try {
-      let response = await fetch(BASE_URL + 'send_complaints_proposal', {
+      let response = await fetch(BASE_URL + 'account_request', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({

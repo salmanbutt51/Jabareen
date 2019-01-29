@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
-  ActivityIndicator,
-  Platform,
-  StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
-  ScrollView,
-  Button,
   AsyncStorage,
   FlatList
 } from 'react-native';
 import Header from '../components/Header';
-import { NavigationEvents } from 'react-navigation';
 import services from '../utils/services';
+
 export default class App extends Component<{}> {
   state = {
     data: [],
-    showLoader: true
+    refreshing: true
   }
 
-  async getCategories(){
+  componentDidMount() {
+    this.getCategories();
+  }
+
+  async getCategories() {
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -32,55 +31,53 @@ export default class App extends Component<{}> {
     console.log(responseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      refreshing: false,
     });
   }
 
   render() {
     return(
       <View style={styles.container}>
-        <NavigationEvents
-          onWillFocus={() => this.getCategories()}
-        />
         <Header navigation={this.props.navigation} title={'Categories'} showCartIcon={true} />
-          {
-            this.state.showLoader === true
-            ? <View style={styles.loader}>
-                <Bubbles size={10} color="#f33155" />
-              </View>
-            : <FlatList
-                contentContainerStyle={styles.flatList}
-                // style={{flex: 1}}
-                numColumns={2}
-                data={this.state.data}
-                // keyExtractor={(item) => item.name}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) =>
-                  <TouchableOpacity onPress={
-                    item.has_sub_category == 1
-                    ? () => this.props.navigation.navigate('Subcategory', {category_id: item.id})
-                    : () => this.props.navigation.navigate('Productslist', {category_id: item.id})
-                    }
-                    style={styles.item} >
-                    <View style={{alignItems: 'center'}}>
-                      <Image source={{uri: item.image}}
-                      resizeMode={'contain'}
-                      style={styles.proImage} />
-                    </View>
-                    <View style={{alignItems: 'flex-start'}}>
-                      <Text style={styles.name} >{item.name}</Text>
-                      <Text style={styles.name} >{item.arabic_name}</Text>
-                    </View>
-
-                  </TouchableOpacity>
+        <FlatList
+            contentContainerStyle={styles.flatList}
+            onRefresh={() => (this.getCategories())}
+            refreshing={this.state.refreshing}
+            numColumns={2}
+            data={this.state.data}
+            ListEmptyComponent={this.emptyView()}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({item}) =>
+              <TouchableOpacity onPress={
+                item.has_sub_category == 1
+                ? () => this.props.navigation.navigate('Subcategory', {category_id: item.id})
+                : () => this.props.navigation.navigate('Productslist', {category_id: item.id})
                 }
-              />
-          }
-
-
-
+                style={styles.item} >
+                <View style={{alignItems: 'center'}}>
+                  <Image source={{uri: item.image}}
+                  resizeMode={'contain'}
+                  style={styles.proImage} />
+                </View>
+                <View style={{alignItems: 'flex-start'}}>
+                  <Text style={styles.name} >{item.name}</Text>
+                  <Text style={styles.name} >{item.arabic_name}</Text>
+                </View>
+              </TouchableOpacity>
+            }
+        />
       </View>
     );
+  }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>There are no categories</Text>
+        </View>
+      );
+    }
   }
 }
 const styles = {

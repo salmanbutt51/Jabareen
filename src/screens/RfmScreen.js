@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import Dialog, { SlideAnimation, DialogContent, ScaleAnimation } from 'react-native-popup-dialog';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
   ScrollView,
-  Button,
   AsyncStorage,
   FlatList,
-  ActivityIndicator
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
@@ -27,9 +22,11 @@ export default class App extends Component<{}> {
     statusSelected: '',
     rfm_id: '',
     isMeetingTimeVisible: true,
-    showLoader: true
+    refreshing: true
   }
-  async rfmOpen(){
+
+  async rfmOpen() {
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -39,7 +36,7 @@ export default class App extends Component<{}> {
     console.log(responseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      refreshing: false
     });
   }
 
@@ -55,7 +52,7 @@ export default class App extends Component<{}> {
     });
   }
 
-  async changeRfmStatus(){
+  async changeRfmStatus() {
     this._loginBtn.showLoading(true);
     const token = await AsyncStorage.getItem('user_token');
     const data = {
@@ -90,100 +87,87 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.rfmOpen()}
+          onDidFocus={() => this.rfmOpen()}
         />
         <Header navigation={this.props.navigation} title={'RFM'} />
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
-            </View>
-          : <ScrollView>
-            <View style={styles.subContainer}>
-              <FlatList
-              contentContainerStyle={styles.flatList}
-              // style={{flex: 1}}
-              // numColumns={2}
-              data={this.state.data}
-              keyExtractor={(item) => item.id.toString()}
-              // keyExtractor={(item) => item.name}
-              renderItem={({item}) =>
-                  <View style={styles.memberView}>
-                    <View style={styles.imageView}>
-                      <Image source={{uri: item.company_image}}
-                      resizeMode={'contain'}
-                      style={styles.profilePic} />
-                    </View>
-                    <View style={styles.detailView}>
-                      <View style={styles.rfmView}>
-                        <Text style={styles.name}>{item.company_name}</Text>
+        <FlatList
+          contentContainerStyle={styles.flatList}
+          data={this.state.data}
+          keyExtractor={(item) => item.id.toString()}
+          onRefresh={() => (this.rfmOpen())}
+          refreshing={this.state.refreshing}
+          renderItem={({item}) =>
+            <View style={styles.memberView}>
+              <View style={styles.imageView}>
+                <Image source={{uri: item.company_image}}
+                resizeMode={'contain'}
+                style={styles.profilePic} />
+              </View>
+              <View style={styles.detailView}>
+                <View style={styles.rfmView}>
+                  <Text style={styles.name}>{item.company_name}</Text>
 
-                      </View>
-                      <Text style={styles.position}>{item.compnay_position}</Text>
-                      {
-                        item.status == 2
-                        ? <Text style={styles.status}>Meeting done</Text>
-                        : <View>
-                          {
-                            item.status == 1
-                            ? <View>
-                                <Text style={styles.status}>RFM approved</Text>
-                                <Text style={styles.meetingText}>Meeting Time:</Text>
-                                <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
-                              </View>
-                            : <View>
-                                <Text style={styles.status}>Waiting for approval</Text>
-                                <Text style={styles.meetingText}>Meeting Time:</Text>
-                                <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
-                              </View>
-                          }
-
-                          </View>
-                      }
-                      {/*
-                        this.state.isMeetingTimeVisible == true
-                        ? <View>
-                            <Text style={styles.status}>Waiting for approval</Text>
-                            <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
-                          </View>
-                        : <Text style={styles.status}>Meeting Done</Text>
-                      */}
-
-
-                      <TouchableOpacity onPress={() => this.setState({ popupVisible: true, rfm_id: item.id })} style={styles.rfmButton}>
-                        <Text style={styles.rfmText}>Change Status</Text>
-                      </TouchableOpacity>
+                </View>
+                <Text style={styles.position}>{item.compnay_position}</Text>
+                {
+                  item.status == 2
+                  ? <Text style={styles.status}>Meeting done</Text>
+                  : <View>
+                    {
+                      item.status == 1
+                      ? <View>
+                          <Text style={styles.status}>RFM approved</Text>
+                          <Text style={styles.meetingText}>Meeting Time:</Text>
+                          <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
+                        </View>
+                      : <View>
+                          <Text style={styles.status}>Waiting for approval</Text>
+                          <Text style={styles.meetingText}>Meeting Time:</Text>
+                          <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
+                        </View>
+                    }
 
                     </View>
-                  </View>
-              }
-              />
-            </View>
-            <Dialog
-              visible={this.state.popupVisible}
-              width={0.8}
-              // height={350}
-              onTouchOutside={() => {
-                this.setState({ popupVisible: false });
-              }}
-              dialogAnimation={new SlideAnimation({
-                toValue: 0,
-                useNativeDriver: true,
-                slideFrom: 'top'
-              })}
-            >
-              <DialogContent>
-                <Dropdown
-                  label='Change Status'
-                  data={dropdownData}
-                  onChangeText={this._dropdownSelected}
-                />
-                <LoadingButton ref={(c) => this._loginBtn = c} title='Done' titleStyle={{fontSize: 16}} style={styles.rfmButton} onPress={() => this.changeRfmStatus()} />
-              </DialogContent>
-            </Dialog>
-          </ScrollView>
-        }
+                }
+                {/*
+                  this.state.isMeetingTimeVisible == true
+                  ? <View>
+                      <Text style={styles.status}>Waiting for approval</Text>
+                      <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
+                    </View>
+                  : <Text style={styles.status}>Meeting Done</Text>
+                */}
 
+
+                <TouchableOpacity onPress={() => this.setState({ popupVisible: true, rfm_id: item.id })} style={styles.rfmButton}>
+                  <Text style={styles.rfmText}>Change Status</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          }
+        />
+        <Dialog
+            visible={this.state.popupVisible}
+            width={0.8}
+            // height={350}
+            onTouchOutside={() => {
+              this.setState({ popupVisible: false });
+            }}
+            dialogAnimation={new SlideAnimation({
+              toValue: 0,
+              useNativeDriver: true,
+              slideFrom: 'top'
+            })}
+          >
+          <DialogContent>
+            <Dropdown
+              label='Change Status'
+              data={dropdownData}
+              onChangeText={this._dropdownSelected}
+            />
+            <LoadingButton ref={(c) => this._loginBtn = c} title='Done' titleStyle={{fontSize: 16}} style={styles.rfmButton} onPress={() => this.changeRfmStatus()} />
+          </DialogContent>
+        </Dialog>
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
