@@ -19,7 +19,8 @@ export default class App extends Component<{}> {
 
   state = {
     data: [],
-    showLoader: true
+    showLoader: true,
+    sliderImages: []
   }
 
   async dashboardOpen(){
@@ -30,8 +31,14 @@ export default class App extends Component<{}> {
     const resp = await services.dashboard(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
+    var slideImages = [];
+    responseInJson.data.map((item)=>{
+      slideImages.push(item.slider_url);
+    });
+    console.log(slideImages);
     this.setState({
       data: responseInJson.data,
+      sliderImages: slideImages,
       showLoader: false
     });
   }
@@ -46,10 +53,7 @@ export default class App extends Component<{}> {
         <ScrollView>
 
           <View style={styles.dashboardView}>
-            <ImageSlider images={[
-              'https://www.jabareen.app/uploads/slider/chicago.jpg',
-              'https://www.jabareen.app/uploads/slider/la.jpg',
-              'https://www.jabareen.app/uploads/slider/ny.jpg']}
+            <ImageSlider images={this.state.sliderImages}
               loopBothSides= {true}
               autoPlayWithInterval={3000}
             />

@@ -17,6 +17,7 @@ import RfmScreen from '../screens/RfmScreen';
 import WhoWeAreScreen from '../screens/WhoWeAreScreen';
 import ContactUsScreen from '../screens/ContactUsScreen';
 import AccountRequestScreen from '../screens/AccountRequestScreen';
+import PayUsScreen from '../screens/PayUsScreen';
 import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 import ComplaintsScreen from '../screens/ComplaintsScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
@@ -163,6 +164,12 @@ const HomeStack = createDrawerNavigator({
     screen: AccountRequestScreen,
     navigationOptions: {
       title: 'Account Request'
+    }
+  },
+  Payus: {
+    screen: PayUsScreen,
+    navigationOptions: {
+      title: 'Pay Us'
     }
   },
   Complaints: {

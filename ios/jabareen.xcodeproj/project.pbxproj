@@ -58,6 +58,7 @@
 		DCF13DD6BCCE4F95ACA5F389 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A892EA0934621BE8434BA /* libRCTVideo.a */; };
 		ED1EB6981457475A9FA6D0FD /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D33D62A966E44FC19E241664 /* libRNVectorIcons.a */; };
 		F9BDC67C486E4511A49F5BDD /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 274F9A477EA64F9EBF327FDA /* Ionicons.ttf */; };
+		2663AA58F6734D5A96EBFBBF /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -438,6 +439,8 @@
 		D52C325ED43B4B93BB1B102F /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		E8CFAD43E8DE4369B82ECFA9 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		FABAAD8B42C044D2AE9E85E4 /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
+		AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; name = "RNPaypalWrapper.xcodeproj"; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; name = "libRNPaypalWrapper.a"; path = "libRNPaypalWrapper.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -470,6 +473,7 @@
 				ED1EB6981457475A9FA6D0FD /* libRNVectorIcons.a in Frameworks */,
 				D4FA91EF413A4A97940936D5 /* libRNDocumentPicker.a in Frameworks */,
 				AFBAB3C6440843ED8092525B /* libAirMaps.a in Frameworks */,
+				2663AA58F6734D5A96EBFBBF /* libRNPaypalWrapper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,6 +688,7 @@
 				D52C325ED43B4B93BB1B102F /* RNVectorIcons.xcodeproj */,
 				AEDF9D7778AB4C41B0021D2B /* RNDocumentPicker.xcodeproj */,
 				10E28DEC9A824FF784B91A04 /* AirMaps.xcodeproj */,
+				AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1455,12 +1460,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = jabareenTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1487,12 +1494,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = jabareenTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1520,6 +1529,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = jabareen/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1550,6 +1560,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = jabareen/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1586,11 +1597,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1625,11 +1638,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1663,11 +1678,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1701,11 +1718,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

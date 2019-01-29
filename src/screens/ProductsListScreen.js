@@ -21,6 +21,7 @@ export default class App extends Component<{}> {
     data: [],
     showLoader: true
   }
+
   category_id = this.props.navigation.state.params.category_id;
   async componentDidMount(){
     const token = await AsyncStorage.getItem('user_token');
@@ -30,12 +31,16 @@ export default class App extends Component<{}> {
     };
     const resp = await services.categoryWiseProductList(data);
     const responseInJson = await resp.json();
+    const categoryResp = await services.categoryList(data);
+    const categoryResponseInJson = await categoryResp.json();
     console.log(responseInJson);
+    console.log(categoryResponseInJson);
     this.setState({
       data: responseInJson.data,
       showLoader: false
     });
   }
+
   async addToCart(p_id){
     const token = await AsyncStorage.getItem('user_token');
     const data = {

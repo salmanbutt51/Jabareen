@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-paypal-wrapper')
     compile project(':react-native-document-picker')
     compile project(':react-native-vector-icons')
     compile project(':react-native-gesture-handler')

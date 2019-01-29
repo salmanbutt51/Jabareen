@@ -23,10 +23,11 @@ import LoadingButton from '../components/LoadingButton';
 export default class App extends Component<{}> {
   state = {
     data: [],
-    quantity: '',
+    quantity: [],
     unit: '',
     showLoader: true,
-    enterQuantity: '1'
+    noData: true
+    // enterQuantity: '1'
   }
 
   quantity = [];
@@ -40,10 +41,23 @@ export default class App extends Component<{}> {
     const resp = await services.cartList(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
+    responseInJson.data.map((item)=>{
+      this.quantity.push(1);
+    });
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      showLoader: false,
+      quantity: this.quantity
     });
+    if (this.state.data.length !== 0) {
+      this.setState({
+        noData: false
+      });
+    } else {
+      this.setState({
+        noData: true
+      });
+    }
   }
 
   async deleteCartItem(item){
@@ -64,7 +78,11 @@ export default class App extends Component<{}> {
     const resp = await services.deleteCart(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
-    this._dropdown.itemAction({type: 'success', title: 'Success', message: responseInJson.message});
+    if (responseInJson.response === 'success') {
+      this._dropdown.itemAction({type: 'success', title: 'Success', message: responseInJson.message});
+    } else {
+      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
+    }
 
     // this.setState({
     //   data: responseInJson.data,
@@ -75,6 +93,7 @@ export default class App extends Component<{}> {
     console.log('quantitySelected from TextInput: ', quantity);
     this.quantity.push(quantity);
     this.setState({
+      // enterQuantity: quantity,
       quantity: quantity
     });
   }
@@ -98,7 +117,7 @@ export default class App extends Component<{}> {
       const data = {
         token: token,
         cart_id: cart_id,
-        quantity: this.quantity,
+        quantity: this.state.quantity,
         unit: this.unit,
       };
       const resp = await services.sendRfq(data);
@@ -154,50 +173,61 @@ export default class App extends Component<{}> {
           ? <View style={styles.loader}>
               <Bubbles size={10} color="#f33155" />
             </View>
-          : <ScrollView>
-            <View style={styles.cartsView}>
-              <FlatList
-              contentContainerStyle={styles.flatList}
-              data={this.state.data}
-              // keyExtractor={(item) => item.name}
-              extraData={this.state}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({item}) =>
-              <View style={styles.productView}>
-                <View style={styles.prodetailView}>
-                  <Text style={styles.name}>{item.product_name}</Text>
-                  <TouchableOpacity style={styles.delButton}
-                    onPress={() => this.deleteCartItem(item)}
-                    >
-                    <Image source={require('../images/del_icon.png')}
-                    resizeMode={'contain'}
-                    style={{width: 20, height: 20}} />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.prodetailView}>
-                  <TextInput
-                    value={this.state.enterQuantity}
-                    style={styles.textQuantity}
-                    placeholder={'Enter quantity'}
-                    placeholderTextColor = "#a6b8d4"
-                    onChangeText={this._textQuantity}
-                  />
-                  <Dropdown
-                    containerStyle={styles.dropdownUnit}
-                    dropdownPosition={0.1}
-                    label='Unit'
-                    data={dropdownUnit}
-                    itemCount={5}
-                    onChangeText={this._dropdownUnit}
-                  />
-                </View>
+          : <View>
+              {
+                this.state.noData === true
+                ? <View style={{padding: 20}}>
+                    <Text>No items in cart</Text>
+                  </View>
+                : <ScrollView>
+                  <View style={styles.cartsView}>
+                    <FlatList
+                    contentContainerStyle={styles.flatList}
+                    data={this.state.data}
+                    // keyExtractor={(item) => item.name}
+                    extraData={this.state}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) =>
+                    <View style={styles.productView}>
+                      <View style={styles.prodetailView}>
+                        <Text style={styles.name}>{item.product_name}</Text>
+                        <TouchableOpacity style={styles.delButton}
+                          onPress={() => this.deleteCartItem(item)}
+                          >
+                          <Image source={require('../images/del_icon.png')}
+                          resizeMode={'contain'}
+                          style={{width: 20, height: 20}} />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.prodetailView}>
+                        <TextInput
+                          // value={this.state.quantity}
+                          style={styles.textQuantity}
+                          placeholder={'Enter quantity'}
+                          placeholderTextColor = "#a6b8d4"
+                          onChange={this._textQuantityChange}
+                          onChangeText={this._textQuantity}
+                        />
+                        <Dropdown
+                          containerStyle={styles.dropdownUnit}
+                          dropdownPosition={0.1}
+                          label='Unit'
+                          data={dropdownUnit}
+                          itemCount={5}
+                          onChangeText={this._dropdownUnit}
+                        />
+                      </View>
 
-              </View>
+                    </View>
+                    }
+                    />
+                    <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotation' onPress={() => this.sendRfq()} />
+                  </View>
+                </ScrollView>
               }
-              />
-              <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotation' onPress={() => this.sendRfq()} />
             </View>
-          </ScrollView>
+
+
         }
 
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
