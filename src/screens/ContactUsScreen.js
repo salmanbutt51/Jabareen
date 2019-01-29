@@ -17,10 +17,15 @@ import services from '../utils/services';
 export default class ContactUsScreen extends Component<{}> {
   state = {
     data: [],
-    showLoader: true
+    refreshing: true
   }
 
   async componentDidMount() {
+    this.getContactUs();
+  }
+
+  async getContactUs(){
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -30,7 +35,7 @@ export default class ContactUsScreen extends Component<{}> {
     console.log('Response in JSON: ', responseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      refreshing: false
     });
   }
 
@@ -60,85 +65,80 @@ export default class ContactUsScreen extends Component<{}> {
     return(
       <View style={styles.container}>
         <Header navigation={this.props.navigation} title={'Contact Us'}/>
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
+        <FlatList
+          contentContainerStyle={styles.flatList}
+          onRefresh={() => (this.getContactUs())}
+          refreshing={this.state.refreshing}
+          ListEmptyComponent={this.emptyView()}
+          data={this.state.data}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) =>
+          <View>
+            <View style={styles.listView}>
+              <View style={styles.imageView}>
+                <Image source={require('../images/mobile.png')}
+                resizeMode={'contain'}
+                style={styles.iconImage} />
+              </View>
+              <View style={styles.detailView}>
+                <Text onPress={() => this.makeCall(item.mobile)} style={styles.mobile}>{item.mobile}</Text>
+              </View>
             </View>
-          : <ScrollView>
-            <View style={styles.aboutView}>
-              <FlatList
-              contentContainerStyle={styles.flatList}
-              // style={{flex: 1}}
-              // numColumns={2}
-              data={this.state.data}
-              // keyExtractor={(item) => item.name}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({item}) =>
-                <View>
-                  <View style={styles.listView}>
-                    <View style={styles.imageView}>
-                      <Image source={require('../images/mobile.png')}
-                      resizeMode={'contain'}
-                      style={styles.iconImage} />
-                    </View>
-                    <View style={styles.detailView}>
-                      <Text onPress={() => this.makeCall(item.mobile)} style={styles.mobile}>{item.mobile}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.listView}>
-                    <View style={styles.imageView}>
-                      <Image source={require('../images/mail.png')}
-                      resizeMode={'contain'}
-                      style={styles.iconImage} />
-                    </View>
-                    <View style={styles.detailView}>
-                      <Text onPress={() => this.handleEmail(item.email)} style={styles.email}>{item.email}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.listView}>
-                    <View style={styles.imageView}>
-                      <Image source={require('../images/website.png')}
-                      resizeMode={'contain'}
-                      style={styles.iconImage} />
-                    </View>
-                    <View style={styles.detailView}>
-                      <Text onPress={() => this.openLink(item.website)} style={styles.website}>{item.website}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.listView}>
-                    <View style={styles.imageView}>
-                      <Image source={require('../images/social.png')}
-                      resizeMode={'contain'}
-                      style={styles.iconImage} />
-                    </View>
-                    <View style={styles.detailView}>
-                      <Text onPress={() => this.openLink(item.social_link)} style={styles.social}>{item.social_link}</Text>
-                    </View>
-                  </View>
-                </View>
-              }
-              />
+            <View style={styles.listView}>
+              <View style={styles.imageView}>
+                <Image source={require('../images/mail.png')}
+                resizeMode={'contain'}
+                style={styles.iconImage} />
+              </View>
+              <View style={styles.detailView}>
+                <Text onPress={() => this.handleEmail(item.email)} style={styles.email}>{item.email}</Text>
+              </View>
             </View>
-          </ScrollView>
-        }
-
+            <View style={styles.listView}>
+              <View style={styles.imageView}>
+                <Image source={require('../images/website.png')}
+                resizeMode={'contain'}
+                style={styles.iconImage} />
+              </View>
+              <View style={styles.detailView}>
+                <Text onPress={() => this.openLink(item.website)} style={styles.website}>{item.website}</Text>
+              </View>
+            </View>
+            <View style={styles.listView}>
+              <View style={styles.imageView}>
+                <Image source={require('../images/social.png')}
+                resizeMode={'contain'}
+                style={styles.iconImage} />
+              </View>
+              <View style={styles.detailView}>
+                <Text onPress={() => this.openLink(item.social_link)} style={styles.social}>{item.social_link}</Text>
+              </View>
+            </View>
+          </View>
+          }
+        />
       </View>
     );
   }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>No data available</Text>
+        </View>
+      );
+    }
+  }
+
 }
 const styles = {
   container: {
     flex: 1,
     backgroundColor: '#edf1f5',
   },
-  aboutView: {
+  flatList: {
     padding: 10
-  },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   listView: {
     flexDirection: 'row',

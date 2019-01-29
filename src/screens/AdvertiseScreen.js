@@ -20,10 +20,15 @@ import { NavigationEvents } from 'react-navigation';
 export default class App extends Component<{}> {
   state = {
     data: [],
-    showLoader: true
+    refreshing: true
   }
 
-  async adsOpen() {
+  componentDidMount(){
+    this.getAds();
+  }
+
+  async getAds() {
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token
@@ -33,7 +38,7 @@ export default class App extends Component<{}> {
     console.log(responseInJson);
     this.setState({
       data: responseInJson.data,
-      showLoader: false
+      refreshing: false
     });
   }
 
@@ -43,43 +48,43 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.adsOpen()}
+          onDidFocus={() => this.getAds()}
         />
         <Header navigation={this.props.navigation} title={'Advertisement'} />
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
+        <FlatList
+          contentContainerStyle={styles.flatList}
+          onRefresh={() => (this.getAds())}
+          refreshing={this.state.refreshing}
+          ListEmptyComponent={this.emptyView()}
+          data={this.state.data}
+          extraData={this.state}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) =>
+            <View style={styles.adView}>
+              <View style={styles.nameView}>
+                <Text style={styles.nameText}>{item.title}</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Advertisedetail', {adDescription: item.description})}>
+                <Image source={{uri: item.image}}
+                  resizeMode={'contain'}
+                  style={styles.adImage}
+                />
+              </TouchableOpacity>
             </View>
-          : <ScrollView>
-            <View style={styles.subContainer}>
-              <FlatList
-              contentContainerStyle={styles.flatList}
-              // style={{flex: 1}}
-              // numColumns={2}
-              data={this.state.data}
-              keyExtractor={(item) => item.id.toString()}
-              // keyExtractor={(item) => item.name}
-              renderItem={({item}) =>
-                  <View style={styles.adView}>
-                    <View style={styles.nameView}>
-                      <Text style={styles.nameText}>{item.title}</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Advertisedetail', {adDescription: item.description})}>
-                      <Image source={{uri: item.image}}
-                        resizeMode={'contain'}
-                        style={styles.adImage}
-                      />
-                    </TouchableOpacity>
-                  </View>
-              }
-              />
-            </View>
-          </ScrollView>
-        }
-
+          }
+        />
       </View>
     );
+  }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+          <Text style={{fontSize: 20}}>No Ads</Text>
+        </View>
+      );
+    }
   }
 }
 const styles = {
@@ -90,13 +95,6 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  subContainer: {
-    padding: 10,
-    // backgroundColor: 'red'
-  },
-  memberView: {
-    // backgroundColor: 'green',
   },
   nameView: {
     height: 80,
