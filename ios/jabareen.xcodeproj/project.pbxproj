@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -25,6 +26,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1A7C95BBAB20439586FB828A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A006C63B30A4DB6A23994A2 /* SimpleLineIcons.ttf */; };
+		2663AA58F6734D5A96EBFBBF /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -45,6 +47,15 @@
 		76736D16437F488E9ACF7099 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44210DE0AAC24D2291DAD5DE /* AntDesign.ttf */; };
 		7D9656D462354F7CAF5E7104 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DF0E40DD5943C1A579EF51 /* libRNVectorIcons-tvOS.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8E8BBE41220061DC00F1AC53 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE40220061DC00F1AC53 /* Accelerate.framework */; };
+		8E8BBE43220061E500F1AC53 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE42220061E500F1AC53 /* AudioToolbox.framework */; };
+		8E8BBE45220061EE00F1AC53 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE44220061EE00F1AC53 /* AVFoundation.framework */; };
+		8E8BBE47220061F300F1AC53 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE46220061F300F1AC53 /* CoreLocation.framework */; };
+		8E8BBE492200620200F1AC53 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE482200620200F1AC53 /* CoreMedia.framework */; };
+		8E8BBE4B2200620C00F1AC53 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE4A2200620C00F1AC53 /* MessageUI.framework */; };
+		8E8BBE4D2200621300F1AC53 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE4C2200621300F1AC53 /* MobileCoreServices.framework */; };
+		8E8BBE4F2200621C00F1AC53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE4E2200621C00F1AC53 /* SystemConfiguration.framework */; };
+		8E8BBE512200622500F1AC53 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE502200622500F1AC53 /* SafariServices.framework */; };
 		95F7E06F9BB348B7B701D6CF /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DC944186D974BF9B4F6EE64 /* FontAwesome5_Regular.ttf */; };
 		9D2C1DFB4EFF49FA930A2132 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE14101B4F849769F189565 /* FontAwesome5_Solid.ttf */; };
 		AADFDDAA093B4D67B95EAD74 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84C6F10FB6504F9A930E3320 /* Feather.ttf */; };
@@ -58,7 +69,6 @@
 		DCF13DD6BCCE4F95ACA5F389 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A892EA0934621BE8434BA /* libRCTVideo.a */; };
 		ED1EB6981457475A9FA6D0FD /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D33D62A966E44FC19E241664 /* libRNVectorIcons.a */; };
 		F9BDC67C486E4511A49F5BDD /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 274F9A477EA64F9EBF327FDA /* Ionicons.ttf */; };
-		2663AA58F6734D5A96EBFBBF /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,6 +387,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNGestureHandler;
 		};
+		8E8BBE3C2200302900F1AC53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNPaypalWrapper;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -408,6 +425,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jabareen/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1A006C63B30A4DB6A23994A2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPaypalWrapper.a; sourceTree = "<group>"; };
 		20FCC363B45848F5A8E15D9F /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		274F9A477EA64F9EBF327FDA /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* jabareen-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "jabareen-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,8 +446,18 @@
 		815219D40DDD4EC68EE4523C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		84C6F10FB6504F9A930E3320 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		8E8BBE40220061DC00F1AC53 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8E8BBE42220061E500F1AC53 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8E8BBE44220061EE00F1AC53 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8E8BBE46220061F300F1AC53 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8E8BBE482200620200F1AC53 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		8E8BBE4A2200620C00F1AC53 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		8E8BBE4C2200621300F1AC53 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		8E8BBE4E2200621C00F1AC53 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8E8BBE502200622500F1AC53 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		9537D5A2C3974D3EA536F544 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPaypalWrapper.xcodeproj; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; };
 		AEB9237D41F645D98D4BDC0C /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		AEDF9D7778AB4C41B0021D2B /* RNDocumentPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDocumentPicker.xcodeproj; path = "../node_modules/react-native-document-picker/ios/RNDocumentPicker.xcodeproj"; sourceTree = "<group>"; };
 		CDE14101B4F849769F189565 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -439,8 +467,6 @@
 		D52C325ED43B4B93BB1B102F /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		E8CFAD43E8DE4369B82ECFA9 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		FABAAD8B42C044D2AE9E85E4 /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
-		AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; name = "RNPaypalWrapper.xcodeproj"; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; name = "libRNPaypalWrapper.a"; path = "libRNPaypalWrapper.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +482,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E8BBE512200622500F1AC53 /* SafariServices.framework in Frameworks */,
+				8E8BBE4F2200621C00F1AC53 /* SystemConfiguration.framework in Frameworks */,
+				8E8BBE4D2200621300F1AC53 /* MobileCoreServices.framework in Frameworks */,
+				8E8BBE4B2200620C00F1AC53 /* MessageUI.framework in Frameworks */,
+				8E8BBE492200620200F1AC53 /* CoreMedia.framework in Frameworks */,
+				8E8BBE47220061F300F1AC53 /* CoreLocation.framework in Frameworks */,
+				8E8BBE45220061EE00F1AC53 /* AVFoundation.framework in Frameworks */,
+				8E8BBE43220061E500F1AC53 /* AudioToolbox.framework in Frameworks */,
+				8E8BBE41220061DC00F1AC53 /* Accelerate.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -623,6 +658,15 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E8BBE502200622500F1AC53 /* SafariServices.framework */,
+				8E8BBE4E2200621C00F1AC53 /* SystemConfiguration.framework */,
+				8E8BBE4C2200621300F1AC53 /* MobileCoreServices.framework */,
+				8E8BBE4A2200620C00F1AC53 /* MessageUI.framework */,
+				8E8BBE482200620200F1AC53 /* CoreMedia.framework */,
+				8E8BBE46220061F300F1AC53 /* CoreLocation.framework */,
+				8E8BBE44220061EE00F1AC53 /* AVFoundation.framework */,
+				8E8BBE42220061E500F1AC53 /* AudioToolbox.framework */,
+				8E8BBE40220061DC00F1AC53 /* Accelerate.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 			);
 			name = Frameworks;
@@ -768,11 +812,11 @@
 			children = (
 				D4569333FA5247DB9A3B9EC4 /* libRNGestureHandler.a */,
 				381A892EA0934621BE8434BA /* libRCTVideo.a */,
-				870693F3085A4E28B1DF897A /* libRNCWebView.a */,
 				D33D62A966E44FC19E241664 /* libRNVectorIcons.a */,
 				FABAAD8B42C044D2AE9E85E4 /* libRNDocumentPicker.a */,
 				47DF0E40DD5943C1A579EF51 /* libRNVectorIcons-tvOS.a */,
 				6B029338C54D4F839B795773 /* libAirMaps.a */,
+				1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -781,6 +825,14 @@
 			isa = PBXGroup;
 			children = (
 				8E8402E321D66A450016278C /* libRNGestureHandler.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8E8BBE0F2200302900F1AC53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E8BBE3D2200302900F1AC53 /* libRNPaypalWrapper.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -972,6 +1024,10 @@
 				{
 					ProductGroup = 8E8402DF21D66A450016278C /* Products */;
 					ProjectRef = AEB9237D41F645D98D4BDC0C /* RNGestureHandler.xcodeproj */;
+				},
+				{
+					ProductGroup = 8E8BBE0F2200302900F1AC53 /* Products */;
+					ProjectRef = AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */;
 				},
 				{
 					ProductGroup = 8E19CF0B21EFBD9F00762902 /* Products */;
@@ -1290,6 +1346,13 @@
 			remoteRef = 8E8402E221D66A450016278C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8E8BBE3D2200302900F1AC53 /* libRNPaypalWrapper.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNPaypalWrapper.a;
+			remoteRef = 8E8BBE3C2200302900F1AC53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1460,7 +1523,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = jabareenTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1494,7 +1557,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = jabareenTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1529,7 +1592,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = jabareen/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1560,7 +1623,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = jabareen/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1597,7 +1660,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1638,7 +1701,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1678,7 +1741,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1718,7 +1781,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)..\node_modules\neact-native-document-pickeriosRNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-paypal-wrapper\ios/**",
+					"$(SRCROOT)..\node_modules\neact-native-paypal-wrapperios/**",
 				);
 				INFOPLIST_FILE = "jabareen-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

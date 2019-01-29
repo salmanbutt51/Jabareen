@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
   ScrollView,
-  Button,
   TextInput,
   AsyncStorage,
   FlatList,
@@ -20,20 +16,35 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { NavigationEvents } from 'react-navigation';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 import LoadingButton from '../components/LoadingButton';
+
 export default class App extends Component<{}> {
   state = {
     data: [],
-    quantity: [],
-    unit: '',
-    showLoader: true,
-    noData: true
-    // enterQuantity: '1'
+    refreshing: true,
   }
 
   quantity = [];
   unit = [];
+  dropdownUnits = [
+    {
+      value: 'كرتونه',
+    },
+    {
+      value: 'قطعة',
+    },
+    {
+      value: 'دزينة',
+    },
+    {
+      value: 'رزمة',
+    },
+    {
+      value: 'رول',
+    },
+  ];
 
-  async cartOpen(){
+  async getCartItems() {
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -41,35 +52,15 @@ export default class App extends Component<{}> {
     const resp = await services.cartList(data);
     const responseInJson = await resp.json();
     console.log(responseInJson);
-    responseInJson.data.map((item)=>{
-      this.quantity.push(1);
-    });
     this.setState({
       data: responseInJson.data,
-      showLoader: false,
-      quantity: this.quantity
+      refreshing: false,
     });
-    if (this.state.data.length !== 0) {
-      this.setState({
-        noData: false
-      });
-    } else {
-      this.setState({
-        noData: true
-      });
-    }
   }
 
-  async deleteCartItem(item){
+  async deleteCartItem(topItem) {
+    const item = topItem.item;
     var cartItems = this.state.data;
-    this.state.data.map((cartItem, index) => {
-      if (item.id === cartItem.id) {
-        cartItems.splice(index, 1);
-      }
-    });
-
-    this.setState({data: cartItems});
-
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -79,45 +70,56 @@ export default class App extends Component<{}> {
     const responseInJson = await resp.json();
     console.log(responseInJson);
     if (responseInJson.response === 'success') {
-      this._dropdown.itemAction({type: 'success', title: 'Success', message: responseInJson.message});
+      this.state.data.map((cartItem, index) => {
+        if (item.id === cartItem.id) {
+          cartItems.splice(index, 1);
+          if (this.quantity[index] !== undefined) {
+            this.quantity.splice(index, 1);
+          }
+          if (this.unit[index] !== undefined) {
+            this.unit.splice(index, 1);
+          }
+        }
+      });
+      this.setState({data: cartItems});
+      this._dropdown.itemAction({type: 'success', title: 'Success', message: 'Item deleted from cart'});
     } else {
       this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
     }
-
-    // this.setState({
-    //   data: responseInJson.data,
-    // });
   }
 
-  _textQuantity = (quantity) => {
-    console.log('quantitySelected from TextInput: ', quantity);
-    this.quantity.push(quantity);
-    this.setState({
-      // enterQuantity: quantity,
-      quantity: quantity
-    });
+  changeQuantity(quantity, item) {
+    console.log('quantity: ', quantity);
+    console.log('item: ', item);
+    this.quantity[item.index] = quantity;
+    console.log(this.quantity);
   }
 
-  _dropdownUnit = (unit) => {
-    console.log('unitSelected from button: ', unit);
-    this.unit.push(unit);
-    this.setState({
-      unit: unit
-    });
+  changeUnit(unit, item) {
+    console.log('unit: ', unit);
+    console.log('item: ', item);
+    this.unit[item.index] = unit;
+    console.log(this.unit);
   }
 
   async sendRfq() {
       this._loadingButton.showLoading(true);
       const token = await AsyncStorage.getItem('user_token');
       let cart_id = [];
-      this.state.data.map((item) => {
-        cart_id.push(item.id);
+      this.state.data.map((item, index) => {
+        cart_id.push(item.id.toString());
+        if (this.quantity[index] === undefined) {
+          this.quantity[index] = '1';
+        }
+        if (this.unit[index] === undefined) {
+          this.unit[index] = 'كرتونه';
+        }
       });
       console.log('both ids: ', cart_id);
       const data = {
         token: token,
         cart_id: cart_id,
-        quantity: this.state.quantity,
+        quantity: this.quantity,
         unit: this.unit,
       };
       const resp = await services.sendRfq(data);
@@ -131,110 +133,79 @@ export default class App extends Component<{}> {
       }
     }
 
-
-  // deleteItemFromCart(item) {
-  //   // console.log(item);
-  //   var cartItems = this.state.data;
-  //   this.state.data.map((cartItem, index) => {
-  //     if (item.id === cartItem.id) {
-  //       cartItems.splice(index, 1);
-  //     }
-  //   });
-  //   console.log(cartItems);
-  //   this.setState({data: cartItems});
-  // }
-
   render() {
-    let dropdownUnit = [
-      {
-        value: 'كرتونه',
-      },
-      {
-        value: 'قطعة',
-      },
-      {
-        value: 'دزينة',
-      },
-      {
-        value: 'رزمة',
-      },
-      {
-        value: 'رول',
-      },
-    ];
+    const items = this.state.data;
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.cartOpen()}
+          onWillFocus={() => this.getCartItems()}
         />
         <Header navigation={this.props.navigation} title={'My Cart'}/>
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
-            </View>
-          : <View>
-              {
-                this.state.noData === true
-                ? <View style={{padding: 20}}>
-                    <Text>No items in cart</Text>
-                  </View>
-                : <ScrollView>
-                  <View style={styles.cartsView}>
-                    <FlatList
-                    contentContainerStyle={styles.flatList}
-                    data={this.state.data}
-                    // keyExtractor={(item) => item.name}
-                    extraData={this.state}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) =>
-                    <View style={styles.productView}>
-                      <View style={styles.prodetailView}>
-                        <Text style={styles.name}>{item.product_name}</Text>
-                        <TouchableOpacity style={styles.delButton}
-                          onPress={() => this.deleteCartItem(item)}
-                          >
-                          <Image source={require('../images/del_icon.png')}
-                          resizeMode={'contain'}
-                          style={{width: 20, height: 20}} />
-                        </TouchableOpacity>
-                      </View>
-                      <View style={styles.prodetailView}>
-                        <TextInput
-                          // value={this.state.quantity}
-                          style={styles.textQuantity}
-                          placeholder={'Enter quantity'}
-                          placeholderTextColor = "#a6b8d4"
-                          onChange={this._textQuantityChange}
-                          onChangeText={this._textQuantity}
-                        />
-                        <Dropdown
-                          containerStyle={styles.dropdownUnit}
-                          dropdownPosition={0.1}
-                          label='Unit'
-                          data={dropdownUnit}
-                          itemCount={5}
-                          onChangeText={this._dropdownUnit}
-                        />
-                      </View>
-
-                    </View>
-                    }
-                    />
-                    <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotation' onPress={() => this.sendRfq()} />
-                  </View>
-                </ScrollView>
-              }
-            </View>
-
-
-        }
-
+        <FlatList
+          contentContainerStyle={styles.flatList}
+          data={this.state.data}
+          extraData={this.state}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={(topItem) => this.renderItem(topItem)}
+          ListEmptyComponent={this.emptyCartView()}
+          ListFooterComponent={this.state.refreshing === false && items.length > 0 ? <LoadingButton ref={(c) => this._loadingButton = c} title='Request for Quotation' onPress={() => this.sendRfq()} /> : null}
+          onRefresh={() => (this.getCartItems())}
+          refreshing={this.state.refreshing}
+        />
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }
+
+  emptyCartView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>No Items in the Cart</Text>
+        </View>
+      );
+    }
+  }
+
+  renderItem(topItem) {
+    const item = topItem.item;
+    return(
+      <View style={styles.productView}>
+        <View style={styles.prodetailView}>
+          <Text style={styles.name}>{item.product_name}</Text>
+          <TouchableOpacity style={styles.delButton}
+            onPress={() => this.deleteCartItem(topItem)}
+            >
+            <Image source={require('../images/del_icon.png')}
+            resizeMode={'contain'}
+            style={{width: 20, height: 20}} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.prodetailView}>
+          <TextInput
+            style={styles.textQuantity}
+            placeholderTextColor='black'
+            placeholder={'1'}
+            onChange={this._textQuantityChange}
+            onChangeText={(t) => this.changeQuantity(t, topItem)}
+          />
+          <Dropdown
+            containerStyle={styles.dropdownUnit}
+            dropdownPosition={0.1}
+            label='Unit'
+            value={'كرتونه'}
+            data={this.dropdownUnits}
+            itemCount={5}
+            onChangeText={(t) => this.changeUnit(t, topItem)}
+          />
+        </View>
+      </View>
+    );
+  }
+
 }
+
+
 const styles = {
   container: {
     flex: 1,
@@ -244,6 +215,9 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  flatList: {
+    padding: 15,
   },
   cartsView: {
     padding: 10

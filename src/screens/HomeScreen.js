@@ -18,12 +18,14 @@ import services from '../utils/services';
 export default class App extends Component<{}> {
 
   state = {
-    data: [],
-    showLoader: true,
     sliderImages: []
   }
 
-  async dashboardOpen(){
+  componentDidMount() {
+    this.dashboardOpen();
+  }
+
+  async dashboardOpen() {
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -37,21 +39,15 @@ export default class App extends Component<{}> {
     });
     console.log(slideImages);
     this.setState({
-      data: responseInJson.data,
       sliderImages: slideImages,
-      showLoader: false
     });
   }
 
   render() {
     return(
       <View style={styles.container}>
-        <NavigationEvents
-          onWillFocus={() => this.dashboardOpen()}
-        />
         <Header navigation={this.props.navigation} showDrawer={true} showCartIcon={true} showNotificationIcon={true} title={'Dashboard'} />
         <ScrollView>
-
           <View style={styles.dashboardView}>
             <ImageSlider images={this.state.sliderImages}
               loopBothSides= {true}
@@ -135,6 +131,7 @@ export default class App extends Component<{}> {
     );
   }
 }
+
 const styles = {
   container: {
     flex: 1,

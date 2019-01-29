@@ -1,45 +1,58 @@
 import React, { Component } from 'react';
 import PayPal from 'react-native-paypal-wrapper';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
-  ScrollView,
-  Button,
-  AsyncStorage,
-  FlatList,
   TextInput
 } from 'react-native';
 import Header from '../components/Header';
 import services from '../utils/services';
+import DropdownMessageAlert from '../templates/DropdownMessageAlert';
+
 export default class App extends Component<{}> {
 
   state = {
-    price: ''
+    amountToPay: '',
+  }
+
+  makePayment() {
+    const amount = this.state.amountToPay;
+    if (amount === '' || amount === '0') {
+      this._dropdown.itemAction({title: 'Validation Error', type: 'error', message: 'Amount is required'});
+      return;
+    }
+    PayPal.initialize(PayPal.NO_NETWORK, 'AREYMy5sYyFt0byzvPecaanW4N-zKN2A-lrbBKrRiAqO_3lBrctnkpM6srEmRLiqUd7MKuuiDewsl1k3PAYPAL_SECRET=EKHe_fA9M5TFQWzm0n0N0TlRFurrGgLM7DaQsGOd1gZwl0_UrOwRxt2p-MJE5jodeZOozSIJDrgiul77');
+    PayPal.pay({
+      price: amount,
+      currency: 'USD',
+      description: 'Payment from the app',
+    }).then((confirm) => {
+      this._dropdown.itemAction({title: 'Success', type: 'success', message: 'Payment was successfully done'});
+      this.setState({amountToPay: ''});
+    })
+    .catch((error) => console.log(error));
   }
 
   render() {
     return(
-
       <View style={styles.container}>
         <Header navigation={this.props.navigation} showCartIcon={true} showNotificationIcon={true} title={'Pay Us'} />
         <View style={styles.subContainer}>
           <Text style={styles.inputText}>Amount<Text style={{color: 'red'}}>*</Text></Text>
           <TextInput
-            // value={this.state.quantity}
+            value={this.state.amountToPay}
             style={styles.inputBox}
-            // onChange={this._textQuantityChange}
-            // onChangeText={this._textQuantity}
+            keyboardType={'number-pad'}
+            onChangeText={(t) => this.setState({amountToPay: t})}
           />
           <View style={{alignItems: 'center'}}>
-            <TouchableOpacity style={styles.rfmButton}>
+            <TouchableOpacity onPress={() => this.makePayment()} style={styles.rfmButton}>
               <Text style={styles.rfmText}>Pay with paypal</Text>
             </TouchableOpacity>
           </View>
         </View>
+        <DropdownMessageAlert ref={(c) => this._dropdown = c} />
       </View>
     );
   }
