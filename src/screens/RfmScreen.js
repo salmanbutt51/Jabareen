@@ -25,6 +25,10 @@ export default class App extends Component<{}> {
     refreshing: true
   }
 
+  componentDidMount(){
+    this.rfmOpen();
+  }
+
   async rfmOpen() {
     this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
@@ -70,9 +74,17 @@ export default class App extends Component<{}> {
     });
     if (responseInJson.response === 'success') {
       this._dropdown.itemAction({type: 'success', title: 'Status changed', message: responseInJson.message});
+      this.rfmOpen();
     } else {
       this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
     }
+  }
+
+  renderDate(item){
+    const date = services.getFormattedDate(item.meeting_date_time, 'DD-MM-YYYY');
+    return(
+      <Text style={styles.meetingText}>{date}</Text>
+    );
   }
 
   render() {
@@ -112,22 +124,25 @@ export default class App extends Component<{}> {
                 {
                   item.status == 2
                   ? <Text style={styles.status}>Meeting done</Text>
-                  : <View>
-                    {
-                      item.status == 1
-                      ? <View>
-                          <Text style={styles.status}>RFM approved</Text>
-                          <Text style={styles.meetingText}>Meeting Time:</Text>
-                          <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
-                        </View>
-                      : <View>
-                          <Text style={styles.status}>Waiting for approval</Text>
-                          <Text style={styles.meetingText}>Meeting Time:</Text>
-                          <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
-                        </View>
-                    }
-
+                  : null
+                }
+                {
+                  item.status == 1
+                  ? <Text style={styles.status}>RFM approved</Text>
+                  : null
+                }
+                {
+                  item.status == 0
+                  ? <Text style={styles.status}>Waiting for approval</Text>
+                  : null
+                }
+                {
+                  item.status == 1 || item.status == 0
+                  ? <View style={{marginTop: 5}}>
+                      <Text style={styles.meetingText}>Meeting Time:</Text>
+                      <Text style={styles.meetingText}>{item.meeting_date_time}</Text>
                     </View>
+                  : null
                 }
                 {/*
                   this.state.isMeetingTimeVisible == true
@@ -176,13 +191,14 @@ export default class App extends Component<{}> {
 const styles = {
   container: {
     flex: 1,
+    backgroundColor: '#edf1f5'
   },
   loader: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  subContainer: {
+  flatList: {
     padding: 10
   },
   memberView: {
@@ -227,7 +243,7 @@ const styles = {
     // paddingVertical: 5,
     // paddingHorizontal: 8,
     marginTop: 10,
-    // width: '40%',
+    width: '60%',
     alignItems: 'center',
     justifyContent: 'center'
   },

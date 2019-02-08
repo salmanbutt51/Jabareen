@@ -20,7 +20,8 @@ export default class Navbar extends Component<{}> {
   static propTypes = {
     showDrawer: PropTypes.bool,
     showCartIcon: PropTypes.bool,
-    showNotificationIcon: PropTypes.bool
+    showNotificationIcon: PropTypes.bool,
+    showUserIcon: PropTypes.bool,
   }
 
   async logout(){
@@ -45,14 +46,14 @@ export default class Navbar extends Component<{}> {
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           {
             this.props.showDrawer !== true
-            ? <TouchableOpacity style={{width: 50, height: 60, justifyContent: 'center', alignItems: 'center'}} onPress={() => this.props.navigation.navigate('Dashboard')}>
+            ? <TouchableOpacity style={{width: 50, justifyContent: 'center', alignItems: 'center'}} onPress={() => this.props.navigation.navigate('Dashboard')}>
                 <Image source={require('../images/Back-arrow.png')}
-                  resizeMode={'contain'} style={{height: 25}}
+                  resizeMode={'contain'} style={{width: '100%', height: 20}}
                 />
               </TouchableOpacity>
-            : <TouchableOpacity style={{width: 70, height: 60, justifyContent: 'center'}} onPress={() => this.props.navigation.openDrawer()}>
+            : <TouchableOpacity style={{width: 50, justifyContent: 'center'}} onPress={() => this.props.navigation.openDrawer()}>
                 <Image source={require('../images/menu_icon.png')}
-                  resizeMode={'contain'} style={{width: 70, height: 50}}
+                  resizeMode={'contain'} style={{width: '100%', height: 40}}
                 />
               </TouchableOpacity>
           }
@@ -62,26 +63,32 @@ export default class Navbar extends Component<{}> {
         <View style={styles.headerTextView}><Text style={styles.headerText}>{this.props.title}</Text></View>
         <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center',position: 'absolute', right: 0}}>
           {
-            this.props.showCartIcon == true
-            ? <TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center'}} onPress={() => this.props.navigation.navigate('Cart')}>
-                <Image source={require('../images/cart-icon2.png')}
-                resizeMode={'contain'} style={{width: 40, height: 30}}/>
+            this.props.showUserIcon !== false
+            ? <TouchableOpacity style={styles.icon} onPress={() => this.props.navigation.navigate('Profile')}>
+                <Image source={require('../images/user-icon1.png')}
+                resizeMode={'contain'} style={styles.iconImage}/>
               </TouchableOpacity>
-            : <View style={{width: 0, height: 0}}></View>
+            : null
+          }
+          {
+            this.props.showCartIcon == true
+            ? <TouchableOpacity style={styles.icon} onPress={() => this.props.navigation.navigate('Cart')}>
+                <Image source={require('../images/cart-icon2.png')}
+                resizeMode={'contain'} style={styles.iconImage}/>
+              </TouchableOpacity>
+            : null
           }
           {
             this.props.showNotificationIcon !== false
-            ? <TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center'}} onPress={() => this.props.navigation.navigate('Notifications')}>
+            ? <TouchableOpacity style={styles.icon} onPress={() => this.props.navigation.navigate('Notifications')}>
                 <Image source={require('../images/notification.png')}
-                resizeMode={'contain'} style={{width: 40, height: 30}}/>
+                resizeMode={'contain'} style={styles.iconImage}/>
               </TouchableOpacity>
-            : <View style={{width: 40, height: 30}}></View>
+            : null
           }
-
-
-          <TouchableOpacity style={{width: 40, height: 60, alignItems: 'center', justifyContent: 'center'}} onPress={() => this.popupVisible()}>
+          <TouchableOpacity style={styles.icon} onPress={() => this.popupVisible()}>
             <Image source={require('../images/logout.png')}
-            resizeMode={'contain'} style={{width: 30, height: 25}}/>
+            resizeMode={'contain'} style={{width: 30, height: 20}}/>
           </TouchableOpacity>
         </View>
         <Dialog
@@ -133,8 +140,9 @@ export default class Navbar extends Component<{}> {
 const styles = {
   navbar: {
     backgroundColor: '#f33155',
-    height: 60,
+    height: 50,
     flexDirection: 'row',
+    alignItems: 'center'
     // justifyContent: 'space-between'
   },
   headerTextView:{
@@ -142,9 +150,19 @@ const styles = {
     justifyContent: 'center'
   },
   headerText: {
-    fontSize: 23,
+    fontSize: 21,
     fontWeight: 'bold',
     color: '#fff'
+  },
+  icon: {
+    width: 35,
+    // height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconImage: {
+    width: 40,
+    height: 25
   },
   rfmButton: {
     // backgroundColor: '#f33155',

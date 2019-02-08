@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Slideshow from 'react-native-image-slider-show';
 import ImageSlider from 'react-native-image-slider';
 import {
   Platform,
@@ -18,7 +19,9 @@ import services from '../utils/services';
 export default class App extends Component<{}> {
 
   state = {
-    sliderImages: []
+    sliderImages: [],
+    sliderCaptions: [],
+    sliderTitles: []
   }
 
   componentDidMount() {
@@ -34,12 +37,20 @@ export default class App extends Component<{}> {
     const responseInJson = await resp.json();
     console.log(responseInJson);
     var slideImages = [];
+    var slideCaption = [];
+    var slideTitle = [];
     responseInJson.data.map((item)=>{
       slideImages.push(item.slider_url);
+      slideCaption.push(item.slider_caption);
+      slideTitle.push(item.slider_title);
     });
     console.log(slideImages);
+    console.log(slideCaption);
+    console.log(slideTitle);
     this.setState({
       sliderImages: slideImages,
+      sliderCaptions: slideCaption,
+      sliderTitles: slideTitle,
     });
   }
 
@@ -49,15 +60,25 @@ export default class App extends Component<{}> {
         <Header navigation={this.props.navigation} showDrawer={true} showCartIcon={true} showNotificationIcon={true} title={'Dashboard'} />
         <ScrollView>
           <View style={styles.dashboardView}>
-            <ImageSlider images={this.state.sliderImages}
-              loopBothSides= {true}
-              autoPlayWithInterval={3000}
-            />
+          {/*<Slideshow
+            dataSource={{
+
+                title: this.state.sliderTitles,
+                caption: this.state.sliderCaptions,
+                url: this.state.sliderImages,
+
+            }}
+          />*/}
+          <ImageSlider
+            images={this.state.sliderImages}
+            title={this.state.sliderTitles}
+            autoPlayWithInterval={3000}
+          />
           </View>
           <View style={styles.tilesView}>
             <View style={styles.flexView}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Products')} style={styles.tile}>
-                <View><Text style={styles.tileText}>PRODUCTS</Text></View>
+                <View><Text style={styles.tileText}>PRODUCT</Text></View>
                 <View><Image source={require('../images/products1.png')}
                 resizeMode={'contain'}
                 style={styles.tileImage} /></View>

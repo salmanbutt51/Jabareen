@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+import ImageSlider from 'react-native-image-slider';
 import {
   Platform,
   StyleSheet,
@@ -43,25 +44,6 @@ export default class App extends Component<{}> {
     });
   }
 
-  async addToCart(p_id) {
-    const token = await AsyncStorage.getItem('user_token');
-    const data = {
-      token: token,
-      product_id: p_id
-    };
-    const resp = await services.addToCart(data);
-    const responseInJson = await resp.json();
-    console.log(responseInJson);
-    if (responseInJson.response === 'success') {
-      this._dropdown.itemAction({type: 'success', title: 'Product added to cart', message: responseInJson.message});
-    } else {
-      this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
-    }
-    // this.setState({
-    //   data: responseInJson.data
-    // });
-  }
-
   render() {
     return(
       <View style={styles.container}>
@@ -74,19 +56,13 @@ export default class App extends Component<{}> {
           ListEmptyComponent={this.emptyView()}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) =>
-            <View
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Subcategorylist', {sub_category_id: item.id})}
               style={styles.item} >
-              <View style={{alignItems: 'center'}}>
-
-              </View>
               <View style={{alignItems: 'flex-start'}}>
                 <Text style={styles.name} >{item.name}</Text>
                 <Text style={styles.arabicName} >{item.arabic_name}</Text>
               </View>
-              <TouchableOpacity onPress={() => this.addToCart(item.id)} style={styles.addToCartButton}>
-                <Text style={styles.addToCartText}>Add to cart</Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           }
         />
         <DropdownMessageAlert ref={(c) => this._dropdown = c} />
@@ -127,6 +103,11 @@ const styles = {
     // alignItems: 'center',
     // justifyContent: 'center',
     // width: '100%'
+  },
+  dashboardView: {
+    height: 180,
+    // justifyContent: 'center',
+    marginBottom: 13
   },
   name: {
     fontWeight: 'bold',

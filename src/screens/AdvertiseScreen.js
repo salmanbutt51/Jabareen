@@ -51,28 +51,30 @@ export default class App extends Component<{}> {
           onDidFocus={() => this.getAds()}
         />
         <Header navigation={this.props.navigation} title={'Advertisement'} />
-        <FlatList
-          contentContainerStyle={styles.flatList}
-          onRefresh={() => (this.getAds())}
-          refreshing={this.state.refreshing}
-          ListEmptyComponent={this.emptyView()}
-          data={this.state.data}
-          extraData={this.state}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({item}) =>
-            <View style={styles.adView}>
-              <View style={styles.nameView}>
-                <Text style={styles.nameText}>{item.title}</Text>
+        <ScrollView>
+          <FlatList
+            contentContainerStyle={styles.flatList}
+            onRefresh={() => (this.getAds())}
+            refreshing={this.state.refreshing}
+            ListEmptyComponent={this.emptyView()}
+            data={this.state.data}
+            extraData={this.state}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({item}) =>
+              <View style={styles.adView}>
+                <View style={styles.nameView}>
+                  <Text style={styles.nameText}>{item.title}</Text>
+                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Advertisedetail', {adDescription: item.description})}>
+                  <Image source={{uri: item.image}}
+                    resizeMode={'contain'}
+                    style={styles.adImage}
+                  />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Advertisedetail', {adDescription: item.description})}>
-                <Image source={{uri: item.image}}
-                  resizeMode={'contain'}
-                  style={styles.adImage}
-                />
-              </TouchableOpacity>
-            </View>
-          }
-        />
+            }
+          />
+        </ScrollView>
       </View>
     );
   }
@@ -90,6 +92,7 @@ export default class App extends Component<{}> {
 const styles = {
   container: {
     flex: 1,
+    backgroundColor: '#edf1f5',
   },
   loader: {
     flex: 1,
@@ -97,7 +100,7 @@ const styles = {
     alignItems: 'center'
   },
   nameView: {
-    height: 80,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -110,9 +113,16 @@ const styles = {
     flex: 1,
     // backgroundColor: 'purple'
   },
+  adView: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#f33155',
+    margin: 5,
+    padding: 10
+  },
   adImage: {
     width: '100%',
-    height: 350,
+    height: 250,
     // backgroundColor: 'blue'
   }
 };

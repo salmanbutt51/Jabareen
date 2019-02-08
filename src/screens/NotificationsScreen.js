@@ -45,7 +45,7 @@ export default class App extends Component<{}> {
         <NavigationEvents
           onWillFocus={() => this.notificationsOpen()}
         />
-        <Header navigation={this.props.navigation} title={'Notifications'}/>
+        <Header navigation={this.props.navigation} showNotificationIcon={false} showCartIcon={true} title={'Notifications'}/>
         {
           this.state.showLoader === true
           ? <View style={styles.loader}>

@@ -22,11 +22,16 @@ import { NavigationEvents } from 'react-navigation';
 export default class App extends Component<{}> {
 
   state = {
-    showLoader: true
+    data: [],
+    refreshing: true
+  }
+
+  componentDidMount(){
+    this.getRfqHistoryDetail();
   }
 
   group_id = this.props.navigation.state.params.group_id;
-  async rfqHistoryDetailOpen(){
+  async getRfqHistoryDetail(){
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -36,7 +41,8 @@ export default class App extends Component<{}> {
     const responseInJson = await resp.json();
     console.log('Rfq response',responseInJson);
     this.setState({
-      showLoader: false
+      data: responseInJson.data,
+      refreshing: false
     });
   }
 
@@ -44,36 +50,77 @@ export default class App extends Component<{}> {
     return(
       <View style={styles.container}>
         <NavigationEvents
-          onWillFocus={() => this.rfqHistoryDetailOpen()}
+          onDidFocus={() => this.getRfqHistoryDetail()}
         />
-        {/*<Header navigation={this.props.navigation} title={'Rfq History'}/>*/}
-        {
-          this.state.showLoader === true
-          ? <View style={styles.loader}>
-              <Bubbles size={10} color="#f33155" />
-            </View>
-          : <ScrollView>
-              <View style={styles.cartsView}>
-
+        <FlatList
+          contentContainerStyle={styles.flatlist}
+          onRefresh={() => (this.getRfq())}
+          refreshing={this.state.refreshing}
+          ListEmptyComponent={this.emptyView()}
+          data={this.state.data}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) =>
+            <View style={styles.item}>
+              <View style={styles.nameView}>
+                <Text style={styles.heading}>Sender Name</Text>
+                <Text style={styles.content}>{item.sender_name}</Text>
               </View>
-          </ScrollView>
-        }
-
+              <View style={styles.detailView}>
+                <Text style={styles.heading}>Product: </Text>
+                <Text style={styles.content}>{item.product_name}</Text>
+              </View>
+              <View style={styles.detailView}>
+                <Text style={styles.heading}>Quantity: </Text>
+                <Text style={styles.content}>{item.quantity}</Text>
+              </View>
+            </View>
+          }
+        />
       </View>
     );
   }
+
+  emptyView() {
+    if (this.state.refreshing === false) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 100}}>
+          <Text style={{fontSize: 20}}>No data available</Text>
+        </View>
+      );
+    }
+  }
+
 }
 const styles = {
   container: {
     flex: 1,
     backgroundColor: '#edf1f5',
   },
-  cartsView: {
+  flatlist: {
+    paddingHorizontal: 10,
+    paddingBottom: 10
+  },
+  item: {
+    marginTop: 10,
+    backgroundColor: '#fff',
+    borderRadius: 5,
     padding: 10
   },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  nameView: {
+    marginBottom: 10
+  },
+  detailView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    // backgroundColor: '#f33155'
+  },
+  content: {
+    fontSize: 16,
+    // marginBottom: 5
   },
 };

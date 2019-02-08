@@ -33,11 +33,11 @@ export default class App extends Component<{}> {
   }
 
   componentDidMount(){
-    this.getRfq()
+    this.getRfq();
   }
 
   async getRfq(){
-    this.setState({refreshing: true})
+    this.setState({refreshing: true});
     const token = await AsyncStorage.getItem('user_token');
     const data = {
       token: token,
@@ -96,9 +96,17 @@ export default class App extends Component<{}> {
     });
     if (responseInJson.response === 'success') {
       this._dropdown.itemAction({type: 'success', title: 'Status changed', message: responseInJson.message});
+      this.getRfq();
     } else {
       this._dropdown.itemAction({type: 'error', title: 'Error', message: responseInJson.message});
     }
+  }
+
+  renderDate(item){
+    const date = services.getFormattedDate(item.date, 'DD-MM-YYYY');
+    return(
+      <Text style={styles.content}>{date}</Text>
+    );
   }
 
   render() {
@@ -122,6 +130,7 @@ export default class App extends Component<{}> {
           onDidFocus={() => this.getRfq()}
         />
         <Header navigation={this.props.navigation} showCartIcon={true} title={'Rfq History'} />
+
         <FlatList
           contentContainerStyle={styles.flatlist}
           onRefresh={() => (this.getRfq())}
@@ -135,9 +144,9 @@ export default class App extends Component<{}> {
               <View style={styles.historyView}>
                 <View style={styles.nameView}>
                   <Text style={styles.heading}>Sender Name</Text>
-                  <Text style={styles.content}>{item.sender_name}</Text>
+                  <Text style={styles.nameContent}>{item.sender_name}</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Rfqhistorydetail', {group_id: item.id})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Rfqhistorydetail', {group_id: item.group_id})}>
                   <Image source={require('../images/eye-icon.png')}
                     resizeMode={'contain'}
                     style={{width: 40, height: 40}}
@@ -145,11 +154,11 @@ export default class App extends Component<{}> {
                 </TouchableOpacity>
               </View>
               <View style={styles.dateView}>
-                <Text style={styles.heading}>Date</Text>
-                <Text style={styles.content}>{item.date.date}</Text>
+                <Text style={styles.heading}>Date: </Text>
+                <View>{this.renderDate(item)}</View>
               </View>
-              <View>
-                <Text style={styles.heading}>Status</Text>
+              <View style={styles.dateView}>
+                <Text style={styles.heading}>Status: </Text>
                 {
                   item.status == 1
                   ? <Text style={styles.content}>RFQ received</Text>
@@ -188,6 +197,7 @@ export default class App extends Component<{}> {
             </View>
           }
         />
+
         <Dialog
           visible={this.state.statusPopupVisible}
           // dialogTitle={<DialogTitle title="Change status" />}
@@ -232,28 +242,40 @@ const styles = {
     flex: 1,
     backgroundColor: '#edf1f5',
   },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   flatlist: {
-    padding: 10
+    paddingHorizontal: 10,
+    paddingBottom: 10
   },
   item: {
-    marginBottom: 10
+    marginTop: 10,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 10
   },
   historyView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     // alignItems: 'center',
   },
+  nameView: {
+    marginBottom: 10
+  },
+  dateView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5
+  },
   heading: {
-    fontSize: 22,
-    fontWeight: 'bold'
+    fontSize: 20,
+    fontWeight: 'bold',
+    // backgroundColor: '#f33155'
+  },
+  nameContent: {
+    fontSize: 18,
   },
   content: {
-    fontSize: 16
+    fontSize: 16,
+    // marginBottom: 5
   },
   bothButtons: {
     alignItems: 'center',
@@ -264,17 +286,6 @@ const styles = {
     borderRadius: 5,
     marginTop: 6,
     width: '48%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  rfmButtonOk: {
-    backgroundColor: '#f33155',
-    height: 35,
-    borderRadius: 5,
-    // paddingVertical: 5,
-    // paddingHorizontal: 8,
-    marginTop: 3,
-    // width: '48%',
     alignItems: 'center',
     justifyContent: 'center'
   },

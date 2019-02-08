@@ -1,11 +1,35 @@
 const BASE_URL = 'https://www.jabareen.app/api/';
+import moment from 'moment';
 
 export default {
+
+  getFormattedDate(date, format) {
+    const dateObj = moment(date.date);
+    const formattedDate = moment(dateObj).format(format);
+    return formattedDate;
+  },
 
   async dashboard(data) {
     console.log('data: ', data);
     try {
       let response = await fetch(BASE_URL + 'dashboard_slider_list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async search(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'search_product', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
@@ -158,6 +182,23 @@ export default {
     console.log('data: ', data);
     try {
       let response = await fetch(BASE_URL + 'sub_category_list' + '?page=1', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async subCategoryList(data) {
+    console.log('data: ', data);
+    try {
+      let response = await fetch(BASE_URL + 'sub_category_wise_product_list', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({

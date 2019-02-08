@@ -4,9 +4,11 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
+import MyProfileScreen from '../screens/MyProfileScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ProductsListScreen from '../screens/ProductsListScreen';
 import SubCategoryScreen from '../screens/SubCategoryScreen';
+import SubCategoryListScreen from '../screens/SubCategoryListScreen';
 import CartScreen from '../screens/CartScreen';
 import RfqHistoryScreen from '../screens/RfqHistoryScreen';
 import RfqDetailScreen from '../screens/RfqDetailScreen';
@@ -22,6 +24,7 @@ import CompanyTeamScreen from '../screens/CompanyTeamScreen';
 import ComplaintsScreen from '../screens/ComplaintsScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import MapScreen from '../screens/MapScreen';
+import Drawer from '../screens/Drawer';
 import Root from '../screens/Root';
 
 const AuthStack = createStackNavigator({
@@ -43,7 +46,17 @@ const AuthStack = createStackNavigator({
       title: 'Signup'
     }
   }
-});
+},
+  {
+    initialRouteName: 'Welcome',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f33155',
+      },
+      headerTintColor: '#fff'
+    },
+  }
+);
 
 const ProductStack = createStackNavigator({
   Categories:{
@@ -58,13 +71,29 @@ const ProductStack = createStackNavigator({
     title: 'Subcategories'
     },
   },
+  Subcategorylist:{
+    screen: SubCategoryListScreen,
+    navigationOptions: {
+    title: 'Products List',
+    },
+  },
   Productslist:{
     screen: ProductsListScreen,
     navigationOptions: {
     title: 'Products List',
     },
   }
-});
+},
+  {
+    initialRouteName: 'Categories',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f33155',
+      },
+      headerTintColor: '#fff'
+    },
+  }
+);
 
 const OrderStack = createStackNavigator({
   Rfqhistory:{
@@ -76,16 +105,11 @@ const OrderStack = createStackNavigator({
   Rfqhistorydetail:{
     screen: RfqDetailScreen,
     navigationOptions: {
-    title: 'Rfq History Detail'
-    },
-  },
-});
-
-const CartStack = createStackNavigator({
-  Cartscreen:{
-    screen: CartScreen,
-    navigationOptions: {
-    header: null
+      title: 'Rfq History Detail',
+      headerStyle: {
+        backgroundColor: '#f33155',
+      },
+      headerTintColor: '#fff'
     },
   },
 });
@@ -103,13 +127,29 @@ const AdvertiseStack = createStackNavigator({
     title: 'Advertise Detail'
     },
   }
-});
+},
+  {
+    initialRouteName: 'Advertise',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f33155',
+      },
+      headerTintColor: '#fff'
+    },
+  }
+);
 
 const HomeStack = createDrawerNavigator({
   Dashboard: {
     screen: HomeScreen,
     navigationOptions: {
       title: 'Dashboard',
+    }
+  },
+  Profile: {
+    screen: MyProfileScreen,
+    navigationOptions: {
+      title: 'User Profile',
     }
   },
   Companyteam: {
@@ -125,10 +165,7 @@ const HomeStack = createDrawerNavigator({
     }
   },
   Cart: {
-    screen: CartStack,
-    navigationOptions: {
-      tabBarLabel: 'Cart'
-    }
+    screen: CartScreen
   },
   Orders:{
     screen: OrderStack,
@@ -184,7 +221,11 @@ const HomeStack = createDrawerNavigator({
       title: 'Notifications'
     }
   },
-});
+},
+// {
+//   contentComponent: Drawer
+// }
+);
 
 const MainSwitch = createSwitchNavigator({
   AuthLoading: Root,
