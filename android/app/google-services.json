@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "735371255233",
+    "firebase_url": "https://jabareen-4cb8e.firebaseio.com",
+    "project_id": "jabareen-4cb8e",
+    "storage_bucket": "jabareen-4cb8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735371255233:android:ff1db5d031cd8fe4",
+        "android_client_info": {
+          "package_name": "com.jabareen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735371255233-pul92n3ednpptm2re1v81los1gcrt4dv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW0MnldMpdB4Q_q7T0P0Tkt_pW5DL3I6I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735371255233:android:9e93aab50847fecd",
+        "android_client_info": {
+          "package_name": "com.jabareen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735371255233-pul92n3ednpptm2re1v81los1gcrt4dv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW0MnldMpdB4Q_q7T0P0Tkt_pW5DL3I6I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

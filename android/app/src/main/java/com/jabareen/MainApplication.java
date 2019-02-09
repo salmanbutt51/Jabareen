@@ -3,6 +3,7 @@ package com.jabareen;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.taessina.paypal.RNPaypalWrapperPackage;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
             new ReactVideoPackage(),
             new RNPaypalWrapperPackage(),
             new ReactNativeDocumentPicker(),
