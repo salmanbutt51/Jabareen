@@ -222,9 +222,12 @@ const HomeStack = createDrawerNavigator({
     }
   },
 },
-// {
-//   contentComponent: Drawer
-// }
+{
+  contentOptions: {
+    activeTintColor: '#fff',
+    activeBackgroundColor: '#f33155'
+  }
+}
 );
 
 const MainSwitch = createSwitchNavigator({
