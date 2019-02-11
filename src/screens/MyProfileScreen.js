@@ -3,54 +3,56 @@ import Slideshow from 'react-native-image-slider-show';
 import {
   Text,
   View,
-  TouchableOpacity,
-  AsyncStorage,
-  FlatList,
   TextInput,
   ScrollView,
   Image,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage,
 } from 'react-native';
-import services from '../utils/services';
 import Header from '../components/Header';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
 import LoadingButton from '../templates/LoadingButton';
-export default class App extends Component<{}> {
+
+export default class MyProfileScreen extends Component<{}> {
+
+  state = {
+    userData: {}
+  }
+
+  async componentDidMount() {
+    var userData = await AsyncStorage.getItem('userData');
+    userData = JSON.parse(userData);
+    this.setState({userData});
+    console.log(userData);
+  }
 
   render() {
+    const {userData} = this.state;
+    const uri = 'https://jabareen.app/uploads/profile/' + userData.picture;
     return(
       <View style={styles.mainContainer}>
         <Header navigation={this.props.navigation} showUserIcon={false} title={'Profile Overview'} />
         <ScrollView>
-          <ImageBackground source={require('../images/profile-pic.png')} style={{flex: 1}}>
-            <View style={styles.picView}>
-              <Image
-                source={require('../images/profile-pic.png')}
-                resizeMode={'contain'}
-                style={styles.profilePic}
-              />
-              <Text style={[styles.picText, {marginTop: 10}]}>Change photo</Text>
-              <Text style={[styles.picText, {fontSize: 18, marginVertical: 5}]}>Muhammad</Text>
-              <Text style={styles.picText}>sbg.med5@gmail.com</Text>
-            </View>
-          </ImageBackground>
+          <View style={styles.picView}>
+            <Image
+              source={{uri: uri}}
+              resizeMode={'contain'}
+              style={styles.profilePic}
+            />
+            <Text style={[styles.picText, {fontSize: 18, marginVertical: 5}]}>{userData.user_name}</Text>
+            <Text style={styles.picText}>{userData.email}</Text>
+          </View>
           <View style={styles.container}>
-            <Text style={styles.inputText}>Full Name</Text>
-            <TextInput style={styles.inputBox}
-            value={'Muhammad'}
-              placeholderTextColor = "#a6b8d4"
-            />
-            <Text style={styles.inputText}>Full Name</Text>
-            <TextInput style={styles.inputBox}
-            value={'Address'}
-              placeholderTextColor = "#a6b8d4"
-            />
-            <Text style={styles.inputText}>Mobile<Text style={{color: 'red'}}>*</Text></Text>
-            <TextInput style={styles.inputBox}
-            value={'042435546 '}
-              placeholderTextColor = "#a6b8d4"
-            />
-            <LoadingButton title='Update Profile' titleStyle={{fontSize: 18}} style={styles.button} />
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.inputText}>Full Name</Text>
+              <Text style={styles.inputBox}>
+                {userData.user_name}
+              </Text>
+              <Text style={styles.inputText}>Mobile</Text>
+              <Text style={styles.inputBox}>
+                {userData.phone_number}
+              </Text>
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -72,7 +74,9 @@ const styles = {
   },
   profilePic: {
     height: 100,
-    borderRadius: 70
+    width: 100,
+    borderRadius: 70,
+    // backgroundColor: 'red'
   },
   picText: {
     color: '#fff',
@@ -85,13 +89,14 @@ const styles = {
   inputText:{
     fontSize: 18,
     color: 'black',
+    fontWeight: 'bold',
     paddingLeft: 5
   },
   inputBox: {
-    borderBottomWidth: 1,
-    borderColor: '#a6b8d4',
+    // borderBottomWidth: 1,
+    // borderColor: '#a6b8d4',
     fontSize: 18,
-    color: '#a4a4a4',
+    color: 'black',
     marginTop: 10,
     marginBottom: 20,
     // paddingHorizontal: 8,

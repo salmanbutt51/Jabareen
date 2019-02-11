@@ -57,9 +57,11 @@ export default class App extends Component<{}> {
       this._loginBtn.showLoading(false);
       console.log('Response in JSON: ', responseJson);
       if (responseJson.response === 'success') {
-        await AsyncStorage.setItem('user_token', responseJson.data.token);
-        await AsyncStorage.setItem('isloggedin', '1');
-        // await AsyncStorage.setItem('user_profile', responseJson.data.user);
+        await AsyncStorage.multiSet([
+          ['user_token', responseJson.data.token],
+          ['isloggedin', '1'],
+          ['userData', JSON.stringify(responseJson.data.user)]
+        ]);
         this.navigation.navigate('Home');
       } else {
         this._dropdown.itemAction({type: 'error', title: 'Error', message: responseJson.message});

@@ -16,15 +16,30 @@ import {
 import Header from '../components/Header';
 import { NavigationEvents } from 'react-navigation';
 import services from '../utils/services';
-export default class App extends Component<{}> {
+import firebase from 'react-native-firebase';
 
+export default class HomeScreen extends Component<{}> {
   state = {
     sliderImages: [],
     sliderCaptions: [],
     sliderTitles: []
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const enabled = await firebase.messaging().hasPermission();
+    if (enabled) {
+        // user has permissions
+    } else {
+        // user doesn't have permission
+        try {
+          await firebase.messaging().requestPermission();
+          // User has authorised
+          console.log('User gave permission');
+        } catch (error) {
+          // User has rejected permissions
+          console.log('User rejected permission');
+        }
+    }
     this.dashboardOpen();
   }
 

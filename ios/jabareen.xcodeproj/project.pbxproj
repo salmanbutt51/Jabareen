@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -24,7 +25,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		176EDCF34D57758FABEC2535 /* libPods-jabareen-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7456A4AB9EB9061BDC3A07A2 /* libPods-jabareen-tvOS.a */; };
 		1A7C95BBAB20439586FB828A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A006C63B30A4DB6A23994A2 /* SimpleLineIcons.ttf */; };
+		22972E6F16495D470DADBCF9 /* libPods-jabareenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7871CFAE2F270EC6A0409C29 /* libPods-jabareenTests.a */; };
 		2663AA58F6734D5A96EBFBBF /* libRNPaypalWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -42,6 +45,7 @@
 		32329921D1F1450F8F5D8318 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CE61F4C5FF8423B8C2A32FB /* Zocial.ttf */; };
 		3FC5D12DC25F46C8A2EB8D7D /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72C87C4C7DAE4F5786355F1E /* FontAwesome.ttf */; };
 		421D360CA95E49EFAAF791E5 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20FCC363B45848F5A8E15D9F /* Entypo.ttf */; };
+		5813A55881A3A8CDEC9F63E6 /* libPods-jabareen-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6B019B2DA382244BAF9369 /* libPods-jabareen-tvOSTests.a */; };
 		689015593CCB4C3E8921FA59 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2C218E0FA8F49F5BFE15532 /* MaterialIcons.ttf */; };
 		76736D16437F488E9ACF7099 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44210DE0AAC24D2291DAD5DE /* AntDesign.ttf */; };
 		7D9656D462354F7CAF5E7104 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DF0E40DD5943C1A579EF51 /* libRNVectorIcons-tvOS.a */; };
@@ -55,6 +59,7 @@
 		8E8BBE4D2200621300F1AC53 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE4C2200621300F1AC53 /* MobileCoreServices.framework */; };
 		8E8BBE4F2200621C00F1AC53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE4E2200621C00F1AC53 /* SystemConfiguration.framework */; };
 		8E8BBE512200622500F1AC53 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BBE502200622500F1AC53 /* SafariServices.framework */; };
+		8EA4825A2211CBAF00F4977A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EA482592211CBAF00F4977A /* GoogleService-Info.plist */; };
 		95F7E06F9BB348B7B701D6CF /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DC944186D974BF9B4F6EE64 /* FontAwesome5_Regular.ttf */; };
 		9D2C1DFB4EFF49FA930A2132 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDE14101B4F849769F189565 /* FontAwesome5_Solid.ttf */; };
 		AADFDDAA093B4D67B95EAD74 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84C6F10FB6504F9A930E3320 /* Feather.ttf */; };
@@ -62,13 +67,14 @@
 		AFBAB3C6440843ED8092525B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B029338C54D4F839B795773 /* libAirMaps.a */; };
 		BA9C9385FD4B4F1DBE3CB3BD /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4569333FA5247DB9A3B9EC4 /* libRNGestureHandler.a */; };
 		CAB0C31CF8B54F0B93F99C74 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B35ED427A94FC58F7B3A30 /* Foundation.ttf */; };
+		D3E556788B8AF10FFFFC6BAC /* libPods-jabareen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F4E405647DAC9963D7B966 /* libPods-jabareen.a */; };
 		D4FA91EF413A4A97940936D5 /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FABAAD8B42C044D2AE9E85E4 /* libRNDocumentPicker.a */; };
+		D63B7562DFCA4692B7EF8A53 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB28CC476E0C4A518B33F63B /* libRNFirebase.a */; };
 		D6A97EA1E9E145DA9FCFB700 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49ADC0F5BC164DC69D475C21 /* FontAwesome5_Brands.ttf */; };
 		D6BE95336A5F437DA4A23D8E /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 815219D40DDD4EC68EE4523C /* EvilIcons.ttf */; };
 		DCF13DD6BCCE4F95ACA5F389 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A892EA0934621BE8434BA /* libRCTVideo.a */; };
 		ED1EB6981457475A9FA6D0FD /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D33D62A966E44FC19E241664 /* libRNVectorIcons.a */; };
 		F9BDC67C486E4511A49F5BDD /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 274F9A477EA64F9EBF327FDA /* Ionicons.ttf */; };
-		D63B7562DFCA4692B7EF8A53 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB28CC476E0C4A518B33F63B /* libRNFirebase.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -394,6 +400,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNPaypalWrapper;
 		};
+		8EB69D1B221147D600A86BAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B836E8775984634AD7E869D /* RNFirebase.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFirebase;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -425,14 +438,19 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jabareen/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1A006C63B30A4DB6A23994A2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		1B6B019B2DA382244BAF9369 /* libPods-jabareen-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jabareen-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B836E8775984634AD7E869D /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPaypalWrapper.a; sourceTree = "<group>"; };
+		1CDD8693B681A04B7D395CEC /* Pods-jabareen-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareen-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-jabareen-tvOS/Pods-jabareen-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		20FCC363B45848F5A8E15D9F /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		274F9A477EA64F9EBF327FDA /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		28F4E405647DAC9963D7B966 /* libPods-jabareen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jabareen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* jabareen-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "jabareen-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* jabareen-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jabareen-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34BB9BC6A8924CA993560044 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		381A892EA0934621BE8434BA /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
+		414E89287DAD8814F8C6AA66 /* Pods-jabareen-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareen-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-jabareen-tvOSTests/Pods-jabareen-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44210DE0AAC24D2291DAD5DE /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		45B35ED427A94FC58F7B3A30 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		47DF0E40DD5943C1A579EF51 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
@@ -441,11 +459,14 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6B029338C54D4F839B795773 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		72C87C4C7DAE4F5786355F1E /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		7456A4AB9EB9061BDC3A07A2 /* libPods-jabareen-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jabareen-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7871CFAE2F270EC6A0409C29 /* libPods-jabareenTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jabareenTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7CE61F4C5FF8423B8C2A32FB /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		815219D40DDD4EC68EE4523C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		84C6F10FB6504F9A930E3320 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		86D49688D41C10544A9605B1 /* Pods-jabareen-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareen-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-jabareen-tvOS/Pods-jabareen-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		8E8BBE40220061DC00F1AC53 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8E8BBE42220061E500F1AC53 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8E8BBE44220061EE00F1AC53 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -455,20 +476,26 @@
 		8E8BBE4C2200621300F1AC53 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8E8BBE4E2200621C00F1AC53 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8E8BBE502200622500F1AC53 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		8EA482592211CBAF00F4977A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8EB69D6222115EE700A86BAB /* jabareen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = jabareen.entitlements; path = jabareen/jabareen.entitlements; sourceTree = "<group>"; };
+		946E71D1BF29649027D0B131 /* Pods-jabareen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareen.release.xcconfig"; path = "Pods/Target Support Files/Pods-jabareen/Pods-jabareen.release.xcconfig"; sourceTree = "<group>"; };
 		9537D5A2C3974D3EA536F544 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		AB28CC476E0C4A518B33F63B /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AEA35CCC2A2443E29FEE8694 /* RNPaypalWrapper.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPaypalWrapper.xcodeproj; path = "../node_modules/react-native-paypal-wrapper/ios/RNPaypalWrapper.xcodeproj"; sourceTree = "<group>"; };
 		AEB9237D41F645D98D4BDC0C /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		AEDF9D7778AB4C41B0021D2B /* RNDocumentPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDocumentPicker.xcodeproj; path = "../node_modules/react-native-document-picker/ios/RNDocumentPicker.xcodeproj"; sourceTree = "<group>"; };
+		B2B323E2E16FE563B3DD11BF /* Pods-jabareenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-jabareenTests/Pods-jabareenTests.release.xcconfig"; sourceTree = "<group>"; };
+		C7CADE41918B095782A79752 /* Pods-jabareen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-jabareen/Pods-jabareen.debug.xcconfig"; sourceTree = "<group>"; };
 		CDE14101B4F849769F189565 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		D2C218E0FA8F49F5BFE15532 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D33D62A966E44FC19E241664 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		D4569333FA5247DB9A3B9EC4 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		D47F23EA3D0D6F6E136FCD1C /* Pods-jabareen-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareen-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-jabareen-tvOSTests/Pods-jabareen-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D52C325ED43B4B93BB1B102F /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		D742A6F36FE2C6CE3A10BA76 /* Pods-jabareenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jabareenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-jabareenTests/Pods-jabareenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E8CFAD43E8DE4369B82ECFA9 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		FABAAD8B42C044D2AE9E85E4 /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
-		1B836E8775984634AD7E869D /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; name = "RNFirebase.xcodeproj"; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		AB28CC476E0C4A518B33F63B /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -477,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
+				22972E6F16495D470DADBCF9 /* libPods-jabareenTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +540,7 @@
 				AFBAB3C6440843ED8092525B /* libAirMaps.a in Frameworks */,
 				2663AA58F6734D5A96EBFBBF /* libRNPaypalWrapper.a in Frameworks */,
 				D63B7562DFCA4692B7EF8A53 /* libRNFirebase.a in Frameworks */,
+				D3E556788B8AF10FFFFC6BAC /* libPods-jabareen.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +557,7 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				7D9656D462354F7CAF5E7104 /* libRNVectorIcons-tvOS.a in Frameworks */,
+				176EDCF34D57758FABEC2535 /* libPods-jabareen-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
+				5813A55881A3A8CDEC9F63E6 /* libPods-jabareen-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +632,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0EEB1EE3B9A8C729596A159F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C7CADE41918B095782A79752 /* Pods-jabareen.debug.xcconfig */,
+				946E71D1BF29649027D0B131 /* Pods-jabareen.release.xcconfig */,
+				1CDD8693B681A04B7D395CEC /* Pods-jabareen-tvOS.debug.xcconfig */,
+				86D49688D41C10544A9605B1 /* Pods-jabareen-tvOS.release.xcconfig */,
+				414E89287DAD8814F8C6AA66 /* Pods-jabareen-tvOSTests.debug.xcconfig */,
+				D47F23EA3D0D6F6E136FCD1C /* Pods-jabareen-tvOSTests.release.xcconfig */,
+				D742A6F36FE2C6CE3A10BA76 /* Pods-jabareenTests.debug.xcconfig */,
+				B2B323E2E16FE563B3DD11BF /* Pods-jabareenTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +670,8 @@
 		13B07FAE1A68108700A75B9A /* jabareen */ = {
 			isa = PBXGroup;
 			children = (
+				8EA482592211CBAF00F4977A /* GoogleService-Info.plist */,
+				8EB69D6222115EE700A86BAB /* jabareen.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -671,6 +719,10 @@
 				8E8BBE42220061E500F1AC53 /* AudioToolbox.framework */,
 				8E8BBE40220061DC00F1AC53 /* Accelerate.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				28F4E405647DAC9963D7B966 /* libPods-jabareen.a */,
+				7456A4AB9EB9061BDC3A07A2 /* libPods-jabareen-tvOS.a */,
+				1B6B019B2DA382244BAF9369 /* libPods-jabareen-tvOSTests.a */,
+				7871CFAE2F270EC6A0409C29 /* libPods-jabareenTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -760,6 +812,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8E8402B921D669AE0016278C /* Recovered References */,
 				74025424993C4D33B6929E17 /* Resources */,
+				0EEB1EE3B9A8C729596A159F /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -821,6 +874,7 @@
 				47DF0E40DD5943C1A579EF51 /* libRNVectorIcons-tvOS.a */,
 				6B029338C54D4F839B795773 /* libAirMaps.a */,
 				1C5C4DF8FCEA4DD4B5F5240A /* libRNPaypalWrapper.a */,
+				AB28CC476E0C4A518B33F63B /* libRNFirebase.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -841,6 +895,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8EB69CEF221147D600A86BAB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8EB69D1C221147D600A86BAB /* libRNFirebase.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,6 +919,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "jabareenTests" */;
 			buildPhases = (
+				8F6A3EAF44B7D80341AE69EB /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -875,6 +938,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jabareen" */;
 			buildPhases = (
+				434B3A04AE78AEF18FE74641 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -893,6 +957,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "jabareen-tvOS" */;
 			buildPhases = (
+				ADDA5C7477E81BE6DC3949AF /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -911,6 +976,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "jabareen-tvOSTests" */;
 			buildPhases = (
+				CE403AC3B9F33301DFB08FF4 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -936,11 +1002,20 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 432PWBV8E3;
+						DevelopmentTeam = X3TJZN78UV;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 432PWBV8E3;
+						DevelopmentTeam = X3TJZN78UV;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1024,6 +1099,10 @@
 				{
 					ProductGroup = 8E19CF1F21EFBDA000762902 /* Products */;
 					ProjectRef = AEDF9D7778AB4C41B0021D2B /* RNDocumentPicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 8EB69CEF221147D600A86BAB /* Products */;
+					ProjectRef = 1B836E8775984634AD7E869D /* RNFirebase.xcodeproj */;
 				},
 				{
 					ProductGroup = 8E8402DF21D66A450016278C /* Products */;
@@ -1357,6 +1436,13 @@
 			remoteRef = 8E8BBE3C2200302900F1AC53 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8EB69D1C221147D600A86BAB /* libRNFirebase.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFirebase.a;
+			remoteRef = 8EB69D1B221147D600A86BAB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1389,6 +1475,7 @@
 				95F7E06F9BB348B7B701D6CF /* FontAwesome5_Regular.ttf in Resources */,
 				9D2C1DFB4EFF49FA930A2132 /* FontAwesome5_Solid.ttf in Resources */,
 				CAB0C31CF8B54F0B93F99C74 /* Foundation.ttf in Resources */,
+				8EA4825A2211CBAF00F4977A /* GoogleService-Info.plist in Resources */,
 				F9BDC67C486E4511A49F5BDD /* Ionicons.ttf in Resources */,
 				09A9ACB37BD941358421E039 /* MaterialCommunityIcons.ttf in Resources */,
 				689015593CCB4C3E8921FA59 /* MaterialIcons.ttf in Resources */,
@@ -1443,6 +1530,94 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		434B3A04AE78AEF18FE74641 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-jabareen-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F6A3EAF44B7D80341AE69EB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-jabareenTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADDA5C7477E81BE6DC3949AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-jabareen-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE403AC3B9F33301DFB08FF4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-jabareen-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1511,9 +1686,10 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D742A6F36FE2C6CE3A10BA76 /* Pods-jabareenTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 432PWBV8E3;
+				DEVELOPMENT_TEAM = X3TJZN78UV;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1550,10 +1726,11 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2B323E2E16FE563B3DD11BF /* Pods-jabareenTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 432PWBV8E3;
+				DEVELOPMENT_TEAM = X3TJZN78UV;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
@@ -1586,11 +1763,15 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7CADE41918B095782A79752 /* Pods-jabareen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = jabareen/jabareen.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 432PWBV8E3;
+				DEVELOPMENT_TEAM = X3TJZN78UV;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
@@ -1611,18 +1792,23 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nabeel.jabareen990;
 				PRODUCT_NAME = jabareen;
+				PROVISIONING_PROFILE_SPECIFIER = Jab_newcert_dev_prof;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 946E71D1BF29649027D0B131 /* Pods-jabareen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = jabareen/jabareen.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 432PWBV8E3;
+				DEVELOPMENT_TEAM = X3TJZN78UV;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
@@ -1643,14 +1829,16 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nabeel.jabareen990;
 				PRODUCT_NAME = jabareen;
+				PROVISIONING_PROFILE_SPECIFIER = Jab_newcert_dev_prof;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CDD8693B681A04B7D395CEC /* Pods-jabareen-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1694,6 +1882,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86D49688D41C10544A9605B1 /* Pods-jabareen-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1737,6 +1926,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 414E89287DAD8814F8C6AA66 /* Pods-jabareen-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1779,6 +1969,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D47F23EA3D0D6F6E136FCD1C /* Pods-jabareen-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

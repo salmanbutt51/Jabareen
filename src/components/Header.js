@@ -28,8 +28,7 @@ export default class Navbar extends Component<{}> {
     this.setState({
       popupVisible: false
     });
-    await AsyncStorage.removeItem('user_token');
-    await AsyncStorage.removeItem('isloggedin');
+    await AsyncStorage.multiRemove(['user_token', 'isloggedin', 'userData']);
     this.props.navigation.navigate('Auth');
 
   }

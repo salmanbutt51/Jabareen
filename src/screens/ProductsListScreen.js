@@ -7,7 +7,8 @@ import {
   AsyncStorage,
   FlatList,
   TextInput,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native';
 import services from '../utils/services';
 import DropdownMessageAlert from '../templates/DropdownMessageAlert';
@@ -110,16 +111,10 @@ export default class App extends Component<{}> {
             <View
               style={styles.item} >
               <View style={{alignItems: 'flex-start'}}>
-                <View style={styles.dashboardView}>
-                  <Slideshow
-                    dataSource={[
-                      { url: item.product_image_one },
-                      { url: item.product_image_two },
-                      { url: item.product_image_three }
-                    ]}
-                    arrowSize={8}
-                  />
-                </View>
+                <ImageBackground imageStyle={{resizeMode: 'contain', width: '100%', height: '100%'}} style={{height: 200}} source={{uri: item.product_image_one}}>
+                  {item.is_offer === '1' ? <Image style={{width: 35, height: 35, resizeMode: 'contain'}} source={require('../images/offerTag.png')} /> : null}
+                  {item.is_new === '1' ? <Image style={{width: 35, height: 35, resizeMode: 'contain'}} source={require('../images/newTag.png')} /> : null}
+                </ImageBackground>
                 <Text style={styles.name}>{item.product_name}</Text>
                 <Text style={styles.arabicName}>{item.product_name_arabic}</Text>
                 <Text style={styles.price}>${item.price}</Text>
